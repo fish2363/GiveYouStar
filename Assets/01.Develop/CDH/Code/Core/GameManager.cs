@@ -13,6 +13,7 @@ public class GameManager : MonoBehaviour
     public float maxTimer;
     float currentTimer;
     [SerializeField] private TextMeshProUGUI timerText;
+    public CameraManager cameraManager;
 
     public UnityEvent StartRopeCharge;
     public UnityEvent EndRopeCharge;
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
             GameEnd();
         }
 
-        if (isRopeChargeTurn && !isCatchStar)
+        if (isRopeChargeTurn && !isCatchStar & !cameraManager.isFullCamActive)
         {
             if (!isRopeCharging && Mouse.current.leftButton.wasPressedThisFrame)
             {

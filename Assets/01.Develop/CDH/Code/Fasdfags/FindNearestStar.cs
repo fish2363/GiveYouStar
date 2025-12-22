@@ -1,104 +1,136 @@
-﻿using System.Collections.Generic;
-using Unity.VisualScripting;
-using Unity.VisualScripting.FullSerializer;
-using UnityEngine;
+﻿//using System.Collections.Generic;
+//using UnityEngine;
 
-namespace Assets._01.Develop.CDH.Code.Fasdfags
-{
-    public class Arrow
-    {
-        public GameObject MyGameObj { get; set; }
-        public Transform TargetTrm { get; set; }
-        public Transform OriginTrm { get; set; }   // 플레이어
-        public float Radius { get; set; }          // arrowWorldRadius
+//namespace Assets._01.Develop.CDH.Code.Fasdfags
+//{
+//    /// <summary>
+//    /// Refresh 없이 Trigger 기반으로 별을 추적하는 UI 화살표 매니저
+//    /// </summary>
+//    [RequireComponent(typeof(CircleCollider2D))]
+//    public class FindNearestStar : MonoBehaviour
+//    {
+//        [SerializeField] private float maxDistance = 30f;
+//        [SerializeField] private LayerMask starLayer;
 
-        public float angleOffset = 0f;
+//        private List<ArrowUI> arrowUIs;
 
-        public void Update()
-        {
-            if (MyGameObj.transform == null || TargetTrm == null || OriginTrm == null) return;
+//        private void Awake()
+//        {
+//            arrowUIs = new();
+//        }
 
-            // 플레이어 -> 타겟 방향
-            Vector2 dir = (Vector2)(TargetTrm.position - OriginTrm.position);
-            if (dir.sqrMagnitude < 0.0001f) return;
+//        private void Update()
+//        {
+//            // 타겟이 파괴된 경우 정리
+//            if (_active.Count > 0)
+//            {
+//                // foreach 중 제거 방지용 임시 리스트
+//                List<Transform> toRemove = null;
 
-            Vector2 dirN = dir.normalized;
+//                foreach (var kv in _active)
+//                {
+//                    var star = kv.Key;
+//                    var arrow = kv.Value;
 
-            MyGameObj.transform.position = OriginTrm.position + (Vector3)(dirN * Radius);
+//                    if (star == null)
+//                    {
+//                        toRemove ??= new List<Transform>();
+//                        toRemove.Add(star);
+//                        continue;
+//                    }
 
-            float angleX = Mathf.Atan2(dirN.y, dirN.x) * Mathf.Rad2Deg; // X축 기준
-            float angleY = angleX - 90f;                                // Y축 기준으로 변환
+//                    arrow.Tick();
+//                }
 
-            Debug.Log(angleY);
-            MyGameObj.transform.rotation = Quaternion.Euler(0f, 0f, angleY + angleOffset);
-        }
-    }
+//                if (toRemove != null)
+//                {
+//                    for (int i = 0; i < toRemove.Count; i++)
+//                        RemoveStar(toRemove[i]);
+//                }
+//            }
+//        }
 
-    public class FindNearestStar : MonoBehaviour
-    {
-        [Header("Find Settings")]
-        [SerializeField] private float maxDistance = 30f;
-        [SerializeField] private int maxFindedStar = 3;
-        [SerializeField] private LayerMask starLayer;
-        [SerializeField] private float refreshInterval = 0.2f;
+//        private void OnTriggerEnter2D(Collider2D other)
+//        {
+//            if (((1 << other.gameObject.layer) & starLayer) == 0) return;
 
-        [Header("World Arrow")]
-        [SerializeField] private Transform playerTrm;
-        [SerializeField] private GameObject arrowPrefab;     // SpriteRenderer 달린 화살표 프리팹
-        [SerializeField] private Transform arrowRoot;       // (선택) 화살표 정리용 부모
-        [SerializeField] private float arrowWorldRadius = 2f; // 플레이어 중심에서 화살표가 떠 있을 반경
+//            Transform starTrm = other.transform;
+//            if (_active.ContainsKey(starTrm)) return;
 
-        private List<Arrow> arrows;
-        private Collider2D[] stars;
+//            RectTransform rt = GetArrowFromPool();
+//            var arrow = new ArrowUI();
 
-        private float timer;
+//            arrow.Bind(
+//                rect: rt,
+//                target: starTrm,
+//                player: playerTrm,
+//                canvasRect: _canvasRect,
+//                worldCam: worldCamera,
+//                uiCam: _uiCam,
+//                uiRadius: arrowUiRadius,
+//                angleOffset: angleOffset,
+//                minScale: minArrowScale,
+//                maxScale: maxArrowScale,
+//                minScaleDist: minScaleDistance,
+//                maxScaleDist: maxScaleDistance,
+//                tweenDuration: tweenDuration
+//            );
 
-        private void Awake()
-        {
-            arrows = new();
-            stars = new Collider2D[maxFindedStar];
-            timer = 0f;
-        }
+//            _active.Add(starTrm, arrow);
+//        }
 
-        private void Update()
-        {
-            timer += Time.deltaTime;
-            if (timer > refreshInterval)
-            {
-                timer = 0f;
-                Refresh();
-            }
+//        private void OnTriggerExit2D(Collider2D other)
+//        {
+//            if (((1 << other.gameObject.layer) & starLayer) == 0) return;
+//            RemoveStar(other.transform);
+//        }
 
-            foreach (var arrow in arrows)
-                arrow.Update();
-        }
+//        private void RemoveStar(Transform starTrm)
+//        {
+//            if (starTrm == null) return;
+//            if (!_active.TryGetValue(starTrm, out var arrow)) return;
 
-        private void Refresh()
-        {
-            stars = Physics2D.OverlapCircleAll(playerTrm.position, maxDistance, starLayer);
+//            arrow.KillTween();
+//            arrow.SetActive(false);
 
-            foreach (var arrow in arrows)
-                Destroy(arrow.MyGameObj);
-            arrows.Clear();
+//            // 풀로 반환
+//            if (arrowPrefab != null && arrowRoot != null)
+//            {
+//                // ArrowUI가 들고 있는 RectTransform을 풀로 돌리려면 여기서 가져와야 하는데,
+//                // ArrowUI.Rect가 private set이라 getter 사용
+//                // => arrow가 가진 Rect를 꺼내기 위해 아래처럼 한 줄 추가로 처리합니다.
+//            }
 
-            int count = Mathf.Min(maxFindedStar, stars.Length);
-            for (int i = 0; i < count; i++)
-            {
-                Collider2D star = stars[i];
+//            // ArrowUI 내부 RectTransform을 풀에 넣기
+//            // (ArrowUI.Rect getter를 써서 가져옵니다)
+//            var rectField = typeof(ArrowUI).GetProperty("Rect");
+//            var rt = rectField?.GetValue(arrow) as RectTransform;
+//            if (rt != null) _pool.Push(rt);
 
-                GameObject go = Instantiate(arrowPrefab, playerTrm.position, Quaternion.identity, arrowRoot);
+//            _active.Remove(starTrm);
+//        }
 
-                Arrow arrow = new Arrow
-                {
-                    MyGameObj = go,
-                    TargetTrm = star.transform, 
-                    OriginTrm = playerTrm,      
-                    Radius = arrowWorldRadius,  
-                    angleOffset = 0f
-                };
+//        private RectTransform GetArrowFromPool()
+//        {
+//            RectTransform rt = null;
 
-                arrows.Add(arrow);
-            }
-        }
-    }
-}
+//            while (_pool.Count > 0 && rt == null)
+//                rt = _pool.Pop(); // 파괴된 오브젝트일 수도 있으니 null 체크
+
+//            if (rt == null)
+//            {
+//                rt = Instantiate(arrowPrefab, arrowRoot);
+//            }
+//            else
+//            {
+//                rt.SetParent(arrowRoot, false);
+//            }
+
+//            rt.anchoredPosition = Vector2.zero;
+//            rt.localRotation = Quaternion.identity;
+//            rt.localScale = Vector3.one;
+//            rt.gameObject.SetActive(true);
+//            return rt;
+//        }
+//    }
+//}

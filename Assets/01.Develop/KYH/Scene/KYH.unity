@@ -119,6 +119,102 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &79589045
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 79589048}
+  - component: {fileID: 79589046}
+  - component: {fileID: 79589047}
+  m_Layer: 0
+  m_Name: FullviewCamera
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &79589046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79589045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Priority:
+    Enabled: 1
+    m_Value: 93
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 60
+    OrthographicSize: 55.9
+    NearClipPlane: 0.3
+    FarClipPlane: 1000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
+--- !u!114 &79589047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79589045}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f453f694addf4275988fac205bc91968, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  BoundingShape2D: {fileID: 1270488864}
+  Damping: 0
+  SlowingDistance: 5
+  OversizeWindow:
+    Enabled: 0
+    MaxWindowSize: 0
+    Padding: 0
+  m_LegacyMaxWindowSize: -2
+--- !u!4 &79589048
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 79589045}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 87.1, y: 49.2, z: -54.84}
+  m_LocalScale: {x: 1.7012, y: 1.7012, z: 1.7012}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &170839181
 GameObject:
   m_ObjectHideFlags: 0
@@ -466,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTimer: 50
   timerText: {fileID: 301035498}
+  cameraManager: {fileID: 915437353}
   StartRopeCharge:
     m_PersistentCalls:
       m_Calls:
@@ -805,7 +902,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -1, y: 0.3, z: 93.29381}
-  m_LocalScale: {x: 4.4324427, y: 3.3452396, z: 3.3452396}
+  m_LocalScale: {x: 7.5404716, y: 5.690922, z: 5.690922}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1417973761}
@@ -896,8 +993,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Priority:
-    Enabled: 0
-    m_Value: 0
+    Enabled: 1
+    m_Value: 40
   OutputChannel: 1
   StandbyUpdate: 2
   m_StreamingVersion: 20241001
@@ -992,11 +1089,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   vcamDefault: {fileID: 915123140}
   vcamFollow: {fileID: 1491234015}
+  vFullCam: {fileID: 79589046}
   followZoomFactor: 1.52
   catchZoomFactor: 1
   followBlendTime: 4
   returnBlendTime: 0.05
   blendStyle: 1
+  isFullCamActive: 0
 --- !u!4 &915437354
 Transform:
   m_ObjectHideFlags: 0
@@ -1414,7 +1513,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 13
+  orthographic size: 55.9
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -1439,7 +1538,7 @@ Transform:
   m_GameObject: {fileID: 1417973756}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 23.111107, y: 13, z: -54.84}
+  m_LocalPosition: {x: 99.37777, y: 55.9, z: -54.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2092,6 +2191,7 @@ SceneRoots:
   - {fileID: 1732719457}
   - {fileID: 915437354}
   - {fileID: 915123141}
+  - {fileID: 79589048}
   - {fileID: 1604441330}
   - {fileID: 609520108}
   - {fileID: 1491234017}
