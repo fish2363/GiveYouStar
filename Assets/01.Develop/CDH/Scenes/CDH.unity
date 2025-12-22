@@ -724,6 +724,127 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524434752}
   m_CullTransparentMesh: 1
+--- !u!1001 &653359998
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 697398808}
+    m_Modifications:
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -50
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1043279799127356718, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: downDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1043279799127356718, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: waitingDuration
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3090117814165515868, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Name
+      value: StarDiscoverAlram
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+--- !u!224 &653359999 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 185166587333875208, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+  m_PrefabInstance: {fileID: 653359998}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &653360000 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1043279799127356718, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+  m_PrefabInstance: {fileID: 653359998}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 013da0c7e8f84ba4986ce530b0332863, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &666238021
 GameObject:
   m_ObjectHideFlags: 0
@@ -837,6 +958,7 @@ RectTransform:
   - {fileID: 1867405399}
   - {fileID: 298228841}
   - {fileID: 148692522}
+  - {fileID: 653359999}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -1535,6 +1657,19 @@ MonoBehaviour:
       - m_Target: {fileID: 666238022}
         m_TargetAssemblyTypeName: GameManager, Assembly-CSharp
         m_MethodName: AddStar
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 653360000}
+        m_TargetAssemblyTypeName: Assets._01.Member.CDH.Code.Synergies.DiscoverAlram,
+          Assembly-CSharp
+        m_MethodName: Discover
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

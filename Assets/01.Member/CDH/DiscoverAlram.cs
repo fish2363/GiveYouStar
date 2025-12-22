@@ -37,6 +37,7 @@ namespace Assets._01.Member.CDH.Code.Synergies
             startPos = new Vector2(-50f, 150);
             endPos = new Vector2(-50f, -25f);
         }
+
         public async void Discover(StarSo starSo)
         {
             if (curAwaitable != null)
