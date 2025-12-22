@@ -52,7 +52,6 @@ public class RopeCharge : MonoBehaviour
 
     private void StartCharge()
     {
-        print("Start Charge");
         isCharging = true;
         t = 0f; // 매번 0에서 시작(원하면 유지하게 바꿀 수 있음)
         charge01 = minCharge01;

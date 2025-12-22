@@ -86,7 +86,7 @@ public class RopePullTest : MonoBehaviour
     {
         // ✅ 플레이어 따라가지 말고, 스타를 따라가게
         if (followWhenRoped && cameraManager != null)
-            cameraManager.BeginFollowStar(transform);
+            cameraManager.BeginFollowObj(transform);
     }
 
     private void Update()
@@ -96,7 +96,7 @@ public class RopePullTest : MonoBehaviour
         // 먹기(플레이어 근처)
         if (player != null && Vector2.Distance(transform.position, player.position) <= collectDistance)
         {
-            if (cameraManager != null) cameraManager.EndFollowStar();
+            if (cameraManager != null) cameraManager.EndFollowObj();
             if (destroyOnCollect) Destroy(gameObject);
             return;
         }

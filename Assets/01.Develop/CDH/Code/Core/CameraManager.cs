@@ -1,101 +1,139 @@
-﻿using UnityEngine;
+﻿using Unity.Cinemachine;
+using UnityEngine;
 
 public class CameraManager : MonoBehaviour
 {
-    public enum Mode { Idle, FollowStar, ReturnToSaved }
+    [Header("VCams")]
+    [SerializeField] private CinemachineCamera vcamDefault;
+    [SerializeField] private CinemachineCamera vcamFollow;
 
-    [Header("References")]
-    [SerializeField] private Camera targetCamera;
+    [Header("Priorities")]
+    [SerializeField] private int defaultPriority = 10;
+    [SerializeField] private int followPriority = 20;
 
-    [Header("Follow")]
-    [SerializeField] private Vector3 starOffset = new Vector3(0f, 0f, -10f);
-    [SerializeField] private float followSmoothTime = 0.18f;
-    [SerializeField] private float zoomSmoothTime = 0.20f;
-
-    [Tooltip("스타 따라갈 때 확대(줌인) 비율. 0.85면 15% 확대(ortho size 감소)")]
+    [Header("Zoom")]
     [Range(0.5f, 1f)]
     [SerializeField] private float followZoomFactor = 0.85f;
 
-    private Mode mode = Mode.Idle;
-    private Transform star;
+    [Header("Blend Speeds")]
+    [Tooltip("따라가기 전환 속도(작을수록 빠름)")]
+    [SerializeField] private float followBlendTime = 0.12f;
 
-    private Vector3 savedPos;
-    private float savedOrtho;
+    [Tooltip("복귀 전환 속도(작을수록 빠름)")]
+    [SerializeField] private float returnBlendTime = 0.05f;
 
-    private Vector3 velPos;
-    private float velZoom;
+    [SerializeField] private CinemachineBlendDefinition.Styles blendStyle = CinemachineBlendDefinition.Styles.EaseInOut;
+
+    private CinemachineBrain brain;
+    private CinemachineBlendDefinition savedBlend;
+
+    private float savedDefaultOrtho;
+    private int savedDefaultPriority;
+    private int savedFollowPriority;
+
+    private Transform currentTarget;
+    private bool isFollowing;
 
     private void Awake()
     {
-        if (targetCamera == null) targetCamera = Camera.main;
-        if (targetCamera == null)
+        if (vcamDefault == null || vcamFollow == null)
         {
-            Debug.LogError("[CameraManager] Camera가 없습니다.");
+            Debug.LogError("[CameraManager] vcamDefault/vcamFollow를 연결해 주세요.");
             enabled = false;
             return;
         }
+
+        // Brain 찾기
+        var mainCam = Camera.main;
+        if (mainCam != null)
+            brain = mainCam.GetComponent<CinemachineBrain>();
+
+        if (brain != null)
+            savedBlend = brain.DefaultBlend;
+
+        // 시작 상태 저장
+        savedDefaultOrtho = vcamDefault.Lens.OrthographicSize;
+        savedDefaultPriority = vcamDefault.Priority;
+        savedFollowPriority = vcamFollow.Priority;
+
+        // 시작은 기본 카메라
+        vcamDefault.Priority = defaultPriority;
+        vcamFollow.Priority = defaultPriority - 1;
+
+        isFollowing = false;
     }
 
     private void LateUpdate()
     {
-        if (targetCamera == null) return;
-
-        // 스타가 파괴/사라졌는데 Follow중이면 자동 복귀
-        if (mode == Mode.FollowStar && star == null)
-            EndFollowStar();
-
-        Vector3 targetPos = targetCamera.transform.position;
-        float targetOrtho = targetCamera.orthographicSize;
-
-        if (mode == Mode.FollowStar && star != null)
-        {
-            targetPos = star.position + starOffset;
-            targetOrtho = savedOrtho * followZoomFactor; // 저장된 기본 사이즈 기준으로 줌인
-        }
-        else if (mode == Mode.ReturnToSaved)
-        {
-            targetPos = savedPos;
-            targetOrtho = savedOrtho;
-
-            bool posDone = Vector3.Distance(targetCamera.transform.position, targetPos) < 0.03f;
-            bool zoomDone = Mathf.Abs(targetCamera.orthographicSize - targetOrtho) < 0.03f;
-            if (posDone && zoomDone)
-                mode = Mode.Idle;
-        }
-        else
-        {
-            // Idle: 아무것도 안 함(현재 카메라 상태 유지)
-            return;
-        }
-
-        targetCamera.transform.position = Vector3.SmoothDamp(
-            targetCamera.transform.position, targetPos, ref velPos, followSmoothTime);
-
-        targetCamera.orthographicSize = Mathf.SmoothDamp(
-            targetCamera.orthographicSize, targetOrtho, ref velZoom, zoomSmoothTime);
+        // 따라가던 대상이 사라지면 자동 복귀
+        if (isFollowing && currentTarget == null)
+            EndFollowObj();
     }
 
-    /// <summary>
-    /// "지금 카메라 상태"를 저장한 뒤 스타를 따라감(줌인 포함)
-    /// </summary>
-    public void BeginFollowStar(Transform starTransform)
+    public void BeginFollowObj(Transform target)
     {
-        if (targetCamera == null) return;
+        if (target == null) return;
 
-        // ✅ “처음 카메라 상태” 저장(잡기 직전 상태)
-        savedPos = targetCamera.transform.position;
-        savedOrtho = targetCamera.orthographicSize;
+        currentTarget = target;
+        isFollowing = true;
 
-        star = starTransform;
-        mode = Mode.FollowStar;
+        // “잡기 직전” 기본 상태 저장(원상복구용)
+        savedDefaultOrtho = vcamDefault.Lens.OrthographicSize;
+        savedDefaultPriority = vcamDefault.Priority;
+        savedFollowPriority = vcamFollow.Priority;
+
+        // Follow cam 세팅
+        vcamFollow.Follow = target;
+        vcamFollow.LookAt = null;
+        vcamFollow.Lens.OrthographicSize = savedDefaultOrtho * followZoomFactor;
+
+        // 전환 속도(따라가기)
+        SetBlendTime(followBlendTime);
+
+        // Follow cam 활성화
+        vcamDefault.Priority = defaultPriority;
+        vcamFollow.Priority = followPriority;
     }
 
-    /// <summary>
-    /// 저장해둔 상태(잡기 전)로 복귀
-    /// </summary>
-    public void EndFollowStar()
+    public void EndFollowObj()
     {
-        star = null;
-        mode = Mode.ReturnToSaved;
+        isFollowing = false;
+        currentTarget = null;
+
+        // 복귀 전환 속도
+        SetBlendTime(returnBlendTime);
+
+        // Follow 해제
+        vcamFollow.Follow = null;
+        vcamFollow.LookAt = null;
+
+        // 기본 상태 복구
+        vcamDefault.Lens.OrthographicSize = savedDefaultOrtho;
+
+        // 원래 Priority로 복귀
+        vcamDefault.Priority = savedDefaultPriority;
+        vcamFollow.Priority = savedFollowPriority;
+
+        // 원래 블렌드로 되돌리고 싶으면(선택)
+        RestoreBlendLater(returnBlendTime + 0.01f);
+    }
+
+    private void SetBlendTime(float t)
+    {
+        if (brain == null) return;
+        brain.DefaultBlend = new CinemachineBlendDefinition(blendStyle, Mathf.Max(0f, t));
+    }
+
+    private void RestoreBlendLater(float delay)
+    {
+        if (brain == null) return;
+        CancelInvoke(nameof(RestoreBlendNow));
+        Invoke(nameof(RestoreBlendNow), delay);
+    }
+
+    private void RestoreBlendNow()
+    {
+        if (brain == null) return;
+        brain.DefaultBlend = savedBlend;
     }
 }
