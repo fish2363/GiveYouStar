@@ -48,7 +48,7 @@ MonoBehaviour:
   priority: 2
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 71a9a6251638ec6418bb2281ffa4f86d, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 445b43dac39ab194882bb3411c7944b9, type: 2}
 --- !u!1 &6573664546310052485
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   priority: 0
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: b69764c9d42f0de4783eca5afb7a65e5, type: 2}
+  sharedProfile: {fileID: 11400000, guid: a4d4cfede65ba0045843a076080e62db, type: 2}
 --- !u!1 &9054588650837903013
 GameObject:
   m_ObjectHideFlags: 0
@@ -180,4 +180,4 @@ MonoBehaviour:
   priority: 3
   blendDistance: 0
   weight: 1
-  sharedProfile: {fileID: 11400000, guid: 09573ceb4e36f4c45b50b1f15e26e825, type: 2}
+  sharedProfile: {fileID: 11400000, guid: 814ed814a67577a44bf8ddaf47b5bc7c, type: 2}
