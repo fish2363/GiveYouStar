@@ -8,110 +8,126 @@ namespace Assets._01.Develop.CDH.Code.Fasdfags
         [SerializeField] private float angleOffsetDeg;
 
         [Header("Canvas")]
-        [SerializeField] private Canvas canvas;     // ArrowUI가 속한 Canvas
-        [SerializeField] private Camera worldCamera; // 월드 오브젝트를 Screen으로 바꿀 카메라 (보통 MainCamera)
+        [SerializeField] private Canvas canvas;
+        [SerializeField] private Camera worldCamera; // 보통 MainCamera
 
         [Header("Child (Arrow Image)")]
         [SerializeField] private RectTransform childRect;
 
-        [Header("Distance / Scale")]
-        [SerializeField] private float minDistance = 40f;
-        [SerializeField] private float maxDistance = 100f;
-        [SerializeField] private float minScale = 0f;
-        [SerializeField] private float maxScale = 1f;
+        [Header("Scale by world distance (optional)")]
+        [SerializeField] private float worldMinDistance = 40f; 
+        [SerializeField] private float worldMaxDistance = 100f;
+        [SerializeField] private float minScale = 0.0f;
+        [SerializeField] private float maxScale = 1.0f;
 
-        [Header("Child offset axis")]
-        [SerializeField] private Vector2 childAxis = Vector2.up;
+        [Header("Radius (parent -> child)")]
+        [SerializeField] private bool useDynamicRadius = true;   
+        [SerializeField] private float fixedRadius = 80f;        
+        [SerializeField] private float radiusMin = 40f;          
+        [SerializeField] private float radiusMax = 100f;         
+        [SerializeField] private Vector2 childAxis = Vector2.up; 
 
         private RectTransform myRect;
         private RectTransform canvasRect;
-        private Camera uiCamera; // ScreenSpace-Camera/WorldSpace일 때만 필요
+        private Camera uiCamera;
 
-        private Transform pivotWorld;   // 부모 위치 기준(월드 오브젝트)
-        private Transform targetWorld;  // 가리킬 타겟(월드 오브젝트)
-        private bool isShow;
+        private Transform pivotWorld;
+        private Transform targetWorld;
 
         private void Awake()
         {
-            Show(false);
             myRect = GetComponent<RectTransform>();
 
             if (canvas == null) canvas = GetComponentInParent<Canvas>();
-            canvasRect = canvas.transform as RectTransform;
+            canvasRect = canvas != null ? (RectTransform)canvas.transform : null;
 
-            // UI 카메라(Overlay면 null)
-            uiCamera = (canvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : canvas.worldCamera;
+            uiCamera = (canvas != null && canvas.renderMode != RenderMode.ScreenSpaceOverlay)
+                ? canvas.worldCamera
+                : null;
 
             if (worldCamera == null) worldCamera = Camera.main;
 
             if (childRect == null && transform.childCount > 0)
                 childRect = transform.GetChild(0).GetComponent<RectTransform>();
+
+            Show(false);
         }
 
-        // ✅ 부모 위치를 정할 월드 기준점(플레이어 같은 거)
         public void SetPivotWorld(Transform pivot) => pivotWorld = pivot;
-
-        // ✅ 가리킬 월드 타겟
         public void SetTargetWorld(Transform target) => targetWorld = target;
 
-        public void SetChildDistance(float distance)
+        // ✅ 외부에서 반지름을 직접 바꾸고 싶을 때
+        public void SetFixedRadius(float radius)
         {
-            if (childRect == null) return;
-            childRect.anchoredPosition = childAxis.normalized * distance;
+            fixedRadius = Mathf.Max(0f, radius);
+            useDynamicRadius = false;
+        }
+
+        // ✅ 외부에서 반지름 범위를 바꾸고 싶을 때(거리 기반)
+        public void SetRadiusRange(float min, float max)
+        {
+            radiusMin = Mathf.Max(0f, min);
+            radiusMax = Mathf.Max(radiusMin, max);
+            useDynamicRadius = true;
         }
 
         private void LateUpdate()
         {
-            if (canvasRect == null || worldCamera == null)
-            {
-                Show(false);
-                return;
-            }
-            if (pivotWorld == null || targetWorld == null) 
-            {
-                Show(false);
-                return; 
-            }
+            if (!IsValid()) { Show(false); return; }
 
-            // 월드 -> 캔버스 로컬
             Vector2 pivotPos = WorldToCanvasLocal(pivotWorld.position);
             Vector2 targetPos = WorldToCanvasLocal(targetWorld.position);
 
-            // 1) 부모(ArrowUI) 위치를 pivot에 고정
             myRect.anchoredPosition = pivotPos;
 
-            // 2) pivot -> target 방향으로 회전
-            Vector2 dir = targetPos - pivotPos; // ✅ 이게 맞음
+            Vector2 dir = targetPos - pivotPos;
             float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg;
             float zRot = angle - 90f + angleOffsetDeg;
             myRect.localRotation = Quaternion.Euler(0f, 0f, zRot);
 
-            // 3) 거리 기반으로 자식 거리/스케일
             float dist = dir.magnitude;
-            float t = Mathf.InverseLerp(minDistance, maxDistance, dist);
+            float t = Mathf.InverseLerp(worldMinDistance, worldMaxDistance, dist);
 
-            float childDistance = Mathf.Lerp(minDistance, maxDistance, t);
+            // ✅ 반지름(부모->자식 거리) 결정
+            float radius = useDynamicRadius
+                ? Mathf.Lerp(radiusMin, radiusMax, t)
+                : fixedRadius;
+
+            SetChildDistance(radius);
+
+            // 스케일은 거리 기반(원하면 끄거나 값 고정 가능)
             float scale = Mathf.Lerp(minScale, maxScale, t);
-
-            SetChildDistance(childDistance);
             if (childRect != null) childRect.localScale = Vector3.one * scale;
+
+            Show(true);
+        }
+
+        private void SetChildDistance(float radius)
+        {
+            if (childRect == null) return;
+            childRect.anchoredPosition = childAxis.normalized * radius;
         }
 
         private Vector2 WorldToCanvasLocal(Vector3 worldPos)
         {
-            // 월드 -> 스크린 (여긴 "월드카메라"가 필요)
             Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(worldCamera, worldPos);
 
-            // 스크린 -> 캔버스 로컬 (Overlay면 uiCamera=null)
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 canvasRect, screenPos, uiCamera, out Vector2 localPoint);
 
             return localPoint;
         }
 
+        private bool IsValid()
+        {
+            return canvasRect != null && worldCamera != null && childRect != null &&
+                   pivotWorld != null && targetWorld != null;
+        }
+
         public void Show(bool active)
         {
-            childRect.gameObject.SetActive(active);
+            if (childRect != null)
+                childRect.gameObject.SetActive(active);
         }
     }
 }

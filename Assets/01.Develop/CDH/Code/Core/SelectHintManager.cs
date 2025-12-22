@@ -1,42 +1,105 @@
 ﻿using Assets._01.Develop.CDH.Code.Fasdfags;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 namespace Assets._01.Develop.CDH.Code.Core
 {
     public class SelectHintManager : MonoBehaviour
     {
+        [Header("World")]
         [SerializeField] private Transform playerTrm;
         [SerializeField] private LayerMask pickMask;
+
+        [Header("Arrow UI (player -> star)")]
         [SerializeField] private ArrowUI arrowUI;
-        [SerializeField] private float pickRadius = 0.5f;      // 마우스 근처 탐색 반경(월드 단위)
-        [SerializeField] private int maxHits = 16;             // 한 번에 잡을 최대 콜라이더 수
+
+        [Header("Under Star UI")]
+        [SerializeField] private Image arrowImageForNearstStar;
+        [SerializeField] private Canvas uiCanvas;              // arrowImageForNearstStar가 속한 Canvas (비우면 자동 탐색)
+        [SerializeField] private Camera worldCamera;           // 월드 -> 스크린용 (비우면 Camera.main)
+        [SerializeField] private float underStarPaddingPx = 18f; // 별 아래로 내릴 픽셀
+
+        [Header("Pick")]
+        [SerializeField] private float pickRadius = 0.5f;      // 마우스 근처 탐색 반경(월드)
+        [SerializeField] private int maxHits = 16;
 
         private Collider2D[] _hits;
         private bool isSelectHint;
 
+        // NonAlloc 대체용
+        private ContactFilter2D _filter;
+
+        // UI 변환용
+        private RectTransform _canvasRect;
+        private Camera _uiCamera; // Overlay면 null
+        private RectTransform _underStarRect;
+
         private void Awake()
         {
-            isSelectHint = false;
             _hits = new Collider2D[maxHits];
-        }
+            isSelectHint = false;
 
-        private void Update()
-        {
-            if(isSelectHint && Mouse.current.leftButton.wasPressedThisFrame)
+            if (worldCamera == null) worldCamera = Camera.main;
+
+            if (arrowImageForNearstStar != null)
             {
-                GetMouseSeleted();
+                _underStarRect = arrowImageForNearstStar.rectTransform;
+
+                if (uiCanvas == null)
+                    uiCanvas = arrowImageForNearstStar.GetComponentInParent<Canvas>();
+
+                if (uiCanvas != null)
+                {
+                    _canvasRect = (RectTransform)uiCanvas.transform;
+                    _uiCamera = (uiCanvas.renderMode == RenderMode.ScreenSpaceOverlay) ? null : uiCanvas.worldCamera;
+                }
+
+                arrowImageForNearstStar.gameObject.SetActive(false);
             }
+
+            // ContactFilter 세팅 (레이어마스크 적용 + 트리거 포함)
+            _filter = new ContactFilter2D
+            {
+                useLayerMask = true,
+                layerMask = pickMask,
+                useTriggers = true
+            };
+
+            // 시작은 꺼둠
+            if (arrowUI != null) arrowUI.Show(false);
         }
 
-        private void GetMouseSeleted()
+        // 카메라(Cinemachine) 이후에 UI 위치 갱신하는 게 덜 흔들려서 LateUpdate 추천
+        private void LateUpdate()
         {
-            Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
+            if (!isSelectHint)
+            {
+                HideAll();
+                return;
+            }
 
-            // 반경 안에 있는 콜라이더들 가져오기
-            _hits = Physics2D.OverlapCircleAll(mouseWorld, pickRadius, pickMask);
-            int count = _hits.Length;
+            UpdateHover();
+        }
+
+        private void UpdateHover()
+        {
+            if (worldCamera == null || Mouse.current == null)
+            {
+                HideAll();
+                return;
+            }
+
+            Vector2 mouseWorld = worldCamera.ScreenToWorldPoint(Mouse.current.position.value);
+
+            // ✅ NonAlloc 대체: OverlapCircle + ContactFilter + results 배열
+            int count = Physics2D.OverlapCircle(mouseWorld, pickRadius, _filter, _hits);
+
+            if (count <= 0)
+            {
+                HideAll();
+                return;
+            }
 
             Collider2D best = null;
             float bestSqrDist = float.PositiveInfinity;
@@ -46,37 +109,67 @@ namespace Assets._01.Develop.CDH.Code.Core
                 var col = _hits[i];
                 if (col == null) continue;
 
-                // 콜라이더에서 마우스에 가장 가까운 점(콜라이더 표면 포함)
                 Vector2 closest = col.ClosestPoint(mouseWorld);
-
                 float sqrDist = (closest - mouseWorld).sqrMagnitude;
+
                 if (sqrDist < bestSqrDist)
                 {
                     bestSqrDist = sqrDist;
                     best = col;
                 }
+
+                _hits[i] = null; // 다음 프레임 대비 정리
             }
 
-            if (best != null)
+            if (best == null)
             {
-                GameObject clicked = best.gameObject;
-
-                arrowUI.SetTargetWorld(clicked.transform);
-                arrowUI.SetPivotWorld(playerTrm);
-                arrowUI.Show(true);
-
-                Debug.Log($"Picked: {clicked.name} dist={Mathf.Sqrt(bestSqrDist)}");
-                // 원하는 컴포넌트
-                // var comp = clicked.GetComponent<YourComponent>();
+                HideAll();
+                return;
             }
 
-            // 다음 프레임을 위해 배열 정리(선택: count만큼만 null)
-            for (int i = 0; i < count; i++) _hits[i] = null;
+            // 1) arrowUI: 플레이어 기준으로 방향 표시
+            if (arrowUI != null && playerTrm != null)
+            {
+                arrowUI.SetPivotWorld(playerTrm);
+                arrowUI.SetTargetWorld(best.transform);
+                arrowUI.Show(true);
+            }
+
+            // 2) 별 아래 UI 표시
+            UpdateUnderStarUI(best);
+        }
+
+        private void UpdateUnderStarUI(Collider2D starCol)
+        {
+            if (arrowImageForNearstStar == null || _underStarRect == null || _canvasRect == null)
+                return;
+
+            // 별의 바닥(bounds.min.y) 기준
+            Bounds b = starCol.bounds;
+            Vector3 bottomWorld = new Vector3(b.center.x, b.min.y, starCol.transform.position.z);
+
+            // 월드 -> 스크린
+            Vector2 screenPos = RectTransformUtility.WorldToScreenPoint(worldCamera, bottomWorld);
+            screenPos.y -= underStarPaddingPx;
+
+            // 스크린 -> 캔버스 로컬(anchoredPosition)
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                _canvasRect, screenPos, _uiCamera, out Vector2 localPos);
+
+            _underStarRect.anchoredPosition = localPos;
+            arrowImageForNearstStar.gameObject.SetActive(true);
+        }
+
+        private void HideAll()
+        {
+            if (arrowUI != null) arrowUI.Show(false);
+            if (arrowImageForNearstStar != null) arrowImageForNearstStar.gameObject.SetActive(false);
         }
 
         public void SetHintSelect(bool isCan)
         {
             isSelectHint = isCan;
+            if (!isCan) HideAll();
         }
     }
 }
