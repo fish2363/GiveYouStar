@@ -17,9 +17,8 @@ public class StarMover : MonoBehaviour
         transform.position += moveDirection * speed * Time.deltaTime;
     }
 
-    public void SetStop(Transform parent)
+    public void SetStop()
     {
         isCatch = true;
-        transform.SetParent(parent);
     }
 }

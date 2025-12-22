@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 540d1e138fe29314dbc4bb0286dd162a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  baseSpeed: 20
+  baseSpeed: 6
   speedByCharge: 100
-  maxLifeTime: 5
+  maxLifeTime: 100
   maxDistance: 13784
   biasTurnDegPerSec: 180
   maxBiasAngleDeg: 35
