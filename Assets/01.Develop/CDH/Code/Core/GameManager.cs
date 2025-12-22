@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -42,6 +43,13 @@ public class GameManager : MonoBehaviour
 
     public void SetRopeChargeTurn() => isRopeChargeTurn = true;
     public void SetCatchStar() => isCatchStar = true;
-    public void EndCatchStar() => isCatchStar = false;
-
+    public void EndCatchStar()
+    {
+        StartCoroutine(EndCatchStarRoutine());
+    }
+    private IEnumerator EndCatchStarRoutine()
+    {
+        yield return new WaitForSeconds(2.5f);
+        isCatchStar = false;
+    }
 }

@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class StarMover : MonoBehaviour
@@ -5,6 +6,7 @@ public class StarMover : MonoBehaviour
     public float speed = 2f;
     private Vector3 moveDirection;
     public bool isCatch;
+    public Action OnDestroy;
 
     public void SetMoveDirection(Vector3 dir)
     {
@@ -17,9 +19,16 @@ public class StarMover : MonoBehaviour
         transform.position += moveDirection * speed * Time.deltaTime;
     }
 
-    public void SetStop(Transform parent)
+    public void SetStop(bool isStop)
     {
-        isCatch = true;
-        transform.SetParent(parent);
+        isCatch = isStop;
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Star") && isCatch)
+        {
+            OnDestroy?.Invoke();
+        }
     }
 }

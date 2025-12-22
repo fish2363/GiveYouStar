@@ -32,6 +32,7 @@ public class RopeCharge : MonoBehaviour
     private float t;          // 시간 누적
     private float charge01;   // 0~1
 
+    //클릭하면 얘 호출되어야 함
     public void ChargeStart()
     {
         StartCharge();
@@ -39,12 +40,14 @@ public class RopeCharge : MonoBehaviour
 
     private void Update()
     {
+
         if (isCharging)
         {
             UpdateCharge();
         }
     }
 
+    //떼면
     public void ChargeRelease()
     {
         ReleaseCharge();
