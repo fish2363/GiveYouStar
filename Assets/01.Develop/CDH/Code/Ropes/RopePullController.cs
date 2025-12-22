@@ -139,7 +139,7 @@ public class RopePullController : MonoBehaviour
                 // 플레이어 반대 방향으로 갈 때만 끊기
                 if (Vector2.Dot(toPlayer, currentDir) < 0f)
                 {
-                    
+
                     EndPull();
                     return;
                 }
@@ -255,3 +255,4 @@ public class RopePullController : MonoBehaviour
         ropeLine.SetPosition(1, starTarget.transform.position);
     }
 }
+
