@@ -13,7 +13,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         public event Action<List<StarSo>> onGameEnd;
         
         private Dictionary<StarSo, bool> _stars = new Dictionary<StarSo, bool>();
-        private List<StarSo> _gotStarContainer = new List<StarSo>();
+        public List<StarSo> _gotStarContainer = new List<StarSo>();
         
         protected override void Awake()
         {
@@ -37,6 +37,9 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             _gotStarContainer.Add(star);
         }
 
+        public List<StarSo> GetAllGotStars()
+            => _gotStarContainer;
+        
         public Dictionary<StarSo, bool> GetStarList()
             => _stars;
 
