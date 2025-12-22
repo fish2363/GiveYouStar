@@ -1,4 +1,6 @@
-﻿using UnityEngine;
+﻿using Assets._01.Develop.CDH.Code.Ropes;
+using Unity.VisualScripting;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
@@ -13,15 +15,11 @@ public class RopeCharge : MonoBehaviour
     [Range(0f, 1f)][SerializeField] private float maxCharge01 = 1f;
 
     [Tooltip("차지 곡선(선형이 싫으면 커브로 맛 조절)")]
-    [SerializeField] private AnimationCurve chargeCurve = AnimationCurve.Linear(0, 0, 1, 1);
+    [SerializeField] private ChargingDataSO[] chargingDatas;
 
     [Header("UI (Optional)")]
-    [SerializeField] private Slider chargeSlider;      // min=0 max=1 추천
     [SerializeField] private Image chargeFillImage;    // Slider 대신 Image.fillAmount 써도 됨
-    [SerializeField] private Text chargeText;          // 기본 UI Text
-#if TMP_PRESENT
     [SerializeField] private TMPro.TMP_Text chargeTMP; // TMP 쓰면 이걸로
-#endif
 
     [Header("Events")]
     [Tooltip("마우스 뗐을 때 호출(0~1 차지 값)")]
@@ -34,38 +32,36 @@ public class RopeCharge : MonoBehaviour
     private float t;          // 시간 누적
     private float charge01;   // 0~1
 
+    public void ChargeStart()
+    {
+        StartCharge();
+    }
+
     private void Update()
     {
-        // 차징 시작
-        if (Input.GetMouseButtonDown(0))
+        if (isCharging)
         {
-            StartCharge();
+            UpdateCharge();
         }
+    }
 
-        // 차징 중 갱신
-        if (isCharging && Input.GetMouseButton(0))
-        {
-            UpdateCharge(Time.deltaTime);
-        }
-
-        // 차징 종료(릴리즈)
-        if (isCharging && Input.GetMouseButtonUp(0))
-        {
-            ReleaseCharge();
-        }
+    public void ChargeRelease()
+    {
+        ReleaseCharge();
     }
 
     private void StartCharge()
     {
+        print("Start Charge");
         isCharging = true;
         t = 0f; // 매번 0에서 시작(원하면 유지하게 바꿀 수 있음)
         charge01 = minCharge01;
         ApplyUI(charge01);
     }
 
-    private void UpdateCharge(float dt)
+    private void UpdateCharge()
     {
-        t += dt * pingPongSpeed;
+        t += Time.deltaTime * pingPongSpeed;
 
         // 0→1→0→1… (핑퐁)
         float raw = Mathf.PingPong(t, 1f);
@@ -74,6 +70,9 @@ public class RopeCharge : MonoBehaviour
         float ranged = Mathf.Lerp(minCharge01, maxCharge01, raw);
 
         // 커브로 느낌 조절(입력은 0~1, 출력도 0~1이라 가정)
+
+        int randValue = Random.Range(0, chargingDatas.Length);
+        AnimationCurve chargeCurve = chargingDatas[randValue].chargeCurve;
         float curved = chargeCurve != null ? chargeCurve.Evaluate(raw) : raw;
         charge01 = Mathf.Lerp(minCharge01, maxCharge01, curved);
 
@@ -93,19 +92,12 @@ public class RopeCharge : MonoBehaviour
 
     private void ApplyUI(float value01)
     {
-        if (chargeSlider != null)
-            chargeSlider.value = value01;
-
         if (chargeFillImage != null)
             chargeFillImage.fillAmount = value01;
 
         int val100 = Mathf.RoundToInt(value01 * 100f);
 
-#if TMP_PRESENT
         if (chargeTMP != null)
             chargeTMP.text = val100.ToString();
-#endif
-        if (chargeText != null)
-            chargeText.text = val100.ToString();
     }
 }
