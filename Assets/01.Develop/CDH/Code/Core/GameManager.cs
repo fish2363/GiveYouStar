@@ -2,6 +2,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _01.Develop.LSW._01._Scripts.Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
@@ -80,6 +81,7 @@ public class GameManager : MonoBehaviour
     private void GameEnd()
     {
         isGameStart = false;
+        StarManager.Instance.EndGame();
     }
 
     public void SetRopeChargeTurn() => isRopeChargeTurn = true;

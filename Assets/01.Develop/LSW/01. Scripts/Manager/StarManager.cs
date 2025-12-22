@@ -1,5 +1,7 @@
+using System;
 using System.Collections.Generic;
 using _01.Develop.LSW._01._Scripts.So;
+using _01.Develop.LSW._01._Scripts.UI.InGame;
 using UnityEngine;
 
 namespace _01.Develop.LSW._01._Scripts.Manager
@@ -8,8 +10,11 @@ namespace _01.Develop.LSW._01._Scripts.Manager
     {
         [SerializeField] private List<StarSo> starList = new List<StarSo>();
         
+        public event Action<List<StarSo>> onGameEnd;
+        
         private Dictionary<StarSo, bool> _stars = new Dictionary<StarSo, bool>();
-
+        private List<StarSo> _gotStarContainer = new List<StarSo>();
+        
         protected override void Awake()
         {
             base.Awake();
@@ -26,11 +31,22 @@ namespace _01.Develop.LSW._01._Scripts.Manager
                 _stars[star] = true;
             }
         }
+        
+        public void AddGotStar(StarSo star)
+        {
+            _gotStarContainer.Add(star);
+        }
 
         public Dictionary<StarSo, bool> GetStarList()
             => _stars;
 
         public (StarSo, bool) GetStar(StarSo starSo)
             => (starSo, _stars[starSo]);
+        
+        public void EndGame()
+        {
+            onGameEnd?.Invoke(_gotStarContainer);
+            _gotStarContainer.Clear();
+        }
     }
 }
