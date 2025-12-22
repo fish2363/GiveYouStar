@@ -2,6 +2,7 @@
 
 namespace Assets._01.Develop.CDH.Code.Fasdfags
 {
+    [DefaultExecutionOrder(10000)]
     public class ArrowUI : MonoBehaviour
     {
         [SerializeField] private float angleOffsetDeg;
@@ -59,7 +60,7 @@ namespace Assets._01.Develop.CDH.Code.Fasdfags
             childRect.anchoredPosition = childAxis.normalized * distance;
         }
 
-        private void Update()
+        private void LateUpdate()
         {
             if (canvasRect == null || worldCamera == null)
             {
