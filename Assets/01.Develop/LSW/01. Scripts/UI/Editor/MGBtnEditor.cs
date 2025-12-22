@@ -29,6 +29,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.Editor
             #region showUI
             
             _showUIField.Add(new PropertyField(serializedObject.FindProperty("targetUI")));
+            _showUIField.Add(new PropertyField(serializedObject.FindProperty("mainBackGround")));
             root.Add(_showUIField);
             
             #endregion

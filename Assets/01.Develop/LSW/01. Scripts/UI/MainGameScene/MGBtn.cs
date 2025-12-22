@@ -13,7 +13,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private MGBtnType btnType;
         [SerializeField] private GameObject interactionTrm;
         
-        [SerializeField] private Image targetUI;
+        [SerializeField] private SubUI targetUI;
+        [SerializeField] private Image mainBackGround;
         
         public string targetSceneName;
 
@@ -21,9 +22,6 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         {
             if (btnType == MGBtnType.ShowUI)
             {
-                Color color = targetUI.color;
-                color.a = 0f;
-                targetUI.color = color;
                 targetUI.gameObject.SetActive(false);
             }
         }
@@ -33,12 +31,10 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             switch (btnType)
             {
                 case MGBtnType.ShowUI:
-                    interactionTrm.SetActive(false);
                     targetUI.gameObject.SetActive(true);
-                    targetUI.DOFade(1f, 0.5f);
+                    targetUI.Show(interactionTrm, mainBackGround);
                     break;
                 case MGBtnType.MoveScene:
-                    interactionTrm.SetActive(false);
                     // mainUITrm.DOMoveY(-2000f, 3f)
                     //     .SetEase(Ease.OutExpo)
                     //     .OnComplete(() =>
