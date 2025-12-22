@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc960b68412664409dcd3ceb65d60eb, type: 3}
+  m_Name: Cat
+  m_EditorClassIdentifier: 
+  starImage: {fileID: -167203182072899133, guid: 2fb6224e1b1d0af41980648aa8bfd66f, type: 3}
+  starName: Name
+  description: Desc
+  speed: 10
+  starPrefab: {fileID: 5251281089440196896, guid: 7b4885ecd9439f34fae8f85e12826fc3, type: 3}
