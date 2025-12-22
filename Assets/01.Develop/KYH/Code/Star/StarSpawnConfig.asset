@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3e791d1602c974e92d035a80184042, type: 3}
+  m_Name: StarSpawnConfig
+  m_EditorClassIdentifier: 
+  starGrades:
+  - grade: 0
+    probability: 0.5
+    prefabs:
+    - {fileID: 8379932240666563092, guid: 800690f45da061849b9fcd1c45a27225, type: 3}
+  - grade: 2
+    probability: 0.2
+    prefabs:
+    - {fileID: 5204726340962244434, guid: 72ed774e40f871e48a10368fef2afab1, type: 3}
+  - grade: 1
+    probability: 0.3
+    prefabs:
+    - {fileID: 2081914254177661208, guid: 9eddc01b7115f804eb8724a89522c4f3, type: 3}
