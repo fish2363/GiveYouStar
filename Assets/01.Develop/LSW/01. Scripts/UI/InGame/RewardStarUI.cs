@@ -15,7 +15,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
 
         private Vector3 _showRewardUISize;
         
-        private void Awake()
+        private void Start()
         {
             StarManager.Instance.onGameEnd += ShowRewardStarUI;
             
@@ -24,22 +24,25 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
             bG.SetActive(false);
         }
 
-        public void ShowRewardStarUI(List<StarSo> starList)
+        private void ShowRewardStarUI(List<StarSo> starList)
         {
             bG.SetActive(true);
-            rewardStarContainer.DOScale(_showRewardUISize, 0.5f).OnComplete(() =>
+            foreach (var star in starList)
             {
-                foreach (var star in starList)
-                {
-                    var rewardStar = Instantiate(rewardStarPrefab, rewardStarContainer);
-                    rewardStar.Set(star);
-                }
-            });
+                var rewardStar = Instantiate(rewardStarPrefab, rewardStarContainer);
+                rewardStar.Set(star);
+            }
+
+            transform.DOScale(_showRewardUISize, 1f)
+                .SetEase(Ease.InExpo);
         }
 
         private void OnDestroy()
         {
-            StarManager.Instance.onGameEnd -= ShowRewardStarUI;
+            if (StarManager.Instance != null)
+            {
+                StarManager.Instance.onGameEnd -= ShowRewardStarUI;
+            }
         }
     }
 }
