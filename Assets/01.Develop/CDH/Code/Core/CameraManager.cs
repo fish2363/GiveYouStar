@@ -11,10 +11,12 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineCamera vcamDefault;
     [SerializeField] private CinemachineCamera vcamFollow;
     [SerializeField] private CinemachineCamera vFullCam;
-    [SerializeField] RectTransform upPanel;
-    [SerializeField] RectTransform upPanelPos;
-    [SerializeField] RectTransform downPanel;
-    [SerializeField] RectTransform downPanelPos;
+
+    [SerializeField] private RectTransform upPanel;
+    [SerializeField] private RectTransform upPanelPos;
+    [SerializeField] private RectTransform downPanel;
+    [SerializeField] private RectTransform downPanelPos;
+
     private CinemachineCamera currentCam;
 
     private int activePriority = 10;
@@ -41,7 +43,16 @@ public class CameraManager : MonoBehaviour
 
     private Transform currentTarget;
     private bool isFollowing;
-    public  bool isFullCamActive = false;
+    public bool isFullCamActive = false;
+
+    // ✅ 추가: 카메라 위치 → UI Y로 변환
+    [Header("Distance UI (Camera -> UI LocalY)")]
+    [SerializeField] private RectTransform distanceUI;                 // 새로 만든 UI
+    [SerializeField] private Vector2 targetWorldPos = new Vector2(250f, 250f);
+    [Tooltip("이 거리 이상이면 UI는 -250에 가까움. 값 작을수록 빨리 올라감.")]
+    [SerializeField] private float uiMaxDistance = 500f;
+    [SerializeField] private float uiMinLocalY = -250f;
+    [SerializeField] private float uiMaxLocalY = 250f;
 
     private void Awake()
     {
@@ -73,6 +84,9 @@ public class CameraManager : MonoBehaviour
         // 따라가던 대상이 사라지면 복귀
         if (isFollowing && currentTarget == null)
             EndFollowObj();
+
+        // ✅ 매 프레임 카메라 위치 기반 UI 갱신
+        UpdateDistanceUIByCameraPos();
 
         // Tab 키로 FullCam 전환
         if (!isFollowing)
@@ -124,6 +138,7 @@ public class CameraManager : MonoBehaviour
     {
         if (target == null) return;
 
+        // (원래 코드 유지)
         upPanel.DOAnchorPosY(2100f, 0.2f);
         downPanel.DOAnchorPosY(-1000f, 0.2f);
         MovePanels(upPanelPos, downPanelPos);
@@ -151,14 +166,12 @@ public class CameraManager : MonoBehaviour
         vcamFollow.Priority = activePriority;
         vFullCam.Priority = backPriority;
     }
+
     private void MovePanels(RectTransform upTarget, RectTransform downTarget)
     {
-        Debug.Log($"upPanel anchoredY: {upPanel.anchoredPosition.y}");
-        Debug.Log($"upPanel worldY: {upPanel.position.y}");
-        Debug.Log($"upTarget anchoredY: {upPanelPos.anchoredPosition.y}");
         if (upPanel != null && upTarget != null)
         {
-            upPanel.DOKill(); // 트윈 겹침 방지
+            upPanel.DOKill();
             upPanel.DOAnchorPos(upTarget.anchoredPosition, 0.2f);
         }
 
@@ -168,12 +181,14 @@ public class CameraManager : MonoBehaviour
             downPanel.DOAnchorPos(downTarget.anchoredPosition, 0.2f);
         }
     }
+
     public void EndFollowObj()
     {
         isFollowing = false;
         currentTarget = null;
 
         SetBlendTime(returnBlendTime);
+
         upPanel.DOAnchorPosY(2100f, 0.2f);
         downPanel.DOAnchorPosY(-1000f, 0.2f);
 
@@ -235,5 +250,33 @@ public class CameraManager : MonoBehaviour
             vcamDefault.Priority = activePriority;
             vcamFollow.Priority = backPriority;
         }
+    }
+
+    // =======================
+    // ✅ Camera -> UI Mapping
+    // =======================
+    private void UpdateDistanceUIByCameraPos()
+    {
+        if (distanceUI == null) return;
+
+        // 실제 화면을 렌더링하는 카메라(브레인 출력 카메라) 우선
+        Transform camTr = null;
+        if (brain != null && brain.OutputCamera != null)
+            camTr = brain.OutputCamera.transform;
+        else if (Camera.main != null)
+            camTr = Camera.main.transform;
+
+        if (camTr == null) return;
+
+        Vector2 camPos2D = new Vector2(camTr.position.x, camTr.position.y);
+        float dist = Vector2.Distance(camPos2D, targetWorldPos);
+
+        // dist=0 -> t=1, dist>=uiMaxDistance -> t=0
+        float t = 1f - Mathf.Clamp01(dist / Mathf.Max(0.0001f, uiMaxDistance));
+        float y = Mathf.Lerp(uiMinLocalY, uiMaxLocalY, t);
+
+        Vector2 ap = distanceUI.anchoredPosition;
+        ap.y = y;
+        distanceUI.anchoredPosition = ap;
     }
 }

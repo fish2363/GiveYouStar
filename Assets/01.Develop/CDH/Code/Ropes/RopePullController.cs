@@ -319,8 +319,22 @@ public class RopePullController : MonoBehaviour
         ropeLine.startWidth = lineWidth;
         ropeLine.endWidth = lineWidth;
         ropeLine.material = new Material(Shader.Find("Sprites/Default"));
-        ropeLine.startColor = Color.white;
-        ropeLine.endColor = Color.white;
+        Gradient brownGradient = new Gradient();
+
+        brownGradient.SetKeys(
+            new GradientColorKey[]
+            {
+        new GradientColorKey(new Color(0.36f, 0.20f, 0.09f), 0f), // Dark Brown
+        new GradientColorKey(new Color(0.59f, 0.29f, 0.00f), 0.5f), // Brown
+        new GradientColorKey(new Color(0.76f, 0.60f, 0.42f), 1f), // Light Brown
+            },
+            new GradientAlphaKey[]
+            {
+        new GradientAlphaKey(1f, 0f),
+        new GradientAlphaKey(1f, 1f),
+            }
+        );
+        ropeLine.colorGradient = brownGradient;
         ropeLine.enabled = false;
     }
 

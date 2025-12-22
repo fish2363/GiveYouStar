@@ -117,13 +117,27 @@ public class Rope : MonoBehaviour
         var go = new GameObject("RopeLine");
         go.transform.SetParent(transform);
         line = go.AddComponent<LineRenderer>();
+        Gradient brownGradient = new Gradient();
+
+brownGradient.SetKeys(
+    new GradientColorKey[]
+    {
+        new GradientColorKey(new Color(0.36f, 0.20f, 0.09f), 0f), // Dark Brown
+        new GradientColorKey(new Color(0.59f, 0.29f, 0.00f), 0.5f), // Brown
+        new GradientColorKey(new Color(0.76f, 0.60f, 0.42f), 1f), // Light Brown
+    },
+    new GradientAlphaKey[]
+    {
+        new GradientAlphaKey(1f, 0f),
+        new GradientAlphaKey(1f, 1f),
+    }
+);
+        line.colorGradient = brownGradient;
         line.positionCount = 2;
         line.useWorldSpace = true;
         line.startWidth = lineWidth;
         line.endWidth = lineWidth;
         line.material = new Material(Shader.Find("Sprites/Default"));
-        line.startColor = Color.white;
-        line.endColor = Color.white;
     }
 
     private void UpdateLine()
