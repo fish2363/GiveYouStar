@@ -5,7 +5,6 @@ namespace Assets._01.Develop.CDH.Code.Core
 {
     public class SelectHintManager : MonoBehaviour
     {
-        public UnityEvent<string> OnChangeCamera;
 
         [SerializeField] private LayerMask pickMask;
 
@@ -43,7 +42,6 @@ namespace Assets._01.Develop.CDH.Code.Core
         public void SelectHintStart()
         {
             isSelectHint = true;
-            OnChangeCamera?.Invoke("SelectHint");
         }
     }
 }
