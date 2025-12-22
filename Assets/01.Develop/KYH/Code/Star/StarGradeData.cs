@@ -6,8 +6,10 @@ using UnityEngine;
 public enum StarGrade
 {
     Common,
+    UnCommon,
     Rare,
-    Epic
+    Epic,
+    Legendary
 }
 
 

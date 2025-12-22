@@ -8,6 +8,10 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private CinemachineCamera vcamDefault;
     [SerializeField] private CinemachineCamera vcamFollow;
     [SerializeField] private CinemachineCamera vFullCam;
+    [SerializeField] RectTransform upPanel;
+    [SerializeField] RectTransform upPanelPos;
+    [SerializeField] RectTransform downPanel;
+    [SerializeField] RectTransform downPanelPos;
     private CinemachineCamera currentCam;
 
     private int activePriority = 10;
@@ -85,6 +89,8 @@ public class CameraManager : MonoBehaviour
     {
         if (target == null) return;
 
+        MovePanels(upPanelPos, downPanelPos);
+
         currentTarget = target;
         isFollowing = true;
 
@@ -113,6 +119,10 @@ public class CameraManager : MonoBehaviour
     {
         if (target == null) return;
 
+        upPanel.DOAnchorPosY(2100f, 0.2f);
+        downPanel.DOAnchorPosY(-1000f, 0.2f);
+        MovePanels(upPanelPos, downPanelPos);
+
         currentTarget = target;
         isFollowing = true;
 
@@ -136,13 +146,31 @@ public class CameraManager : MonoBehaviour
         vcamFollow.Priority = activePriority;
         vFullCam.Priority = backPriority;
     }
+    private void MovePanels(RectTransform upTarget, RectTransform downTarget)
+    {
+        Debug.Log($"upPanel anchoredY: {upPanel.anchoredPosition.y}");
+        Debug.Log($"upPanel worldY: {upPanel.position.y}");
+        Debug.Log($"upTarget anchoredY: {upPanelPos.anchoredPosition.y}");
+        if (upPanel != null && upTarget != null)
+        {
+            upPanel.DOKill(); // 트윈 겹침 방지
+            upPanel.DOAnchorPos(upTarget.anchoredPosition, 0.2f);
+        }
 
+        if (downPanel != null && downTarget != null)
+        {
+            downPanel.DOKill();
+            downPanel.DOAnchorPos(downTarget.anchoredPosition, 0.2f);
+        }
+    }
     public void EndFollowObj()
     {
         isFollowing = false;
         currentTarget = null;
 
         SetBlendTime(returnBlendTime);
+        upPanel.DOAnchorPosY(2100f, 0.2f);
+        downPanel.DOAnchorPosY(-1000f, 0.2f);
 
         vcamFollow.Follow = null;
         vcamFollow.LookAt = null;
