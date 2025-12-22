@@ -131,7 +131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   baseSpeed: 20
   speedByCharge: 100
-  maxLifeTime: 5
+  maxLifeTime: 29.84
   maxDistance: 13784
   biasTurnDegPerSec: 180
   maxBiasAngleDeg: 35
