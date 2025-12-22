@@ -13,11 +13,6 @@ namespace _01.Develop.LSW._01._Scripts.Manager
                 if (_instance == null)
                 {
                     _instance = FindAnyObjectByType<T>();
-
-                    if (_instance == null)
-                    {
-                        _instance = new GameObject(typeof(T).ToString()).AddComponent<T>();
-                    }
                 }
 
                 return _instance;

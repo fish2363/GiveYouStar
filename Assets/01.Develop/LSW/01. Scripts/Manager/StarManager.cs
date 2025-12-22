@@ -15,7 +15,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             base.Awake();
             foreach (var star in starList)
             {
-                _stars.Add(star, true);
+                _stars.Add(star, false);
             }
         }
         
