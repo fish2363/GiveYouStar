@@ -2,6 +2,9 @@ using _01.Develop.LSW._01._Scripts.So;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
+using DG.Tweening;
+using UnityEngine.Rendering;
+using UnityEngine.Rendering.Universal;
 
 public class RopePullController : MonoBehaviour
 {
@@ -49,6 +52,17 @@ public class RopePullController : MonoBehaviour
     [Header("Rope Break Settings")]
     [SerializeField] private float maxRopeStretchDistance = 10f;
 
+    [Header("PostProcessing - Lens Distortion (URP Volume)")]
+    [SerializeField] private Volume postProcessVolume;
+    [SerializeField] private float lensDistortionTarget = -0.35f;
+    [SerializeField] private float lensDownDuration = 0.08f;
+    [SerializeField] private float lensReturnDuration = 0.18f;
+    [SerializeField] private Ease lensDownEase = Ease.OutQuad;
+    [SerializeField] private Ease lensReturnEase = Ease.OutQuad;
+
+    private LensDistortion lensDistortion;
+    private Tween lensTween;
+
     private Rigidbody2D starRb;
     private Camera cam;
 
@@ -71,8 +85,20 @@ public class RopePullController : MonoBehaviour
         if (autoCreateRopeLine && ropeLine == null)
             SetupRopeLine();
 
+        CacheLensDistortion();
+
         if (starTarget != null)
             SetTarget(starTarget);
+    }
+
+    private void CacheLensDistortion()
+    {
+        lensDistortion = null;
+
+        if (postProcessVolume == null || postProcessVolume.profile == null)
+            return;
+
+        postProcessVolume.profile.TryGet(out lensDistortion);
     }
 
     private void Update()
@@ -90,17 +116,23 @@ public class RopePullController : MonoBehaviour
 
         if (cam == null || player == null || starRb == null) return;
 
+        // ✅ 드래그 시작: 렌즈 왜곡 "내리기"
         if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
             dragStartWorld = MouseWorld2D();
             dragStartTime = Time.time;
+
+            PlayLensDistortionDown();
         }
 
+        // ✅ 드래그 끝: 렌즈 왜곡 "복귀"
         if (Input.GetMouseButtonUp(0))
         {
             if (!isDragging) return;
             isDragging = false;
+
+            PlayLensDistortionReturn();
 
             TryPullOnRelease(MouseWorld2D(), Time.time - dragStartTime);
         }
@@ -110,14 +142,12 @@ public class RopePullController : MonoBehaviour
     {
         if (starRb == null) return;
 
-        // 감쇠
         if (pullVelocityDamping > 0f)
         {
             float k = Mathf.Exp(-pullVelocityDamping * Time.fixedDeltaTime);
             pullVel *= k;
         }
 
-        // 드리프트 유지 (옆으로 새는 거 보정)
         if (driftReturnStrength > 0f)
         {
             Vector2 perp = pullVel - driftDirection * Vector2.Dot(pullVel, driftDirection);
@@ -127,7 +157,6 @@ public class RopePullController : MonoBehaviour
         starRb.gravityScale = 0f;
         starRb.linearVelocity = driftDirection * driftSpeed + pullVel;
 
-        // 로프 끊김 조건
         if (maxRopeStretchDistance > 0f)
         {
             float distFromLastPull = Vector2.Distance(starTarget.transform.position, lastPullPosition);
@@ -136,10 +165,8 @@ public class RopePullController : MonoBehaviour
                 Vector2 toPlayer = ((Vector2)player.position - (Vector2)starTarget.transform.position).normalized;
                 Vector2 currentDir = starRb.linearVelocity.normalized;
 
-                // 플레이어 반대 방향으로 갈 때만 끊기
                 if (Vector2.Dot(toPlayer, currentDir) < 0f)
                 {
-
                     EndPull();
                     return;
                 }
@@ -149,11 +176,16 @@ public class RopePullController : MonoBehaviour
 
     private void EndPull()
     {
+        // 안전하게 렌즈 복귀
+        PlayLensDistortionReturn(force: true);
+
         if (cameraManager != null) cameraManager.EndFollowObj();
         if (destroyOnCollect && starTarget != null)
             starTarget.SetStop(false);
 
-        starTarget.OnDestroy -= HandleDestroy;
+        if (starTarget != null)
+            starTarget.OnDestroy -= HandleDestroy;
+
         OnChainBreak?.Invoke();
         ClearTarget();
     }
@@ -174,6 +206,7 @@ public class RopePullController : MonoBehaviour
             starTarget = null;
             return;
         }
+
         starTarget.OnDestroy += HandleDestroy;
         lastPullPosition = starTarget.transform.position;
 
@@ -223,6 +256,51 @@ public class RopePullController : MonoBehaviour
         lastPullPosition = starTarget.transform.position;
     }
 
+    // ---------------- Lens Distortion ----------------
+
+    // 드래그 중에 -0.35까지 "내리기"
+    private void PlayLensDistortionDown(bool force = false)
+    {
+        if (lensDistortion == null) CacheLensDistortion();
+        if (lensDistortion == null) return;
+
+        float target = Mathf.Clamp(lensDistortionTarget, -1f, 1f);
+
+        // 이미 트윈 중이면 씹기(원래 요구) / force면 강제로 교체
+        if (!force && lensTween != null && lensTween.IsActive() && lensTween.IsPlaying())
+            return;
+
+        lensTween?.Kill();
+        lensTween = DOTween.To(
+                () => lensDistortion.intensity.value,
+                x => lensDistortion.intensity.value = x,
+                target,
+                lensDownDuration
+            )
+            .SetEase(lensDownEase);
+    }
+
+    // 드래그를 떼면 0으로 "복귀"
+    private void PlayLensDistortionReturn(bool force = false)
+    {
+        if (lensDistortion == null) CacheLensDistortion();
+        if (lensDistortion == null) return;
+
+        // 복귀는 "못 돌아가서 왜곡 남는" 상황 생기면 짜증나니까
+        // force 아니더라도 기존 트윈은 끊고 복귀시키는 쪽이 안정적임
+        lensTween?.Kill();
+
+        lensTween = DOTween.To(
+                () => lensDistortion.intensity.value,
+                x => lensDistortion.intensity.value = x,
+                0f,
+                lensReturnDuration
+            )
+            .SetEase(lensReturnEase);
+    }
+
+    // -------------------------------------------------
+
     private Vector2 MouseWorld2D()
     {
         if (cam == null) cam = Camera.main;
@@ -255,4 +333,3 @@ public class RopePullController : MonoBehaviour
         ropeLine.SetPosition(1, starTarget.transform.position);
     }
 }
-
