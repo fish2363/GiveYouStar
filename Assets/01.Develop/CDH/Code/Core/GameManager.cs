@@ -2,6 +2,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using _01.Develop.LSW._01._Scripts.Manager;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -97,6 +99,7 @@ public class GameManager : MonoBehaviour
     private void GameEnd()
     {
         isGameStart = false;
+        StarManager.Instance.EndGame();
         // TODO: 게임 종료 후 행동 정의
     }
 

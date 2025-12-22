@@ -1,9 +1,12 @@
 ﻿using Unity.Cinemachine;
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.Events;
 
 public class CameraManager : MonoBehaviour
 {
+    public UnityEvent<bool> OnTabClicked;
+
     [Header("VCams")]
     [SerializeField] private CinemachineCamera vcamDefault;
     [SerializeField] private CinemachineCamera vcamFollow;
@@ -77,10 +80,12 @@ public class CameraManager : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.Tab))
             {
                 ActivateFullCam();
+                OnTabClicked?.Invoke(true);
             }
             else if (Input.GetKeyUp(KeyCode.Tab))
             {
                 DeactivateFullCam();
+                OnTabClicked?.Invoke(false);
             }
         }
     }
