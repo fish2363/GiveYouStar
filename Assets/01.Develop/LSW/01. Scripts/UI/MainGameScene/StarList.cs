@@ -17,13 +17,13 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private Transform starSlotParent;
         
         [Header("Star Information")]
-        [SerializeField] private Image starImage;
+        [SerializeField] private Image starIcon;
         [SerializeField] private TextMeshProUGUI starNameText;
         [SerializeField] private TextMeshProUGUI starDescriptionText;
         
         private void Start()
         {
-            starImage.gameObject.SetActive(false);
+            starIcon.gameObject.SetActive(false);
             starNameText.text = string.Empty;
             starDescriptionText.text = string.Empty;
             
@@ -38,8 +38,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         private void ShowStars(StarSo star)
         {
-            starImage.gameObject.SetActive(true);
-            starImage.sprite = star.starImage;
+            starIcon.gameObject.SetActive(true);
+            starIcon.sprite = star.starImage;
             starNameText.text = star.starName;
             starDescriptionText.text = star.description;
         }
