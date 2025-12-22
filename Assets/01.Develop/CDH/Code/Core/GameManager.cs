@@ -9,27 +9,39 @@ public class GameManager : MonoBehaviour
 
     private bool isRopeCharging;
     private bool isRopeChargeEnd;
+    private bool isRopeChargeTurn;
+    private bool isCatchStar;
 
     private void Awake()
     {
         isRopeCharging = false;
         isRopeChargeEnd = false;
+        isRopeChargeTurn = true;
+        isCatchStar = false;
     }
 
     private void Update()
     {
-        if (isRopeChargeEnd && !isRopeCharging && Mouse.current.leftButton.wasPressedThisFrame)
+        if (isRopeChargeTurn && !isCatchStar)
         {
-            isRopeCharging = true;
-            isRopeChargeEnd = false;
-            StartRopeCharge?.Invoke();
-        }
-        if(!isRopeChargeEnd && isRopeCharging && Mouse.current.leftButton.wasReleasedThisFrame)
-        {
-            isRopeCharging = false;
-            isRopeChargeEnd = true;
-            EndRopeCharge?.Invoke();
+            if (!isRopeCharging && Mouse.current.leftButton.wasPressedThisFrame)
+            {
+                isRopeCharging = true;
+                isRopeChargeEnd = false;
+                StartRopeCharge?.Invoke();
+            }
+            if (isRopeCharging && Mouse.current.leftButton.wasReleasedThisFrame)
+            {
+                isRopeCharging = false;
+                isRopeChargeEnd = true;
+                isRopeChargeTurn = false;
+                EndRopeCharge?.Invoke();
+            }
         }
     }
+
+    public void SetRopeChargeTurn() => isRopeChargeTurn = true;
+    public void SetCatchStar() => isCatchStar = true;
+    public void EndCatchStar() => isCatchStar = false;
 
 }
