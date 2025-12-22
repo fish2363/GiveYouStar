@@ -11,5 +11,7 @@ namespace _01.Develop.LSW._01._Scripts.So
         
         public float speed;
         public GameObject starPrefab;
+        
+        public bool isUnlocked = false;
     }
 }
