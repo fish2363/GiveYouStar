@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets._01.Develop.CDH.Code.Fasdfags;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -6,7 +7,9 @@ namespace Assets._01.Develop.CDH.Code.Core
 {
     public class SelectHintManager : MonoBehaviour
     {
+        [SerializeField] private Transform playerTrm;
         [SerializeField] private LayerMask pickMask;
+        [SerializeField] private ArrowUI arrowUI;
         [SerializeField] private float pickRadius = 0.5f;      // 마우스 근처 탐색 반경(월드 단위)
         [SerializeField] private int maxHits = 16;             // 한 번에 잡을 최대 콜라이더 수
 
@@ -26,11 +29,12 @@ namespace Assets._01.Develop.CDH.Code.Core
                 GetMouseSeleted();
             }
         }
+
         private void GetMouseSeleted()
         {
             Vector2 mouseWorld = Camera.main.ScreenToWorldPoint(Mouse.current.position.value);
 
-            // 반경 안에 있는 콜라이더들 가져오기 (NonAlloc이라 GC 적음)
+            // 반경 안에 있는 콜라이더들 가져오기
             _hits = Physics2D.OverlapCircleAll(mouseWorld, pickRadius, pickMask);
             int count = _hits.Length;
 
@@ -56,8 +60,12 @@ namespace Assets._01.Develop.CDH.Code.Core
             if (best != null)
             {
                 GameObject clicked = best.gameObject;
-                Debug.Log($"Picked: {clicked.name} dist={Mathf.Sqrt(bestSqrDist)}");
 
+                arrowUI.SetTargetWorld(clicked.transform);
+                arrowUI.SetPivotWorld(playerTrm);
+                arrowUI.Show(true);
+
+                Debug.Log($"Picked: {clicked.name} dist={Mathf.Sqrt(bestSqrDist)}");
                 // 원하는 컴포넌트
                 // var comp = clicked.GetComponent<YourComponent>();
             }
@@ -66,9 +74,9 @@ namespace Assets._01.Develop.CDH.Code.Core
             for (int i = 0; i < count; i++) _hits[i] = null;
         }
 
-        public void SelectHintStart()
+        public void SetHintSelect(bool isCan)
         {
-            isSelectHint = true;
+            isSelectHint = isCan;
         }
     }
 }

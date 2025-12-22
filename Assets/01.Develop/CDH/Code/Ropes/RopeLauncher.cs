@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using Assets._01.Develop.CDH.Code.Fasdfags;
+using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
@@ -8,6 +9,7 @@ public class RopeLauncher : MonoBehaviour
     public UnityEvent OnRopeCatchStar;
 
     [Header("References")]
+    [SerializeField] private ArrowUI arrowUI;
     [SerializeField] private Transform playerTrm;
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private RopePullController ropePullController;
@@ -38,6 +40,8 @@ public class RopeLauncher : MonoBehaviour
         curRope.OnFinishRope += HandleCurRopeEnd;
         curRope.OnCatchStar += HandleCurRopeCatchStar;
 
+        arrowUI.SetPivotWorld(curRope.transform);
+
         if (cameraManager != null)
             cameraManager.BeginFollowObj(curRope.transform);
     }
@@ -47,6 +51,7 @@ public class RopeLauncher : MonoBehaviour
         starTrm.SetStop(true);
         ropePullController.SetTarget(starTrm);
         OnRopeCatchStar?.Invoke();
+        arrowUI.Show(false);
     }
 
     private void HandleCurRopeEnd()
@@ -55,5 +60,6 @@ public class RopeLauncher : MonoBehaviour
         curRope.OnFinishRope -= HandleCurRopeEnd;
         curRope.OnCatchStar -= HandleCurRopeCatchStar;
         OnRopeFinish?.Invoke();
+        arrowUI.Show(false);
     }
 }
