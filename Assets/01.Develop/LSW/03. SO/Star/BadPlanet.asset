@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc960b68412664409dcd3ceb65d60eb, type: 3}
+  m_Name: BadPlanet
+  m_EditorClassIdentifier: 
+  starImage: {fileID: -255230573460679085, guid: 98a661c74fd7af74283f2249a835ec07, type: 3}
+  starName: Name
+  description: Desc
+  speed: 10
+  starPrefab: {fileID: 4711834628526676560, guid: 4e8ff4d2d304ae1449e97bb50833d340, type: 3}

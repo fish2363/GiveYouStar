@@ -2,7 +2,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -11,7 +10,8 @@ public class GameManager : MonoBehaviour
 {
     public float maxTimer;
     float currentTimer;
-    [SerializeField] private TextMeshProUGUI timerText;
+
+    [SerializeField] private Transform timerVisual; // ✅ 회전용 이미지 (예: RectTransform or 일반 Transform)
     public CameraManager cameraManager;
 
     public UnityEvent StartRopeCharge;
@@ -23,7 +23,9 @@ public class GameManager : MonoBehaviour
     private bool isCatchStar;
     private bool isGameStart;
 
-    public List<StarSo> getStarList=new();
+    public List<StarSo> getStarList = new();
+
+    private float initialRotationZ;
 
     private void Awake()
     {
@@ -31,7 +33,11 @@ public class GameManager : MonoBehaviour
         isRopeChargeEnd = false;
         isRopeChargeTurn = true;
         isCatchStar = false;
+
+        if (timerVisual != null)
+            initialRotationZ = timerVisual.localEulerAngles.z;
     }
+
     private void Start()
     {
         GameStart();
@@ -54,13 +60,23 @@ public class GameManager : MonoBehaviour
         if (!isGameStart) return;
 
         currentTimer -= Time.deltaTime;
-        timerText.text = currentTimer.ToString();
-        if (0 >= currentTimer)
+        currentTimer = Mathf.Clamp(currentTimer, 0f, maxTimer);
+
+        // ✅ 이미지 회전 처리
+        if (timerVisual != null)
+        {
+            float t = 1f - (currentTimer / maxTimer); // 0 → 1 로 변함
+            float rotX = initialRotationZ + 180f * t; // 점점 180도까지 증가
+            Vector3 currentEuler = timerVisual.localEulerAngles;
+            timerVisual.localEulerAngles = new Vector3(currentEuler.x, currentEuler.y, rotX);
+        }
+
+        if (currentTimer <= 0f)
         {
             GameEnd();
         }
 
-        if (isRopeChargeTurn && !isCatchStar & !cameraManager.isFullCamActive)
+        if (isRopeChargeTurn && !isCatchStar && !cameraManager.isFullCamActive)
         {
             if (!isRopeCharging && Mouse.current.leftButton.wasPressedThisFrame)
             {
@@ -81,14 +97,17 @@ public class GameManager : MonoBehaviour
     private void GameEnd()
     {
         isGameStart = false;
+        // TODO: 게임 종료 후 행동 정의
     }
 
     public void SetRopeChargeTurn() => isRopeChargeTurn = true;
     public void SetCatchStar() => isCatchStar = true;
+
     public void EndCatchStar()
     {
         StartCoroutine(EndCatchStarRoutine());
     }
+
     private IEnumerator EndCatchStarRoutine()
     {
         yield return new WaitForSeconds(2.5f);

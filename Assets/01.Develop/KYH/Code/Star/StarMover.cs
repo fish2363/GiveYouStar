@@ -1,5 +1,6 @@
 using _01.Develop.LSW._01._Scripts.So;
 using System;
+using Unity.Cinemachine;
 using UnityEngine;
 
 public class StarMover : MonoBehaviour
@@ -31,7 +32,9 @@ public class StarMover : MonoBehaviour
 
     public void SetStop(bool isStop)
     {
-        particle.Play();
+        if(isStop)
+            particle.Play();
+        Camera.main.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         isCatch = isStop;
     }
 
