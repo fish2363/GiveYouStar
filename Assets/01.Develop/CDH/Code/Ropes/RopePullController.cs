@@ -1,14 +1,18 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class RopePullController : MonoBehaviour
 {
+    public UnityEvent OnChainBreak;
+
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private bool autoFindMainCamera = true;
 
     [Header("Target (현재 잡힌 스타)")]
-    [SerializeField] private Transform starTarget;
+    [SerializeField] private StarMover starTarget;
 
     [Header("Rope Line")]
     [SerializeField] private LineRenderer ropeLine;
@@ -21,19 +25,37 @@ public class RopePullController : MonoBehaviour
     [SerializeField] private bool destroyOnCollect = true;
 
     [Header("Star Drift")]
-    [SerializeField] private Vector2 driftDirection = new Vector2(1f, 1f);
+    [SerializeField] private Vector2 driftDirection = new Vector2(1, 1);
     [SerializeField] private float driftSpeed = 8f;
 
-    [Header("Pull Settings")]
-    [SerializeField] private float pullSpeed = 12f;
+    [Tooltip("옆으로 새는 속도를 드리프트 방향으로 되돌리는 힘")]
+    [SerializeField] private float driftReturnStrength = 3f;
+
+    [Header("Pull Input")]
+    [SerializeField] private float minDragWorld = 0.8f;
+    [SerializeField] private float maxDragWorld = 5f;
+    [Range(1f, 4f)] [SerializeField] private float lengthPower = 2.4f;
+    [SerializeField] private float minEffectiveDragDuration = 0.12f;
+    [SerializeField] private float pullCooldown = 0.12f;
+
+    [Header("Pull Strength")]
+    [SerializeField] private float baseImpulse = 12f;
+
+    [Header("Pull Velocity Damping")]
+    [SerializeField] private float pullVelocityDamping = 8f;
+
+    [Header("Rope Break Settings")]
+    [SerializeField] private float maxRopeStretchDistance = 10f;
 
     private Rigidbody2D starRb;
     private Camera cam;
 
     private bool isDragging;
-    private bool isPulling;
     private Vector2 dragStartWorld;
     private float dragStartTime;
+    private float nextPullTime;
+    private Vector2 pullVel;
+    private Vector2 lastPullPosition;
 
     private void Awake()
     {
@@ -57,56 +79,88 @@ public class RopePullController : MonoBehaviour
 
         UpdateRopeLine();
 
-        if (player != null && Vector2.Distance(starTarget.position, player.position) <= collectDistance)
+        if (player != null && Vector2.Distance(starTarget.transform.position, player.position) <= collectDistance)
         {
-            if (cameraManager != null) cameraManager.EndFollowObj();
-            if (destroyOnCollect && starTarget != null)
-                Destroy(starTarget.gameObject);
-
-            ClearTarget();
+            EndPull();
             return;
         }
 
         if (cam == null || player == null || starRb == null) return;
 
-        // 드래그 시작
         if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
             dragStartWorld = MouseWorld2D();
             dragStartTime = Time.time;
-            isPulling = true;
         }
 
-        // 드래그 끝
         if (Input.GetMouseButtonUp(0))
         {
+            if (!isDragging) return;
             isDragging = false;
-            isPulling = false;
+
+            TryPullOnRelease(MouseWorld2D(), Time.time - dragStartTime);
         }
     }
 
     private void FixedUpdate()
     {
-        if (starRb == null || player == null) return;
+        if (starRb == null) return;
 
-        if (isPulling)
+        // 감쇠
+        if (pullVelocityDamping > 0f)
         {
-            Vector2 toPlayer = ((Vector2)player.position - starRb.position).normalized;
-            starRb.linearVelocity = toPlayer * pullSpeed;
+            float k = Mathf.Exp(-pullVelocityDamping * Time.fixedDeltaTime);
+            pullVel *= k;
         }
-        else
+
+        // 드리프트 유지 (옆으로 새는 거 보정)
+        if (driftReturnStrength > 0f)
         {
-            starRb.linearVelocity = driftDirection.normalized * driftSpeed;
+            Vector2 perp = pullVel - driftDirection * Vector2.Dot(pullVel, driftDirection);
+            pullVel -= perp * driftReturnStrength * Time.fixedDeltaTime;
+        }
+
+        starRb.gravityScale = 0f;
+        starRb.linearVelocity = driftDirection * driftSpeed + pullVel;
+
+        // 로프 끊김 조건
+        if (maxRopeStretchDistance > 0f)
+        {
+            float distFromLastPull = Vector2.Distance(starTarget.transform.position, lastPullPosition);
+            if (distFromLastPull > maxRopeStretchDistance)
+            {
+                Vector2 toPlayer = ((Vector2)player.position - (Vector2)starTarget.transform.position).normalized;
+                Vector2 currentDir = starRb.linearVelocity.normalized;
+
+                // 플레이어 반대 방향으로 갈 때만 끊기
+                if (Vector2.Dot(toPlayer, currentDir) < 0f)
+                {
+                    
+                    EndPull();
+                    return;
+                }
+            }
         }
     }
 
-    public void SetTarget(Transform newTarget)
+    private void EndPull()
+    {
+        if (cameraManager != null) cameraManager.EndFollowObj();
+        if (destroyOnCollect && starTarget != null)
+            starTarget.SetStop(false);
+
+        starTarget.OnDestroy -= HandleDestroy;
+        OnChainBreak?.Invoke();
+        ClearTarget();
+    }
+
+    public void SetTarget(StarMover newTarget)
     {
         starTarget = newTarget;
         starRb = null;
-
-        isPulling = false;
+        pullVel = Vector2.zero;
+        nextPullTime = 0f;
 
         if (starTarget == null) return;
 
@@ -117,22 +171,53 @@ public class RopePullController : MonoBehaviour
             starTarget = null;
             return;
         }
+        starTarget.OnDestroy += HandleDestroy;
+        lastPullPosition = starTarget.transform.position;
 
         if (followWhenRoped && cameraManager != null)
-            cameraManager.BeginFollowObj(starTarget);
+            cameraManager.CatchFollowObj(starTarget.transform);
 
         UpdateRopeLine();
+    }
+
+    private void HandleDestroy()
+    {
+        EndPull();
     }
 
     public void ClearTarget()
     {
         starTarget = null;
         starRb = null;
+        pullVel = Vector2.zero;
         isDragging = false;
-        isPulling = false;
 
         if (ropeLine != null)
             ropeLine.enabled = false;
+    }
+
+    private void TryPullOnRelease(Vector2 dragEndWorld, float dragDuration)
+    {
+        if (Time.time < nextPullTime) return;
+        nextPullTime = Time.time + pullCooldown;
+
+        if (starRb == null || starTarget == null) return;
+
+        Vector2 drag = dragEndWorld - dragStartWorld;
+        float dist = drag.magnitude;
+        if (dist < minDragWorld) return;
+
+        float durationPenalty = Mathf.Clamp01(dragDuration / Mathf.Max(0.001f, minEffectiveDragDuration));
+        float len01 = Mathf.Clamp01((dist / Mathf.Max(0.001f, maxDragWorld)) * durationPenalty);
+        float lenMul = Mathf.Pow(len01, lengthPower);
+
+        Vector2 dirToPlayer = ((Vector2)player.position - starRb.position).normalized;
+        float impulse = baseImpulse * lenMul;
+
+        Vector2 dv = dirToPlayer * (impulse / Mathf.Max(0.001f, starRb.mass));
+        pullVel = dv;
+
+        lastPullPosition = starTarget.transform.position;
     }
 
     private Vector2 MouseWorld2D()
@@ -164,6 +249,6 @@ public class RopePullController : MonoBehaviour
 
         ropeLine.enabled = true;
         ropeLine.SetPosition(0, player.position);
-        ropeLine.SetPosition(1, starTarget.position);
+        ropeLine.SetPosition(1, starTarget.transform.position);
     }
 }

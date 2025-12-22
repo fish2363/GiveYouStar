@@ -31,9 +31,8 @@ public class RopeLauncher : MonoBehaviour
         Vector3 spawnPos = transform.position + (Vector3)spawnOffset;
         curRope = Instantiate(ropePrefab, spawnPos, Quaternion.identity);
 
-        // 마우스 위치 → 방향 계산
-        Vector2 mouseWorld = cam.ScreenToWorldPoint(Mouse.current.position.value);
-        Vector2 dir = (mouseWorld - (Vector2)spawnPos).normalized;
+        Vector2 worldMouse = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
+        Vector2 dir = (worldMouse - (Vector2)spawnPos).normalized;
 
         curRope.Launch(playerTrm, dir, charge01);
         curRope.OnFinishRope += HandleCurRopeEnd;
@@ -45,14 +44,14 @@ public class RopeLauncher : MonoBehaviour
 
     private void HandleCurRopeCatchStar(StarMover starTrm)
     {
-        starTrm.SetStop();
-        ropePullController.SetTarget(starTrm.transform);
-
+        starTrm.SetStop(true);
+        ropePullController.SetTarget(starTrm);
         OnRopeCatchStar?.Invoke();
     }
 
     private void HandleCurRopeEnd()
     {
+        if (curRope == null) return;
         curRope.OnFinishRope -= HandleCurRopeEnd;
         curRope.OnCatchStar -= HandleCurRopeCatchStar;
         OnRopeFinish?.Invoke();

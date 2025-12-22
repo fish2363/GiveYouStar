@@ -130,9 +130,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 6
-  speedByCharge: 100
-  maxLifeTime: 100
-  maxDistance: 13784
+  speedByCharge: 50
+  maxLifeTime: 15
+  maxDistance: 200
   biasTurnDegPerSec: 180
   maxBiasAngleDeg: 35
   deadZone: 0.07

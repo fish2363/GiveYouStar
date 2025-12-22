@@ -1,19 +1,19 @@
 ﻿using Unity.Cinemachine;
 using UnityEngine;
-
+using DG.Tweening;
 public class CameraManager : MonoBehaviour
 {
     [Header("VCams")]
     [SerializeField] private CinemachineCamera vcamDefault;
     [SerializeField] private CinemachineCamera vcamFollow;
 
-    [Header("Priorities")]
-    [SerializeField] private int defaultPriority = 10;
-    [SerializeField] private int followPriority = 20;
+    private int activePriority = 10;
+    private int backPriority = 1;
 
     [Header("Zoom")]
-    [Range(0.5f, 1f)]
+    [Range(0.5f, 5f)]
     [SerializeField] private float followZoomFactor = 0.85f;
+    [SerializeField] private float catchZoomFactor = 0.85f;
 
     [Header("Blend Speeds")]
     [Tooltip("따라가기 전환 속도(작을수록 빠름)")]
@@ -28,8 +28,6 @@ public class CameraManager : MonoBehaviour
     private CinemachineBlendDefinition savedBlend;
 
     private float savedDefaultOrtho;
-    private int savedDefaultPriority;
-    private int savedFollowPriority;
 
     private Transform currentTarget;
     private bool isFollowing;
@@ -53,12 +51,10 @@ public class CameraManager : MonoBehaviour
 
         // 시작 상태 저장
         savedDefaultOrtho = vcamDefault.Lens.OrthographicSize;
-        savedDefaultPriority = vcamDefault.Priority;
-        savedFollowPriority = vcamFollow.Priority;
 
         // 시작은 기본 카메라
-        vcamDefault.Priority = defaultPriority;
-        vcamFollow.Priority = defaultPriority - 1;
+        vcamDefault.Priority = activePriority;
+        vcamFollow.Priority = backPriority;
 
         isFollowing = false;
     }
@@ -79,20 +75,53 @@ public class CameraManager : MonoBehaviour
 
         // “잡기 직전” 기본 상태 저장(원상복구용)
         savedDefaultOrtho = vcamDefault.Lens.OrthographicSize;
-        savedDefaultPriority = vcamDefault.Priority;
-        savedFollowPriority = vcamFollow.Priority;
 
         // Follow cam 세팅
         vcamFollow.Follow = target;
         vcamFollow.LookAt = null;
-        vcamFollow.Lens.OrthographicSize = savedDefaultOrtho * followZoomFactor;
+        float targetSize = savedDefaultOrtho * followZoomFactor;
+        DOTween.To(
+            () => vcamFollow.Lens.OrthographicSize,
+            x => vcamFollow.Lens.OrthographicSize = x,
+            targetSize,
+            2f // duration, 원하면 변수로 빼도 됨
+        ).SetEase(Ease.Linear); // 원하는 이징 설정 가능
 
         // 전환 속도(따라가기)
         SetBlendTime(followBlendTime);
 
         // Follow cam 활성화
-        vcamDefault.Priority = defaultPriority;
-        vcamFollow.Priority = followPriority;
+        vcamDefault.Priority = backPriority;
+        vcamFollow.Priority = activePriority;
+    }
+
+    public void CatchFollowObj(Transform target)
+    {
+        if (target == null) return;
+
+        currentTarget = target;
+        isFollowing = true;
+
+        // “잡기 직전” 기본 상태 저장(원상복구용)
+        savedDefaultOrtho = vcamDefault.Lens.OrthographicSize;
+
+        // Follow cam 세팅
+        vcamFollow.Follow = target;
+        vcamFollow.LookAt = null;
+        float targetSize = savedDefaultOrtho * catchZoomFactor;
+        DOTween.To(
+            () => vcamFollow.Lens.OrthographicSize,
+            x => vcamFollow.Lens.OrthographicSize = x,
+            targetSize,
+            0.4f // duration, 원하면 변수로 빼도 됨
+        ).SetEase(Ease.OutQuad); // 원하는 이징 설정 가능
+
+        // 전환 속도(따라가기)
+        SetBlendTime(followBlendTime);
+
+        // Follow cam 활성화
+        vcamDefault.Priority = backPriority;
+        vcamFollow.Priority = activePriority;
     }
 
     public void EndFollowObj()
@@ -111,8 +140,8 @@ public class CameraManager : MonoBehaviour
         vcamDefault.Lens.OrthographicSize = savedDefaultOrtho;
 
         // 원래 Priority로 복귀
-        vcamDefault.Priority = savedDefaultPriority;
-        vcamFollow.Priority = savedFollowPriority;
+        vcamDefault.Priority = activePriority;
+        vcamFollow.Priority = backPriority;
 
         // 원래 블렌드로 되돌리고 싶으면(선택)
         RestoreBlendLater(returnBlendTime + 0.01f);

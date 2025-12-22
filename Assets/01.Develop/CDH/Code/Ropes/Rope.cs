@@ -10,8 +10,18 @@ public class Rope : MonoBehaviour
     [Header("Movement")]
     [SerializeField] private float baseSpeed = 18f;
     [SerializeField] private float speedByCharge = 10f;
-    [SerializeField] private float maxLifeTime = 2.5f;
+    private float maxLifeTime = 2.5f;
     [SerializeField] private float maxDistance = 18f;
+
+    [Header("Bias Turn (Screen): y>x면 왼쪽 / y<x면 오른쪽")]
+    [SerializeField] private float biasTurnDegPerSec = 180f;
+    [SerializeField] private float maxBiasAngleDeg = 35f;
+    [Range(0f, 0.49f)]
+    [SerializeField] private float deadZone = 0.07f;
+    [Range(0.2f, 4f)]
+    [SerializeField] private float exponent = 1.4f;
+    [SerializeField] private bool scaleByDistanceFromDiagonal = true;
+    [SerializeField] private bool invertLeftRight = false;
 
     [Header("Rope Visual")]
     [SerializeField] private LineRenderer line;
@@ -22,20 +32,24 @@ public class Rope : MonoBehaviour
 
     private Vector2 launchDir;
     private float speed;
+
     private Vector2 startPos;
     private float alive;
+    private float biasAngleDeg;
 
-    public void Launch(Transform originTransform, Vector2 direction, float charge01)
+    public void Launch(Transform originTransform, Vector2 initialDir, float charge01)
     {
         origin = originTransform;
-        launchDir = direction.normalized;
+        launchDir = initialDir.normalized;
         speed = baseSpeed + speedByCharge * Mathf.Clamp01(charge01);
 
-        rb.position = transform.position;
-        rb.linearVelocity = launchDir * speed;
+        maxLifeTime = 10.5f + 8.0f * Mathf.Clamp01(charge01);
 
         startPos = rb.position;
         alive = 0f;
+        biasAngleDeg = 0f;
+
+        rb.linearVelocity = launchDir * speed;
 
         SetupLineIfNeeded();
         UpdateLine();
@@ -65,8 +79,30 @@ public class Rope : MonoBehaviour
             return;
         }
 
-        // ➤ 로프는 직진만 하도록 (휘는 로직 제거)
-        rb.linearVelocity = launchDir * speed;
+        float nx = (Screen.width > 0) ? Mathf.Clamp01(Input.mousePosition.x / Screen.width) : 0.5f;
+        float ny = (Screen.height > 0) ? Mathf.Clamp01(Input.mousePosition.y / Screen.height) : 0.5f;
+
+        float delta = ny - nx;
+        float abs = Mathf.Abs(delta);
+
+        float t = 0f;
+        if (abs > deadZone)
+            t = (abs - deadZone) / (1f - deadZone);
+
+        t = Mathf.Clamp01(Mathf.Pow(t, exponent));
+        float strength01 = scaleByDistanceFromDiagonal ? t : (abs > deadZone ? 1f : 0f);
+
+        float sign = (delta >= 0f) ? 1f : -1f;
+        if (invertLeftRight) sign *= -1f;
+
+        float turnThisFrame = sign * biasTurnDegPerSec * strength01 * Time.fixedDeltaTime;
+
+        biasAngleDeg += turnThisFrame;
+        if (maxBiasAngleDeg > 0f)
+            biasAngleDeg = Mathf.Clamp(biasAngleDeg, -maxBiasAngleDeg, maxBiasAngleDeg);
+
+        Vector2 newDir = Quaternion.Euler(0f, 0f, biasAngleDeg) * launchDir;
+        rb.linearVelocity = newDir.normalized * speed;
     }
 
     private void LateUpdate()
@@ -79,8 +115,7 @@ public class Rope : MonoBehaviour
         if (line != null) return;
 
         var go = new GameObject("RopeLine");
-        go.transform.SetParent(transform, worldPositionStays: true);
-
+        go.transform.SetParent(transform);
         line = go.AddComponent<LineRenderer>();
         line.positionCount = 2;
         line.useWorldSpace = true;
@@ -102,12 +137,8 @@ public class Rope : MonoBehaviour
     {
         if (collision.CompareTag("Star"))
         {
-            var star = collision.GetComponent<StarMover>();
-            if (star != null)
-            {
-                OnCatchStar?.Invoke(star);
-                Destroy(gameObject);
-            }
+            OnCatchStar?.Invoke(collision.GetComponent<StarMover>());
+            Destroy(gameObject);
         }
     }
 }
