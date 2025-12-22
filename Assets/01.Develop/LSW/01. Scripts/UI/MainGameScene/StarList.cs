@@ -24,8 +24,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         private void Start()
         {
             starIcon.gameObject.SetActive(false);
-            starNameText.text = string.Empty;
-            starDescriptionText.text = string.Empty;
+            starNameText.SetText(string.Empty);
+            starDescriptionText.SetText(string.Empty);
             
             foreach (var star in StarManager.Instance.GetStarList())
             {
@@ -40,8 +40,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         {
             starIcon.gameObject.SetActive(true);
             starIcon.sprite = star.starImage;
-            starNameText.text = star.starName;
-            starDescriptionText.text = star.description;
+            starNameText.SetText(star.starName);
+            starDescriptionText.SetText(star.description);
         }
 
         private void OnDestroy()
