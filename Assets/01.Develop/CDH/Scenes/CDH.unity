@@ -316,7 +316,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8318150757762917414, guid: 94aca9356fd347f42810778d8eaabf96, type: 3}
       propertyPath: fixedRadius
-      value: 150
+      value: 600
       objectReference: {fileID: 0}
     - target: {fileID: 8318150757762917414, guid: 94aca9356fd347f42810778d8eaabf96, type: 3}
       propertyPath: angleOffsetDeg
@@ -1940,6 +1940,9 @@ MonoBehaviour:
     m_Bits: 2048
   arrowUI: {fileID: 298228842}
   arrowImageForNearstStar: {fileID: 148692523}
+  uiCanvas: {fileID: 0}
+  worldCamera: {fileID: 0}
+  underStarPaddingPx: 18
   pickRadius: 3.9
   maxHits: 1
 --- !u!1 &1737606702
