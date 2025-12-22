@@ -2,14 +2,17 @@
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using UnityEngine.Rendering;
 
 public class RopeLauncher : MonoBehaviour             
 {
     public UnityEvent OnRopeFinish;
+    public UnityEvent OnRopeCatchStar;
 
     [Header("References")]
     [SerializeField] private Transform playerTrm;
     [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private RopePullController ropePullController;
     [SerializeField] private Rope ropePrefab;
 
     [Header("Initial Aim")]
@@ -39,15 +42,23 @@ public class RopeLauncher : MonoBehaviour
         // (예시) 초기 방향: 플레이어 오른쪽
         curRope.Launch(playerTrm, Mouse.current.position.value, charge01);
         curRope.OnFinishRope += HandleCurRopeEnd;
+        curRope.OnCatchStar += HandleCurRopeCatchStar;
 
         // ✅ 카메라가 로프 따라가게
         if (cameraManager != null)
             cameraManager.BeginFollowObj(curRope.transform);
     }
 
+    private void HandleCurRopeCatchStar(Transform starTrm)
+    {
+        ropePullController.SetTarget(starTrm);
+        OnRopeCatchStar?.Invoke();
+    }
+
     private void HandleCurRopeEnd()
     {
         curRope.OnFinishRope -= HandleCurRopeEnd;
+        curRope.OnCatchStar -= HandleCurRopeCatchStar;
         OnRopeFinish?.Invoke();
     }
 }

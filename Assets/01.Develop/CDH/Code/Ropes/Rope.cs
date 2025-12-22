@@ -5,6 +5,7 @@ using UnityEngine;
 public class Rope : MonoBehaviour
 {
     public event Action OnFinishRope;
+    public event Action<Transform> OnCatchStar;
 
     [Header("Movement")]
     [SerializeField] private float baseSpeed = 18f;
@@ -147,5 +148,13 @@ public class Rope : MonoBehaviour
         if (line == null || origin == null) return;
         line.SetPosition(0, origin.position);
         line.SetPosition(1, transform.position);
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Star"))
+        {
+            OnCatchStar?.Invoke(collision.transform);
+        }
     }
 }

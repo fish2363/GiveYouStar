@@ -1,16 +1,26 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Rigidbody2D))]
-public class RopePullTest : MonoBehaviour
+/// <summary>
+/// 스타(타겟)를 외부에서 받아서 로프 당김/드리프트/수집/카메라 팔로우/라인렌더러를 제어하는 컨트롤러.
+/// 스타 오브젝트에는 Rigidbody2D만 있으면 됨.
+/// </summary>
+public class RopePullController : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Transform player;
     [SerializeField] private CameraManager cameraManager;
+    [SerializeField] private bool autoFindMainCamera = true;
+
+    [Header("Target (현재 잡힌 스타)")]
+    [SerializeField] private Transform starTarget; // 시작부터 잡힌 상태 테스트용(원하면 비워도 됨)
+
+    [Header("Rope Line")]
     [SerializeField] private LineRenderer ropeLine;
     [SerializeField] private bool autoCreateRopeLine = true;
+    [SerializeField] private float lineWidth = 0.05f;
 
     [Header("Camera Follow / Collect")]
-    [SerializeField] private bool followWhenRoped = true;   // 테스트: 시작부터 이미 걸린 상태
+    [SerializeField] private bool followWhenRoped = true;
     [SerializeField] private float collectDistance = 1.2f;
     [SerializeField] private bool destroyOnCollect = true;
 
@@ -54,7 +64,7 @@ public class RopePullTest : MonoBehaviour
     [Header("Pull Velocity Damping")]
     [SerializeField] private float pullVelocityDamping = 1.2f;
 
-    private Rigidbody2D rb;
+    private Rigidbody2D starRb;
     private Camera cam;
 
     private bool isDragging;
@@ -67,10 +77,8 @@ public class RopePullTest : MonoBehaviour
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
-        cam = Camera.main;
-
-        rb.gravityScale = 0f;
+        if (autoFindMainCamera)
+            cam = Camera.main;
 
         if (driftDirection.sqrMagnitude < 0.0001f)
             driftDirection = Vector2.right;
@@ -80,28 +88,31 @@ public class RopePullTest : MonoBehaviour
 
         if (autoCreateRopeLine && ropeLine == null)
             SetupRopeLine();
-    }
 
-    private void Start()
-    {
-        // ✅ 플레이어 따라가지 말고, 스타를 따라가게
-        if (followWhenRoped && cameraManager != null)
-            cameraManager.BeginFollowObj(transform);
+        // 인스펙터에 스타가 들어있으면 시작부터 타겟으로 세팅
+        if (starTarget != null)
+            SetTarget(starTarget);
     }
 
     private void Update()
     {
+        if (starTarget == null) return;
+
         UpdateRopeLine();
 
-        // 먹기(플레이어 근처)
-        if (player != null && Vector2.Distance(transform.position, player.position) <= collectDistance)
+        // 수집(플레이어 근처)
+        if (player != null && Vector2.Distance(starTarget.position, player.position) <= collectDistance)
         {
             if (cameraManager != null) cameraManager.EndFollowObj();
-            if (destroyOnCollect) Destroy(gameObject);
+
+            if (destroyOnCollect && starTarget != null)
+                Destroy(starTarget.gameObject);
+
+            ClearTarget();
             return;
         }
 
-        if (cam == null || player == null) return;
+        if (cam == null || player == null || starRb == null) return;
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -118,13 +129,14 @@ public class RopePullTest : MonoBehaviour
             TryPullOnRelease(MouseWorld2D(), Time.time - dragStartTime);
         }
 
-        // 테스트 편의: R로 로프파워 리셋
         if (Input.GetKeyDown(KeyCode.R))
             ropePower = Mathf.Clamp01(ropePowerStart);
     }
 
     private void FixedUpdate()
     {
+        if (starRb == null) return;
+
         if (pullVelocityDamping > 0f)
         {
             float k = Mathf.Exp(-pullVelocityDamping * Time.fixedDeltaTime);
@@ -138,7 +150,51 @@ public class RopePullTest : MonoBehaviour
             pullVel -= perp * driftReturnStrength * Time.fixedDeltaTime;
         }
 
-        rb.linearVelocity = driftDirection * driftSpeed + pullVel;
+        starRb.gravityScale = 0f;
+        starRb.linearVelocity = driftDirection * driftSpeed + pullVel;
+    }
+
+    /// <summary>
+    /// 외부에서 잡힌 스타(타겟)를 세팅하는 함수
+    /// </summary>
+    public void SetTarget(Transform newTarget)
+    {
+        starTarget = newTarget;
+        starRb = null;
+
+        pullVel = Vector2.zero;
+        ropePower = Mathf.Clamp01(ropePowerStart);
+        nextPullTime = 0f;
+
+        if (starTarget == null) return;
+
+        starRb = starTarget.GetComponent<Rigidbody2D>();
+        if (starRb == null)
+        {
+            Debug.LogError("[RopePullController] Star Target에 Rigidbody2D가 없습니다.");
+            starTarget = null;
+            return;
+        }
+
+        if (followWhenRoped && cameraManager != null)
+            cameraManager.BeginFollowObj(starTarget);
+
+        UpdateRopeLine();
+    }
+
+    /// <summary>
+    /// 타겟 해제(로프 끊김 등)
+    /// </summary>
+    public void ClearTarget()
+    {
+        starTarget = null;
+        starRb = null;
+        pullVel = Vector2.zero;
+        isDragging = false;
+
+        // 라인 숨기고 싶으면 여기서 끄면 됨
+        if (ropeLine != null)
+            ropeLine.enabled = false;
     }
 
     private void TryPullOnRelease(Vector2 dragEndWorld, float dragDuration)
@@ -146,9 +202,10 @@ public class RopePullTest : MonoBehaviour
         if (Time.time < nextPullTime) return;
         nextPullTime = Time.time + pullCooldown;
 
+        if (starRb == null || starTarget == null) return;
+
         Vector2 drag = dragEndWorld - dragStartWorld;
         float dist = drag.magnitude;
-
         if (dist < minDragWorld) return;
 
         float durationPenalty = Mathf.Clamp01(dragDuration / Mathf.Max(0.001f, minEffectiveDragDuration));
@@ -157,7 +214,7 @@ public class RopePullTest : MonoBehaviour
         float lenMul = Mathf.Pow(len01, lengthPower);
 
         Vector2 dragDir = drag.normalized;
-        Vector2 dirToPlayer = ((Vector2)player.position - rb.position).normalized;
+        Vector2 dirToPlayer = ((Vector2)player.position - starRb.position).normalized;
 
         float align01 = Mathf.Clamp01(Vector2.Dot(dragDir, dirToPlayer));
         float alignMul = alignmentCurve != null ? alignmentCurve.Evaluate(align01) : align01;
@@ -168,7 +225,7 @@ public class RopePullTest : MonoBehaviour
 
         Vector2 outDir = Vector2.Lerp(dragDir, dirToPlayer, pullDirectionToPlayerBlend).normalized;
 
-        Vector2 dv = outDir * (impulse / Mathf.Max(0.001f, rb.mass));
+        Vector2 dv = outDir * (impulse / Mathf.Max(0.001f, starRb.mass));
         pullVel += dv;
 
         // 당길 때마다 약해짐
@@ -177,9 +234,11 @@ public class RopePullTest : MonoBehaviour
 
     private Vector2 MouseWorld2D()
     {
+        if (cam == null) cam = Camera.main;
+
         Vector3 m = Input.mousePosition;
-        m.z = -cam.transform.position.z;
-        return cam.ScreenToWorldPoint(m);
+        m.z = (cam != null) ? -cam.transform.position.z : 0f;
+        return (cam != null) ? (Vector2)cam.ScreenToWorldPoint(m) : Vector2.zero;
     }
 
     private void SetupRopeLine()
@@ -188,17 +247,20 @@ public class RopePullTest : MonoBehaviour
         ropeLine = go.AddComponent<LineRenderer>();
         ropeLine.positionCount = 2;
         ropeLine.useWorldSpace = true;
-        ropeLine.startWidth = 0.05f;
-        ropeLine.endWidth = 0.05f;
+        ropeLine.startWidth = lineWidth;
+        ropeLine.endWidth = lineWidth;
         ropeLine.material = new Material(Shader.Find("Sprites/Default"));
         ropeLine.startColor = Color.white;
         ropeLine.endColor = Color.white;
+        ropeLine.enabled = false;
     }
 
     private void UpdateRopeLine()
     {
-        if (ropeLine == null || player == null) return;
+        if (ropeLine == null || player == null || starTarget == null) return;
+
+        ropeLine.enabled = true;
         ropeLine.SetPosition(0, player.position);
-        ropeLine.SetPosition(1, transform.position);
+        ropeLine.SetPosition(1, starTarget.position);
     }
 }

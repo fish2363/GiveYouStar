@@ -10,17 +10,19 @@ public class GameManager : MonoBehaviour
     private bool isRopeCharging;
     private bool isRopeChargeEnd;
     private bool isRopeChargeTurn;
+    private bool isCatchStar;
 
     private void Awake()
     {
         isRopeCharging = false;
         isRopeChargeEnd = false;
         isRopeChargeTurn = true;
+        isCatchStar = false;
     }
 
     private void Update()
     {
-        if (isRopeChargeTurn)
+        if (isRopeChargeTurn && !isCatchStar)
         {
             if (!isRopeCharging && Mouse.current.leftButton.wasPressedThisFrame)
             {
@@ -32,12 +34,14 @@ public class GameManager : MonoBehaviour
             {
                 isRopeCharging = false;
                 isRopeChargeEnd = true;
-                EndRopeCharge?.Invoke();
                 isRopeChargeTurn = false;
+                EndRopeCharge?.Invoke();
             }
         }
     }
 
     public void SetRopeChargeTurn() => isRopeChargeTurn = true;
+    public void SetCatchStar() => isCatchStar = true;
+    public void EndCatchStar() => isCatchStar = false;
 
 }
