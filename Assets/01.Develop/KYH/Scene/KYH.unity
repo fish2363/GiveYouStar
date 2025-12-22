@@ -562,6 +562,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxTimer: 50
   timerText: {fileID: 301035498}
+  cameraManager: {fileID: 915437353}
   StartRopeCharge:
     m_PersistentCalls:
       m_Calls:
@@ -1094,6 +1095,7 @@ MonoBehaviour:
   followBlendTime: 4
   returnBlendTime: 0.05
   blendStyle: 1
+  isFullCamActive: 0
 --- !u!4 &915437354
 Transform:
   m_ObjectHideFlags: 0
