@@ -1,12 +1,22 @@
+using _01.Develop.LSW._01._Scripts.So;
 using System;
 using UnityEngine;
 
 public class StarMover : MonoBehaviour
 {
-    public float speed = 2f;
+    float speed = 2f;
+
     private Vector3 moveDirection;
     public bool isCatch;
     public Action OnDestroy;
+    [SerializeField] private ParticleSystem particle;
+    public StarSo MyInfo { get; private set; }
+
+    public void Initialize(StarSo star)
+    {
+        MyInfo = star;
+        speed = star.speed;
+    }
 
     public void SetMoveDirection(Vector3 dir)
     {
@@ -21,6 +31,7 @@ public class StarMover : MonoBehaviour
 
     public void SetStop(bool isStop)
     {
+        particle.Play();
         isCatch = isStop;
     }
 

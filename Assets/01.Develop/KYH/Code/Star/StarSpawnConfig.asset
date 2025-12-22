@@ -16,12 +16,12 @@ MonoBehaviour:
   - grade: 0
     probability: 0.5
     prefabs:
-    - {fileID: 8379932240666563092, guid: 800690f45da061849b9fcd1c45a27225, type: 3}
+    - {fileID: 11400000, guid: 465c23277a8fac243ba07a2ce6b0d888, type: 2}
   - grade: 2
     probability: 0.2
     prefabs:
-    - {fileID: 5204726340962244434, guid: 72ed774e40f871e48a10368fef2afab1, type: 3}
+    - {fileID: 11400000, guid: cb6db97ec63cc9d4aa423b4c43dfc1b0, type: 2}
   - grade: 1
     probability: 0.3
     prefabs:
-    - {fileID: 2081914254177661208, guid: 9eddc01b7115f804eb8724a89522c4f3, type: 3}
+    - {fileID: 11400000, guid: 6c1ae202392b6184fb9e3efd2f7a5d0d, type: 2}

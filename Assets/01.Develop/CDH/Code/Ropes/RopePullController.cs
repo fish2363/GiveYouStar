@@ -1,3 +1,4 @@
+using _01.Develop.LSW._01._Scripts.So;
 using System;
 using UnityEngine;
 using UnityEngine.Events;
@@ -5,6 +6,7 @@ using UnityEngine.Events;
 public class RopePullController : MonoBehaviour
 {
     public UnityEvent OnChainBreak;
+    public UnityEvent<StarSo> OnGetStar;
 
     [Header("References")]
     [SerializeField] private Transform player;
@@ -81,6 +83,7 @@ public class RopePullController : MonoBehaviour
 
         if (player != null && Vector2.Distance(starTarget.transform.position, player.position) <= collectDistance)
         {
+            OnGetStar?.Invoke(starTarget.MyInfo);
             EndPull();
             return;
         }

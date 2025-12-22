@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
+using _01.Develop.LSW._01._Scripts.So;
 
 public class StarSpawner : MonoBehaviour
 {
@@ -25,19 +26,18 @@ public class StarSpawner : MonoBehaviour
             StarGradeData gradeData = GetRandomGrade();
             if (gradeData == null || gradeData.prefabs.Count == 0) continue;
 
-            GameObject prefabToSpawn = gradeData.prefabs[Random.Range(0, gradeData.prefabs.Count)];
+            StarSo soToSpawn = gradeData.prefabs[Random.Range(0, gradeData.prefabs.Count)];
             Vector3 spawnPos = GetRandomPositionInArea();
-            GameObject star = Instantiate(prefabToSpawn, spawnPos, Quaternion.identity);
+            GameObject go = Instantiate(soToSpawn.starPrefab, spawnPos, Quaternion.identity);
+            StarMover mover = go.GetComponent<StarMover>();
+            mover.Initialize(soToSpawn);
+            //GameObject star = Instantiate(prefabToSpawn.gameObject, spawnPos, Quaternion.identity);
 
             Vector3 chosenDir = Random.value < 0.5f
                 ? new Vector3(-1f, 1f, 0f)   // 왼쪽 위
                 : new Vector3(1f, -1f, 0f);  // 오른쪽 아래
 
-            StarMover mover = star.GetComponent<StarMover>();
-            if (mover != null)
-            {
-                mover.SetMoveDirection(chosenDir);
-            }
+            mover.SetMoveDirection(chosenDir);
         }
     }
 

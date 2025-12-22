@@ -608,6 +608,37 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &648200141
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 648200142}
+  m_Layer: 0
+  m_Name: EffectManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &648200142
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 648200141}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.3581195, y: 60.92949, z: 0.045485146}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &661027503
 GameObject:
   m_ObjectHideFlags: 0
@@ -952,7 +983,7 @@ MonoBehaviour:
   minCharge01: 0
   maxCharge01: 1
   chargingDatas:
-  - {fileID: 11400000, guid: ecefcd6ff10fb124f8a175e52c3b5a90, type: 2}
+  - {fileID: 11400000, guid: 31d66ff0e104aa14b85ea588baea21e9, type: 2}
   chargeFillImage: {fileID: 1479833433}
   chargeTMP: {fileID: 170839182}
   onReleaseCharge01:
@@ -1759,6 +1790,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: StarSpawner
       objectReference: {fileID: 0}
+    - target: {fileID: 5765458559601295365, guid: 4cd008cbf715df7428813fec4cb11516, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 5765458559601295365, guid: 4cd008cbf715df7428813fec4cb11516, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 30
+      objectReference: {fileID: 0}
     - target: {fileID: 7918960868747832357, guid: 4cd008cbf715df7428813fec4cb11516, type: 3}
       propertyPath: m_LocalPosition.x
       value: 200
@@ -1906,3 +1945,4 @@ SceneRoots:
   - {fileID: 173736572}
   - {fileID: 2097515970}
   - {fileID: 1414537197}
+  - {fileID: 648200142}
