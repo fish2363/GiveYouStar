@@ -7,8 +7,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
     public class ChildUI : MonoBehaviour
     {
         public int giveCoinAmt;
-        
-        private StarSo _reqStar;
+
+        [SerializeField] private StarSo _reqStar;
         private bool _alreadyGiven;
         
         public void SetReqStar(StarSo star)

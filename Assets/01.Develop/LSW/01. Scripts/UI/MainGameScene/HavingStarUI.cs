@@ -20,7 +20,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         private Canvas parentCanvas;
         private GraphicRaycaster raycaster;
         private CanvasGroup canvasGroup;
-
+        private Vector2 dragOffset;
+        
         public void SetStar(StarSo star)
         {
             _currentStar = star;
@@ -39,16 +40,31 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         public void OnBeginDrag(PointerEventData eventData)
         {
             originalPos = rect.anchoredPosition;
-            // 드래그 중 자신이 레이캐스트를 막지 않도록
+
+            var cam = parentCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+                ? null
+                : parentCanvas.worldCamera;
+
+            // 마우스 위치를 Canvas 로컬 좌표로 변환
+            RectTransformUtility.ScreenPointToLocalPointInRectangle(
+                parentCanvas.transform as RectTransform,
+                eventData.position,
+                cam,
+                out Vector2 localMousePos
+            );
+
+            // 현재 UI 위치와 마우스 위치의 차이를 저장
+            dragOffset = rect.anchoredPosition - localMousePos;
+
             canvasGroup.blocksRaycasts = false;
-            // 최상단으로 올려 시각적 우선순위 확보
             rect.SetAsLastSibling();
         }
 
         public void OnDrag(PointerEventData evt)
         {
-            // Canvas renderMode에 맞는 카메라 전달 (ScreenSpaceOverlay는 null)
-            var cam = parentCanvas.renderMode == RenderMode.ScreenSpaceOverlay ? null : parentCanvas.worldCamera;
+            var cam = parentCanvas.renderMode == RenderMode.ScreenSpaceOverlay
+                ? null
+                : parentCanvas.worldCamera;
 
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
                 parentCanvas.transform as RectTransform,
@@ -56,7 +72,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                 cam,
                 out Vector2 localPoint
             );
-            rect.anchoredPosition = localPoint;
+
+            // 오프셋을 적용
+            rect.anchoredPosition = localPoint + dragOffset;
         }
 
         public void OnEndDrag(PointerEventData evt)
@@ -69,14 +87,18 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             raycaster.Raycast(pointerData, results);
 
             ChildUI target = null;
+            StarTrashcan trashcan = null;
             foreach (var r in results)
             {
                 target = r.gameObject.GetComponentInParent<ChildUI>();
-                if (target != null) break;
+                trashcan = r.gameObject.GetComponent<StarTrashcan>();
+                if (target != null || trashcan != null) 
+                    break;
             }
 
-            bool accepted = false;
-            if (target != null)
+            bool accepted = trashcan != null;
+            
+            if (target != null && !accepted)
             {
                 accepted = target.GiveStar(_currentStar);
             }
