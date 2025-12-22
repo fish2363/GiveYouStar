@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.So;
 using TMPro;
 using UnityEngine;
@@ -8,8 +9,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 {
     public class StarList : MonoBehaviour
     {
-        [Header("Star So List")]
-        [SerializeField] private List<StarSo> stars = new List<StarSo>();
+        [Header("Star Slot List")]
         private readonly List<StarSlot> _starSlotList = new List<StarSlot>();
         
         [Header("Instantiate Star Slot")]
@@ -27,11 +27,11 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             starNameText.text = string.Empty;
             starDescriptionText.text = string.Empty;
             
-            foreach (var star in stars)
+            foreach (var star in StarManager.Instance.GetStarList())
             {
                 StarSlot starSlot = Instantiate(starSlotPrefab, starSlotParent);
-                starSlot.Initialize(star);
-                starSlot.OnShowStarInformation += ShowStars;
+                starSlot.Initialize(star.Key, star.Value);
+                starSlot.onShowStarInformation += ShowStars;
                 _starSlotList.Add(starSlot);
             }
         }
@@ -48,7 +48,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         {
             foreach (var starSlot in _starSlotList)
             {
-                starSlot.OnShowStarInformation -= ShowStars;
+                starSlot.onShowStarInformation -= ShowStars;
             }
         }
     }

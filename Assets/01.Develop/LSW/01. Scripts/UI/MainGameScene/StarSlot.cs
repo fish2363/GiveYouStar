@@ -11,12 +11,14 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         
         [SerializeField] private Image starIcon;
 
-        public event Action<StarSo> OnShowStarInformation;
+        public event Action<StarSo> onShowStarInformation;
 
-        public void Initialize(StarSo star)
+        private bool _isUnlocked;
+        
+        public void Initialize(StarSo star, bool isUnlocked)
         {
             starSo = star;
-            if (star.isUnlocked)
+            if (isUnlocked)
             {
                 starIcon.sprite = star.starImage;
             }
@@ -24,14 +26,15 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             {
                 // starIcon.sprite = 
             }
+            _isUnlocked = isUnlocked;
         }
         
         public void ShowInformation()
         {
-            if (!starSo.isUnlocked || starSo == null)
+            if (!_isUnlocked || starSo == null)
                 return;
             
-            OnShowStarInformation?.Invoke(starSo);
+            onShowStarInformation?.Invoke(starSo);
         }
     }
 }
