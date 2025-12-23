@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using _01.Develop.LSW._01._Scripts.So;
 using UnityEngine;
 
 namespace _01.Develop.LSW._01._Scripts.Manager
@@ -14,7 +16,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         private float Sight { get; set; }
         private float LaunchPower { get; set; }
         private float PullPower { get; set; }
-
+        
         public event Action onStatsChanged;
 
         protected override void Awake()
