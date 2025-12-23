@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc960b68412664409dcd3ceb65d60eb, type: 3}
   m_Name: SpaceShip
   m_EditorClassIdentifier: 
-  starImage: {fileID: 8550567523899196316, guid: fcd87b32edeb4994c9138eba788a0a6d, type: 3}
+  starImage: {fileID: 21300000, guid: fcd87b32edeb4994c9138eba788a0a6d, type: 3}
+  starIcon: {fileID: 21300000, guid: fcd87b32edeb4994c9138eba788a0a6d, type: 3}
   starName: Name
   description: Desc
   speed: 10
   starPrefab: {fileID: 5204726340962244434, guid: 24143171cac68554b970c7c569d08dde, type: 3}
+  price: 0
+  throwPrice: 0
