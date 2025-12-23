@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   starImage: {fileID: 21300000, guid: 40e06c0331a957c4ca06f2bf3705e194, type: 3}
   starIcon: {fileID: 21300000, guid: 40e06c0331a957c4ca06f2bf3705e194, type: 3}
-  starName: Name
-  description: Desc
+  starName: "\uB2EC \uC870\uAC01"
+  description: "\uB2EC\uC744 \uC190\uC5D0 \uB123\uC5C8\uB2E4."
   speed: 10
   starPrefab: {fileID: 8862248589327440636, guid: 4844b73395166ae42af9a737cf3eac45, type: 3}
   price: 0

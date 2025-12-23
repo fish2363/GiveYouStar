@@ -15,36 +15,41 @@ namespace _01.Develop.LSW._01._Scripts.UI.Editor
         public override VisualElement CreateInspectorGUI()
         {
             var root = new VisualElement();
+
+            if (target == null) return root;
             
+            var so = serializedObject;
+            if (so == null) return root;
+
             _moveSceneField = new VisualElement();
             _showUIField = new VisualElement();
             
-            _btnTypeProp = serializedObject.FindProperty("btnType");
+            _btnTypeProp = so.FindProperty("btnType");
             
             var btnTypeField = new PropertyField(_btnTypeProp);
             
             root.Add(btnTypeField);
-            root.Add(new PropertyField(serializedObject.FindProperty("interactionTrm")));
+            root.Add(new PropertyField(so.FindProperty("interactionTrm")));
             
             #region showUI
             
-            _showUIField.Add(new PropertyField(serializedObject.FindProperty("targetUI")));
-            _showUIField.Add(new PropertyField(serializedObject.FindProperty("mainBackGround")));
+            _showUIField.Add(new PropertyField(so.FindProperty("targetUI")));
+            _showUIField.Add(new PropertyField(so.FindProperty("mainBackGround")));
             root.Add(_showUIField);
             
             #endregion
 
             #region moveScene
             
-            _moveSceneField.Add(new PropertyField(serializedObject.FindProperty("transition")));
-            _moveSceneField.Add(new PropertyField(serializedObject.FindProperty("targetSceneName")));
+            _moveSceneField.Add(new PropertyField(so.FindProperty("targetSceneName")));
             root.Add(_moveSceneField);
             
             #endregion
 
             btnTypeField.RegisterValueChangeCallback(_ =>
             {
-                serializedObject.Update(); 
+                if (target == null) return;
+                so.Update(); 
                 UpdateFieldVisibility((MGBtnType)_btnTypeProp.enumValueIndex);
             });
             

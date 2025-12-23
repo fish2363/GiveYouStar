@@ -1,5 +1,4 @@
 ﻿using _01.Develop.LSW._01._Scripts.So;
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using _01.Develop.LSW._01._Scripts.Manager;
@@ -7,22 +6,23 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using Ami.BroAudio;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
-    [Header("Sound")]
-    [SerializeField] private SoundID gameEndBellSoundID;
-    [Space]
-
-
     public float maxTimer;
     float currentTimer;
     [SerializeField] private SpriteRenderer clickUI;
 
-    [SerializeField] private Transform timerVisual; // ✅ 회전용 이미지 (예: RectTransform or 일반 Transform)
+    [SerializeField] private Transform timerVisual;
     public CameraManager cameraManager;
-    [SerializeField] private TMP_Text countText;
+
+    [Header("Countdown Text (3,2,1)")]
+    [SerializeField] private TMP_Text countText;     // ✅ 카운트다운 전용
+
+    [Header("Charge Ready Text (Blink)")]
+    [SerializeField] private TMP_Text chargeReadyText; // ✅ 차지 안내 텍스트 (따로!)
+
     public UnityEvent<bool> OnStartCharge;
 
     public UnityEvent StartRopeCharge;
@@ -40,6 +40,18 @@ public class GameManager : MonoBehaviour
 
     private float initialRotationZ;
 
+    // =========================
+    // Blink Settings
+    // =========================
+    [Header("Charge Ready Blink Settings")]
+    [SerializeField] private bool useChargeBlink = true;
+    [SerializeField] private float blinkMinAlpha = 0.15f;
+    [SerializeField] private float blinkMaxAlpha = 1.0f;
+    [SerializeField] private float blinkHalfDuration = 0.7f;
+    [SerializeField] private Ease blinkEase = Ease.InOutSine;
+
+    private Tween chargeBlinkTween;
+
     private void Awake()
     {
         isRopeCharging = false;
@@ -49,19 +61,44 @@ public class GameManager : MonoBehaviour
 
         if (timerVisual != null)
             initialRotationZ = timerVisual.localEulerAngles.z;
+
+        // ✅ 시작은 안 보이게
+        SetChargeReadyVisible(false);
     }
+
+    private void OnDisable()
+    {
+        StopChargeBlink();
+    }
+
     private IEnumerator Start()
     {
-        countText.text = "3";
-        yield return new WaitForSeconds(1f);
-        countText.text = "2";
-        yield return new WaitForSeconds(1f);
-        countText.text = "1";
-        yield return new WaitForSeconds(1f);
-        countText.text = "";
+        // 카운트다운
+        if (countText != null)
+        {
+            countText.text = "3";
+            yield return new WaitForSeconds(1f);
+            countText.text = "2";
+            yield return new WaitForSeconds(1f);
+            countText.text = "1";
+            yield return new WaitForSeconds(1f);
+            countText.text = "";
+        }
+
         clickUI.enabled = true;
+
         GameStart();
+
+        // ✅ 카메라 1프레임 정착
+        yield return null;
+
+        // ✅ 로프 차지 "대기" 안내 텍스트 깜빡 시작
+        StartChargeBlink();
+
         yield return new WaitForSeconds(4f);
+
+        // 4초 끝나면(원래 네 로직처럼) UI 끄기
+        StopChargeBlink();
         clickUI.enabled = false;
     }
 
@@ -84,49 +121,61 @@ public class GameManager : MonoBehaviour
         currentTimer -= Time.deltaTime;
         currentTimer = Mathf.Clamp(currentTimer, 0f, maxTimer);
 
-        // ✅ 이미지 회전 처리
+        // 타이머 비주얼 회전
         if (timerVisual != null)
         {
-            float t = 1f - (currentTimer / maxTimer); // 0 → 1 로 변함
-            float rotX = initialRotationZ + 180f * t; // 점점 180도까지 증가
+            float t = 1f - (currentTimer / maxTimer);
+            float rotX = initialRotationZ + 180f * t;
             Vector3 currentEuler = timerVisual.localEulerAngles;
             timerVisual.localEulerAngles = new Vector3(currentEuler.x, currentEuler.y, rotX);
         }
 
         if (currentTimer <= 0f)
-        {
             GameEnd();
-        }
 
+        // 차지 턴
         if (isRopeChargeTurn && !isCatchStar && !cameraManager.isFullCamActive)
         {
+            // ✅ 차지 대기 중이면 깜빡 유지
+            if (!isRopeCharging)
+                StartChargeBlink();
+
             if (!isRopeCharging && Mouse.current.leftButton.wasPressedThisFrame)
             {
+                // ✅ 차지 시작하면 안내 텍스트는 사라지기
+                StopChargeBlink();
+
                 isRopeCharging = true;
                 isRopeChargeEnd = false;
                 StartRopeCharge?.Invoke();
             }
+
             if (isRopeCharging && Mouse.current.leftButton.wasReleasedThisFrame)
             {
                 isRopeCharging = false;
                 isRopeChargeEnd = true;
                 isRopeChargeTurn = false;
+
+                StopChargeBlink();
                 EndRopeCharge?.Invoke();
             }
+        }
+        else
+        {
+            StopChargeBlink();
         }
     }
 
     private void GameEnd()
     {
         isGameStart = false;
+        StopChargeBlink();
         StarManager.Instance.EndGame();
-        // TODO: 게임 종료 후 행동 정의
-        BroAudio.Play(gameEndBellSoundID);
     }
 
     public void SetRopeChargeTurn()
     {
-        if(coroutine != null)
+        if (coroutine != null)
             StopCoroutine(coroutine);
         coroutine = StartCoroutine(SetRopeChargeTurnRoutine());
     }
@@ -134,22 +183,35 @@ public class GameManager : MonoBehaviour
     public IEnumerator SetRopeChargeTurnRoutine()
     {
         clickUI.enabled = false;
-        countText.text = "3";
-        yield return new WaitForSeconds(1f);
-        countText.text = "2";
-        yield return new WaitForSeconds(1f);
-        countText.text = "1";
-        yield return new WaitForSeconds(1f);
-        countText.text = "";
+
+        if (countText != null)
+        {
+            countText.text = "3";
+            yield return new WaitForSeconds(1f);
+            countText.text = "2";
+            yield return new WaitForSeconds(1f);
+            countText.text = "1";
+            yield return new WaitForSeconds(1f);
+            countText.text = "";
+        }
+
         clickUI.enabled = true;
         isRopeChargeTurn = true;
         OnStartCharge?.Invoke(true);
+
+        // ✅ 다시 차지 대기 깜빡
+        StartChargeBlink();
+
         yield return new WaitForSeconds(4f);
+
+        StopChargeBlink();
         clickUI.enabled = false;
     }
+
     public void SetCatchStar()
     {
         isCatchStar = true;
+        StopChargeBlink();
         OnStartCharge?.Invoke(false);
     }
 
@@ -162,5 +224,55 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(2.5f);
         isCatchStar = false;
+    }
+
+    // =========================
+    // Charge Ready Blink
+    // =========================
+    private void StartChargeBlink()
+    {
+        if (!useChargeBlink) return;
+        if (chargeReadyText == null) return;
+
+        if (chargeBlinkTween != null && chargeBlinkTween.IsActive())
+            return;
+
+        SetChargeReadyVisible(true);
+
+        chargeReadyText.DOKill();
+        chargeReadyText.alpha = blinkMaxAlpha;
+
+        chargeBlinkTween = chargeReadyText
+            .DOFade(blinkMinAlpha, blinkHalfDuration)
+            .SetEase(blinkEase)
+            .SetLoops(-1, LoopType.Yoyo);
+    }
+
+    private void StopChargeBlink()
+    {
+        if (chargeReadyText == null) return;
+
+        if (chargeBlinkTween != null)
+        {
+            chargeBlinkTween.Kill();
+            chargeBlinkTween = null;
+        }
+
+        SetChargeReadyVisible(false);
+    }
+
+    private void SetChargeReadyVisible(bool visible)
+    {
+        if (chargeReadyText == null) return;
+
+        // GameObject 꺼버리면 레이캐스트/배치도 깔끔
+        chargeReadyText.gameObject.SetActive(visible);
+
+        if (visible)
+        {
+            var c = chargeReadyText.color;
+            c.a = 1f;
+            chargeReadyText.color = c;
+        }
     }
 }
