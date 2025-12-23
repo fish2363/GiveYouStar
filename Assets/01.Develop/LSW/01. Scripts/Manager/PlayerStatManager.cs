@@ -53,7 +53,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             if (Mathf.Approximately(amount, 0f)) 
                 return;
             
-            FailDist = Mathf.Max(0f, FailDist + amount);
+            FailDist = MathF.Round(Mathf.Max(0f, FailDist + amount) * 10) / 10;
             onStatsChanged?.Invoke();
         }
 
@@ -62,7 +62,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             if (Mathf.Approximately(amount, 0f)) 
                 return;
             
-            Speed = Mathf.Max(0f, Speed + amount);
+            Speed = MathF.Round(Mathf.Max(0f, Speed + amount) * 10) / 10;
             onStatsChanged?.Invoke();
         }
 
@@ -71,7 +71,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             if (Mathf.Approximately(amount, 0f)) 
                 return;
             
-            RopeSize = Mathf.Max(0f, RopeSize + amount);
+            RopeSize = MathF.Round(Mathf.Max(0f, RopeSize + amount) * 10) / 10;
             onStatsChanged?.Invoke();
         }
 
