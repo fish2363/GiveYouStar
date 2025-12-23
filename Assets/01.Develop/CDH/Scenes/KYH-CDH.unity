@@ -269,7 +269,7 @@ GameObject:
   - component: {fileID: 35981456}
   - component: {fileID: 35981455}
   m_Layer: 5
-  m_Name: Upgrade Pull Card
+  m_Name: Upgrade RopeSize Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -323,7 +323,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1639851191}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
-        m_MethodName: IncreaseSpeed
+        m_MethodName: IncreaseRopeSize
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -660,7 +660,7 @@ GameObject:
   - component: {fileID: 78979571}
   - component: {fileID: 78979570}
   m_Layer: 5
-  m_Name: Upgrade Sight Card
+  m_Name: Upgrade FailDist Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1813,7 +1813,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Launch
+  m_text: Speed
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3301,7 +3301,7 @@ GameObject:
   - component: {fileID: 924819534}
   - component: {fileID: 924819533}
   m_Layer: 5
-  m_Name: Upgrade Launch Card
+  m_Name: Upgrade Speed Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3355,7 +3355,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1639851191}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
-        m_MethodName: IncreaseRopeSize
+        m_MethodName: IncreaseSpeed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3755,7 +3755,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Pull
+  m_text: RopeSize
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -6287,7 +6287,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Sight
+  m_text: 'FailDist
+
+'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
