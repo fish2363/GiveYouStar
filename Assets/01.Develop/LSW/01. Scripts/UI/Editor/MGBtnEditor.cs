@@ -36,7 +36,6 @@ namespace _01.Develop.LSW._01._Scripts.UI.Editor
 
             #region moveScene
             
-            _moveSceneField.Add(new PropertyField(serializedObject.FindProperty("transition")));
             _moveSceneField.Add(new PropertyField(serializedObject.FindProperty("targetSceneName")));
             root.Add(_moveSceneField);
             

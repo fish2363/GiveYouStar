@@ -13,7 +13,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private Image icon;
 
         public event Action<HavingStarUI> onStarRemoved;
-
+        public event Action<int, Transform> onShowCoinIncText; 
+        
         private StarSo _currentStar;
 
         private RectTransform rect;
@@ -103,6 +104,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             {
                 accepted = true;
                 PlayerStatManager.Instance.ChangeCoinAmount(_currentStar.throwPrice);
+                onShowCoinIncText?.Invoke(_currentStar.throwPrice, evt.pointerEnter.transform);
             }
             
             if (target != null && !accepted)
@@ -116,6 +118,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             }
             else
             {
+                onShowCoinIncText?.Invoke(_currentStar.price, evt.pointerEnter.transform);
                 onStarRemoved?.Invoke(this);
             }
         }
