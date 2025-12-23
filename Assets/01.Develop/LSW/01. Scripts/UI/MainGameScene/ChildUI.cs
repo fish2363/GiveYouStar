@@ -1,30 +1,38 @@
+using System;
 using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.So;
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 {
     public class ChildUI : MonoBehaviour
     {
-        public int giveCoinAmt;
-
         [SerializeField] private StarSo _reqStar;
-        private bool _alreadyGiven;
+
+        [SerializeField] private Image icon;
+        
+        public event Action<ChildUI> onStarGiven; 
         
         public void SetReqStar(StarSo star)
         {
             _reqStar = star;
-            _alreadyGiven = false;
+            SetUI();
         }
         
         public bool GiveStar(StarSo star)
         {
             if (star != _reqStar)
                 return false;
-
-            _alreadyGiven = true;
-            PlayerStatManager.Instance.ChangeCoinAmount(giveCoinAmt);
+            
+            PlayerStatManager.Instance.ChangeCoinAmount(_reqStar.price);
+            onStarGiven?.Invoke(this);
             return true;
+        }
+
+        public void SetUI()
+        {
+            icon.sprite = _reqStar.starIcon;
         }
     }
 }

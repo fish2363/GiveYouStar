@@ -10,7 +10,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
         
         public void Set(StarSo star)
         {
-            starImage.sprite = star.starImage;
+            starImage.sprite = star.starIcon;
         }
     }
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.So;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -25,7 +26,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         public void SetStar(StarSo star)
         {
             _currentStar = star;
-            icon.sprite = star.starImage;
+            icon.sprite = star.starIcon;
         }
 
         void Awake()
@@ -96,7 +97,13 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                     break;
             }
 
-            bool accepted = trashcan != null;
+            bool accepted = false;
+
+            if (trashcan != null)
+            {
+                accepted = true;
+                PlayerStatManager.Instance.ChangeCoinAmount(_currentStar.throwPrice);
+            }
             
             if (target != null && !accepted)
             {

@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: BadPlanet
   m_EditorClassIdentifier: 
   starImage: {fileID: -255230573460679085, guid: 98a661c74fd7af74283f2249a835ec07, type: 3}
+  starIcon: {fileID: 0}
   starName: Name
   description: Desc
   speed: 10
   starPrefab: {fileID: 4711834628526676560, guid: 4e8ff4d2d304ae1449e97bb50833d340, type: 3}
+  price: 5
+  throwPrice: 3

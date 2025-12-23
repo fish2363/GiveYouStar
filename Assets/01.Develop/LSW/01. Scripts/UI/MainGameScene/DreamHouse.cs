@@ -9,17 +9,19 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 {
     public class DreamHouse : MonoBehaviour
     {
-        [SerializeField] private List<StarSo> requiredStars = new List<StarSo>();
+        [SerializeField] private List<StarSo> allStars = new List<StarSo>();
         [SerializeField] private List<ChildUI> childrenUI = new List<ChildUI>();
         
         [SerializeField] private HavingStarUI havingStarUIPrefab;
         [SerializeField] private Transform havingStarParent;
         
         private List<HavingStarUI> _havingStars = new List<HavingStarUI>();
-        
+
         private void Start()
         {
-            SetChild();
+            if(ChildManager.Instance.GetReqStarsEmpty()) 
+                SetInitChild();
+            
             List<StarSo> havingStars 
                 = new List<StarSo>(StarManager.Instance.GetAllGotStars());
             foreach (var star in havingStars)
@@ -30,18 +32,32 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                 havingStarUI.SetStar(star);
                 _havingStars.Add(havingStarUI);
             }
+
+            foreach (var childUI in childrenUI)
+            {
+                childUI.onStarGiven += SetChild;
+            }
         }
 
-        public void SetChild()
+        private void SetInitChild()
         {
             foreach (var child in childrenUI)
             {
-                StarSo star = requiredStars[Random.Range(0, requiredStars.Count)];
-                child.SetReqStar(star);
+                StarSo randStar = GetRandomStar();
+                child.SetReqStar(randStar);
+                ChildManager.Instance.AddReqStars(randStar);
             }
         }
+
+        private void SetChild(ChildUI childUI)
+        {
+            childUI.SetReqStar(GetRandomStar());
+        }
+
+        private StarSo GetRandomStar()
+            => allStars[Random.Range(0, allStars.Count)];
         
-        public void RemoveHavingStar(HavingStarUI havingStar)
+        private void RemoveHavingStar(HavingStarUI havingStar)
         {
             if(_havingStars.Contains(havingStar))
             {
@@ -56,6 +72,11 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             foreach (var remainStar in _havingStars)
             {
                 remainStar.onStarRemoved -= RemoveHavingStar;
+            }
+            
+            foreach (var childUI in childrenUI)
+            {
+                childUI.onStarGiven -= SetChild;
             }
         }
     }

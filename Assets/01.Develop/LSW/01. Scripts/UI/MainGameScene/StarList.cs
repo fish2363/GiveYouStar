@@ -39,7 +39,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         private void ShowStars(StarSo star)
         {
             starIcon.gameObject.SetActive(true);
-            starIcon.sprite = star.starImage;
+            starIcon.sprite = star.starIcon;
             starNameText.SetText(star.starName);
             starDescriptionText.SetText(star.description);
         }

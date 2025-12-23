@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using _01.Develop.LSW._01._Scripts.So;
 using UnityEngine;
 
 namespace _01.Develop.LSW._01._Scripts.Manager
@@ -8,14 +6,14 @@ namespace _01.Develop.LSW._01._Scripts.Manager
     public class PlayerStatManager : MonoSingleton<PlayerStatManager>
     {
         public int initCoin = 10;
-        public float initSight = 5f;
-        public float initLaunchPower = 10f;
-        public float initPullPower = 10f;
+        public float initFailDist = 5f;
+        public float initSpeed = 10f;
+        public float initRopeSize = 10f;
 
         public int Coin { get; private set; }
-        private float Sight { get; set; }
-        private float LaunchPower { get; set; }
-        private float PullPower { get; set; }
+        private float FailDist { get; set; }
+        private float Speed { get; set; }
+        private float RopeSize { get; set; }
         
         public event Action onStatsChanged;
 
@@ -38,38 +36,47 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             return true;
         }
 
-        public void IncreaseSight(float amount)
+        public float GetCurrentFailDist()
+            => FailDist;
+        
+        public float GetCurrentSpeed()
+            => Speed;
+
+        public float GetCurrentRopeSize()
+            => RopeSize;
+        
+        public void IncreaseFailDist(float amount)
         {
             if (Mathf.Approximately(amount, 0f)) 
                 return;
             
-            Sight = Mathf.Max(0f, Sight + amount);
+            FailDist = Mathf.Max(0f, FailDist + amount);
             onStatsChanged?.Invoke();
         }
 
-        public void IncreaseLaunchPower(float amount)
+        public void IncreaseSpeed(float amount)
         {
             if (Mathf.Approximately(amount, 0f)) 
                 return;
             
-            LaunchPower = Mathf.Max(0f, LaunchPower + amount);
+            Speed = Mathf.Max(0f, Speed + amount);
             onStatsChanged?.Invoke();
         }
 
-        public void IncreasePullPower(float amount)
+        public void IncreaseRopeSize(float amount)
         {
             if (Mathf.Approximately(amount, 0f)) 
                 return;
             
-            PullPower = Mathf.Max(0f, PullPower + amount);
+            RopeSize = Mathf.Max(0f, RopeSize + amount);
             onStatsChanged?.Invoke();
         }
 
         private void ResetAllStat()
         {
-            Sight = initSight;
-            LaunchPower = initLaunchPower;
-            PullPower = initPullPower;
+            FailDist = initFailDist;
+            Speed = initSpeed;
+            RopeSize = initRopeSize;
             Coin = initCoin;
             onStatsChanged?.Invoke();
         }
