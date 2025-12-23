@@ -5,7 +5,6 @@ namespace _01.Develop.LSW._01._Scripts.Manager
     public abstract class MonoSingleton<T> : MonoBehaviour where T : MonoSingleton<T>
     {
         private static T _instance;
-
         public static T Instance
         {
             get
@@ -14,32 +13,38 @@ namespace _01.Develop.LSW._01._Scripts.Manager
                 {
                     _instance = FindAnyObjectByType<T>();
                 }
-
                 return _instance;
             }
         }
 
         protected virtual void Awake()
         {
-            if (_instance == null)
+            if (_instance == null || _instance == this)
             {
-                _instance = this as T;
+                if (_instance == null)
+                    _instance = this as T;
+                
+                if (transform.parent != null)
+                {
+                    transform.SetParent(null);
+                }
+                
                 DontDestroyOnLoad(gameObject);
+                OnSingletonAwake();
             }
-            else if (_instance != this)
+            else
             {
                 Destroy(gameObject);
             }
         }
 
-        protected MonoSingleton() { }
+        /// \`MonoSingleton\` 초기화 시 추가 동작이 필요하면 오버라이드
+        protected virtual void OnSingletonAwake() { }
 
-        protected MonoSingleton(bool shouldCreateNewInstance)
+        protected virtual void OnDestroy()
         {
-            if (shouldCreateNewInstance)
-            {
+            if (_instance == this)
                 _instance = null;
-            }
         }
     }
 }

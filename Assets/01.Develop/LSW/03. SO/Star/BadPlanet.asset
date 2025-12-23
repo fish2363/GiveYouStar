@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BadPlanet
   m_EditorClassIdentifier: 
   starImage: {fileID: -255230573460679085, guid: 98a661c74fd7af74283f2249a835ec07, type: 3}
-  starIcon: {fileID: 0}
+  starIcon: {fileID: -255230573460679085, guid: 98a661c74fd7af74283f2249a835ec07, type: 3}
   starName: Name
   description: Desc
   speed: 10

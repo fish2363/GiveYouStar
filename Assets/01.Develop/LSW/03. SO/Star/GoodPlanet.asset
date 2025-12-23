@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: GoodPlanet
   m_EditorClassIdentifier: 
   starImage: {fileID: 21300000, guid: 449c44aaf3a3639408d93be6c4d80d11, type: 3}
+  starIcon: {fileID: 21300000, guid: 449c44aaf3a3639408d93be6c4d80d11, type: 3}
   starName: Name
   description: Desc
   speed: 10
   starPrefab: {fileID: 3020416748926830540, guid: e11d105d32c9d374b94255f5042705bf, type: 3}
+  price: 0
+  throwPrice: 0

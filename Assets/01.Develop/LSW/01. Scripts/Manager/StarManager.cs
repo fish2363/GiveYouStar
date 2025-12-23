@@ -49,7 +49,6 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         public void EndGame()
         {
             onGameEnd?.Invoke(_gotStarContainer);
-            _gotStarContainer.Clear();
         }
     }
 }
