@@ -20,5 +20,5 @@ MonoBehaviour:
     \uAC19\uB2E4."
   speed: 10
   starPrefab: {fileID: 3415337360761219601, guid: 68c651b52f61e1a4489bb66f811e23a9, type: 3}
-  price: 0
-  throwPrice: 0
+  price: 15
+  throwPrice: 5

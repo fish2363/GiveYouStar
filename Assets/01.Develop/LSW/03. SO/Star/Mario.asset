@@ -19,5 +19,5 @@ MonoBehaviour:
   description: "\uAC15\uD574\uC9C8 \uAC83\uB9CC \uAC19\uC740 \uB290\uB08C\uC774\uB2E4."
   speed: 10
   starPrefab: {fileID: 7579309704411386396, guid: c99886a7ad6260f489e1ce2b650fd47d, type: 3}
-  price: 0
-  throwPrice: 0
+  price: 30
+  throwPrice: 10

@@ -328,7 +328,7 @@ MonoBehaviour:
     <TransitionTime>k__BackingField: 0
     <SpatialSetting>k__BackingField: {fileID: 0}
     <Priority>k__BackingField: 128
-    <Pitch>k__BackingField: 1
+    <Pitch>k__BackingField: 0.709
     <PitchRandomRange>k__BackingField: 0
     <VolumeRandomRange>k__BackingField: 0
     <RandomFlags>k__BackingField: 0
@@ -342,13 +342,13 @@ MonoBehaviour:
     MulticlipsPlayMode: 0
     _group: {fileID: 0}
     Clips:
-    - AudioClip: {fileID: 8300000, guid: 28ca23d92507a764e8f0706299334913, type: 3}
-      Volume: 0.6
+    - AudioClip: {fileID: 8300000, guid: f4e14abc3d45ba343b3684c5e6c71c09, type: 3}
+      Volume: 1
       Delay: 0
-      StartPosition: 0.115
-      EndPosition: 0.286
+      StartPosition: 0.103
+      EndPosition: 0
       FadeIn: 0
-      FadeOut: 0.487
+      FadeOut: 0
       Weight: 0
     <MasterVolume>k__BackingField: 1
     <Loop>k__BackingField: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
     <TransitionTime>k__BackingField: 0
     <SpatialSetting>k__BackingField: {fileID: 0}
     <Priority>k__BackingField: 128
-    <Pitch>k__BackingField: 1
+    <Pitch>k__BackingField: 0.643
     <PitchRandomRange>k__BackingField: 0
     <VolumeRandomRange>k__BackingField: 0
     <RandomFlags>k__BackingField: 0
