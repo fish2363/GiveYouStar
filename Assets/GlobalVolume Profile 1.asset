@@ -1,33 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &-568233503996878731
-MonoBehaviour:
-  m_ObjectHideFlags: 3
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5e1dc532bcb41949b58bc4f2abfbb7e, type: 3}
-  m_Name: LensDistortion
-  m_EditorClassIdentifier: 
-  active: 1
-  intensity:
-    m_OverrideState: 1
-    m_Value: 0
-  xMultiplier:
-    m_OverrideState: 1
-    m_Value: 1
-  yMultiplier:
-    m_OverrideState: 1
-    m_Value: 1
-  center:
-    m_OverrideState: 1
-    m_Value: {x: 1, y: 0.5}
-  scale:
-    m_OverrideState: 1
-    m_Value: 1
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -43,7 +15,6 @@ MonoBehaviour:
   components:
   - {fileID: 3570404412609231359}
   - {fileID: 5096321516080454122}
-  - {fileID: -568233503996878731}
 --- !u!114 &3570404412609231359
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -90,10 +61,10 @@ MonoBehaviour:
     m_Value: 1
   threshold:
     m_OverrideState: 1
-    m_Value: 0.93
+    m_Value: 0.92
   intensity:
     m_OverrideState: 1
-    m_Value: 3
+    m_Value: 2.31
   scatter:
     m_OverrideState: 1
     m_Value: 1

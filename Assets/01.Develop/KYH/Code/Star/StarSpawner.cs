@@ -15,6 +15,7 @@ public class StarSpawner : MonoBehaviour
 
     public void SpawnStars(int totalCount)
     {
+
         if (spawnConfig == null || spawnConfig.starGrades.Count == 0)
         {
             Debug.LogWarning("Spawn config missing or empty.");

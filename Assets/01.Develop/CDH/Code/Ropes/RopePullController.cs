@@ -74,7 +74,6 @@ public class RopePullController : MonoBehaviour
     [SerializeField] private float followSmoothTime = 0.06f;
     [SerializeField] private bool pixelSnap = true;
 
-    // ✅ 노랑 -> 빨강만 사용
     [Header("UI - Meter Color (Yellow -> Red Only)")]
     [SerializeField] private Color yellowColor = new Color(1f, 0.85f, 0.15f, 1f);
     [SerializeField] private Color redColor = new Color(1f, 0.2f, 0.2f, 1f);
@@ -131,13 +130,16 @@ public class RopePullController : MonoBehaviour
             SetupRopeLine();
 
         CacheLensDistortion();
-        CachePullCanvasGroup();
+        CachePullCanvasGroup();   // 초기에는 무조건 숨김
         InitBreakMeter();
 
         if (starTarget != null)
             SetTarget(starTarget);
         else
+        {
+            HidePullImmediate();
             HideBreakMeterIfNeeded();
+        }
     }
 
     private void OnDisable()
@@ -170,6 +172,7 @@ public class RopePullController : MonoBehaviour
         if (pullCanvasGroup == null)
             pullCanvasGroup = pullGameObject.AddComponent<CanvasGroup>();
 
+        // 초기에는 안 보이게
         pullCanvasGroup.alpha = 0f;
         pullGameObject.SetActive(false);
     }
@@ -208,6 +211,15 @@ public class RopePullController : MonoBehaviour
             .OnComplete(() => pullGameObject.SetActive(false));
     }
 
+    private void HidePullImmediate()
+    {
+        if (pullGameObject == null || pullCanvasGroup == null) return;
+        pullFadeInTween?.Kill();
+        pullFadeOutTween?.Kill();
+        pullCanvasGroup.alpha = 0f;
+        pullGameObject.SetActive(false);
+    }
+
     // -----------------------------------------------------------------
 
     private void Update()
@@ -233,7 +245,9 @@ public class RopePullController : MonoBehaviour
             dragStartTime = Time.time;
 
             PlayLensDistortionDown();
-            ShowPullFadeIn();
+
+            // 평소에는 보이고, 클릭하면 페이드로 사라짐
+            HidePullFadeOut();
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -243,11 +257,13 @@ public class RopePullController : MonoBehaviour
 
             PlayLensDistortionReturn();
             TryPullOnRelease(MouseWorld2D(), Time.time - dragStartTime);
-            HidePullFadeOut();
+
+            // 클릭을 떼면 다시 페이드로 나타남
+            ShowPullFadeIn();
         }
     }
 
-    // ✅ 카메라/시네머신 업데이트 이후에 UI 위치 갱신
+    // 카메라/시네머신 업데이트 이후에 UI 위치 갱신
     private void LateUpdate()
     {
         if (starTarget == null) return;
@@ -304,6 +320,8 @@ public class RopePullController : MonoBehaviour
     private void EndPull()
     {
         PlayLensDistortionReturn(force: true);
+
+        // 타겟이 없어지는 순간이므로 Pull UI는 다시 숨김(초기 상태로)
         HidePullFadeOut();
         HideBreakMeterIfNeeded();
 
@@ -327,6 +345,7 @@ public class RopePullController : MonoBehaviour
 
         if (starTarget == null)
         {
+            HidePullFadeOut();
             HideBreakMeterIfNeeded();
             return;
         }
@@ -336,12 +355,16 @@ public class RopePullController : MonoBehaviour
         {
             Debug.LogError("[RopePullController] Star Target에 Rigidbody2D가 없습니다.");
             starTarget = null;
+            HidePullFadeOut();
             HideBreakMeterIfNeeded();
             return;
         }
 
         starTarget.OnDestroy += HandleDestroy;
         lastPullPosition = starTarget.transform.position;
+
+        // SetTarget 호출되면 그때부터 Pull UI가 보이기 시작
+        ShowPullFadeIn();
 
         if (breakMeterImage != null)
         {
@@ -380,6 +403,7 @@ public class RopePullController : MonoBehaviour
         if (ropeLine != null)
             ropeLine.enabled = false;
 
+        // 타겟이 없으면 Pull UI는 숨김
         HidePullFadeOut();
         HideBreakMeterIfNeeded();
     }
@@ -454,7 +478,6 @@ public class RopePullController : MonoBehaviour
 
         breakMeterImage.fillAmount = meterFill;
 
-        // ✅ 노랑 -> 빨강
         breakMeterImage.color = EvaluateYellowToRed(progress01);
     }
 
