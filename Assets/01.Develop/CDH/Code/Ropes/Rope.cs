@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Ami.BroAudio;
+using System;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
@@ -6,6 +7,10 @@ public class Rope : MonoBehaviour
 {
     public event Action OnFinishRope;
     public event Action<StarMover> OnCatchStar;
+
+    [Header("Audio")]
+    [SerializeField] private SoundID bgmAudio;
+    [SerializeField] private SoundID cutRopeSoundId;
 
     [Header("Movement")]
     [SerializeField] private float baseSpeed = 18f;
@@ -67,6 +72,7 @@ public class Rope : MonoBehaviour
         if (origin == null)
         {
             OnFinishRope?.Invoke();
+            BroAudio.Play(cutRopeSoundId);
             Destroy(gameObject);
             return;
         }
@@ -75,6 +81,7 @@ public class Rope : MonoBehaviour
         if (alive >= maxLifeTime || Vector2.Distance(startPos, rb.position) >= maxDistance)
         {
             OnFinishRope?.Invoke();
+            BroAudio.Play(cutRopeSoundId);
             Destroy(gameObject);
             return;
         }
@@ -162,11 +169,13 @@ brownGradient.SetKeys(
         if(collision.CompareTag("Area"))
         {
             OnFinishRope?.Invoke();
+            BroAudio.Play(cutRopeSoundId);
             Destroy(gameObject);
         }
         if (collision.CompareTag("Star"))
         {
             OnCatchStar?.Invoke(collision.GetComponent<StarMover>());
+            BroAudio.Play(bgmAudio);
             Destroy(gameObject);
         }
     }

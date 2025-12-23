@@ -6,12 +6,15 @@ using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using Ami.BroAudio;
 
 public class RopePullController : MonoBehaviour
 {
     public UnityEvent OnChainBreak;
     public UnityEvent<StarSo> OnGetStar;
 
+
+    [Space]
     [SerializeField] private GameObject pullGameObject;
 
     [Header("References")]
@@ -84,7 +87,7 @@ public class RopePullController : MonoBehaviour
     // Post Processing + Pull UI
     // =========================
     [Header("PostProcessing - Lens Distortion (URP Volume)")]
-    [SerializeField] private Volume postProcessVolume;
+    [SerializeField] private UnityEngine.Rendering.Volume postProcessVolume;
     [SerializeField] private float lensDistortionTarget = -0.35f;
     [SerializeField] private float lensDownDuration = 0.08f;
     [SerializeField] private float lensReturnDuration = 0.18f;
@@ -234,6 +237,8 @@ public class RopePullController : MonoBehaviour
 
             PlayLensDistortionDown();
             ShowPullFadeIn();
+
+            BroAudio.Play(ropePullSoundId);
         }
 
         if (Input.GetMouseButtonUp(0))
@@ -316,6 +321,9 @@ public class RopePullController : MonoBehaviour
 
         OnChainBreak?.Invoke();
         ClearTarget();
+
+
+        BroAudio.Play(cutRopeSoundId);
     }
 
     public void SetTarget(StarMover newTarget)

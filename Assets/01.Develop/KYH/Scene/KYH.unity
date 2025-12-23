@@ -2345,8 +2345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 70c05826a4e24cfea14e2a4a8a7a6993, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  starList:
-  - {fileID: 11400000, guid: 465c23277a8fac243ba07a2ce6b0d888, type: 2}
+  allStarList: []
   _gotStarContainer: []
 --- !u!1 &1034153097
 GameObject:
@@ -3765,6 +3764,14 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  ropePullSoundId:
+    ID: 1073741838
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
+  cutRopeSoundId:
+    ID: 1073741839
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
   pullGameObject: {fileID: 570849368}
   player: {fileID: 609520108}
   cameraManager: {fileID: 915437353}
@@ -3795,6 +3802,11 @@ MonoBehaviour:
   followOffsetWorld: {x: 0, y: -1.2}
   followOffsetUI: {x: 26, y: -16}
   hideWhenOffscreen: 1
+  followSmoothTime: 0.06
+  pixelSnap: 1
+  yellowColor: {r: 1, g: 0.85, b: 0.15, a: 1}
+  redColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  useHSVColorLerp: 1
   postProcessVolume: {fileID: 874826463}
   lensDistortionTarget: -0.02
   lensDownDuration: 0.08
