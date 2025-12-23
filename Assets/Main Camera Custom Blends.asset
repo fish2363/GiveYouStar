@@ -17,7 +17,7 @@ MonoBehaviour:
     To: CinemachineCameraFollow
     Blend:
       Style: 4
-      Time: 0.2
+      Time: 0.5
       CustomCurve:
         serializedVersion: 2
         m_Curve: []
