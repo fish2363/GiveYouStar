@@ -16,7 +16,8 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         [field:SerializeField] private float RopeSize { get; set; }
         
         public event Action onStatsChanged;
-
+        public event Action<int> onCoinAmountChanged; 
+        
         protected override void Awake()
         {
             base.Awake();
@@ -32,7 +33,8 @@ namespace _01.Develop.LSW._01._Scripts.Manager
                 return false;
             
             Coin += coinAmount;
-
+            onCoinAmountChanged?.Invoke(Coin);
+            
             return true;
         }
 

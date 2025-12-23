@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Cat
   m_EditorClassIdentifier: 
   starImage: {fileID: -167203182072899133, guid: 2fb6224e1b1d0af41980648aa8bfd66f, type: 3}
-  starIcon: {fileID: -3422012534006351557, guid: 43e069238140c5b41a42554729872155, type: 3}
+  starIcon: {fileID: 21300000, guid: 43e069238140c5b41a42554729872155, type: 3}
   starName: Name
   description: Desc
   speed: 10

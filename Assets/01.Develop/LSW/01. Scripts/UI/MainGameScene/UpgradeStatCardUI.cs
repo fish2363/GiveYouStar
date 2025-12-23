@@ -27,6 +27,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         
         private void Awake()
         {
+            PlayerStatManager.Instance.onCoinAmountChanged += UpdateCoinUI;
             CurrentCost = initCost;
         }
 
@@ -48,11 +49,19 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             }
         }
         
+        private void UpdateCoinUI(int curCoin)
+            => coinText.SetText(curCoin.ToString());
+        
         private void ChangeStatUI()
         {
             incAmountText.SetText($"+{_incAmount}");
             upgBtnText.SetText($"Upgrade\n(Cost : {CurrentCost})");
             coinText.SetText(PlayerStatManager.Instance.GetCurrentCoin().ToString());
+        }
+
+        private void OnDestroy()
+        {
+            PlayerStatManager.Instance.onCoinAmountChanged -= UpdateCoinUI;
         }
     }
 }
