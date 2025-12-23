@@ -9,7 +9,6 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 {
     public class DreamHouse : MonoBehaviour
     {
-        [SerializeField] private List<StarSo> allStars = new List<StarSo>();
         [SerializeField] private List<ChildUI> childrenUI = new List<ChildUI>();
         
         [SerializeField] private HavingStarUI havingStarUIPrefab;
@@ -65,7 +64,11 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         }
 
         private StarSo GetRandomStar()
-            => allStars[Random.Range(0, allStars.Count)];
+        {
+            List<StarSo> allStar = StarManager.Instance.GetAllStars();
+            StarSo randStar = allStar[Random.Range(0, allStar.Count)];
+            return randStar;
+        }
         
         private void RemoveHavingStar(HavingStarUI havingStar)
         {
