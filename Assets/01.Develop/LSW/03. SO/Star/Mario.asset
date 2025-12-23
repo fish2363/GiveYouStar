@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: Mario
   m_EditorClassIdentifier: 
   starImage: {fileID: 21300000, guid: 98f20675c2761d74494fc8a430d40dfe, type: 3}
+  starIcon: {fileID: 21300000, guid: 98f20675c2761d74494fc8a430d40dfe, type: 3}
   starName: Name
   description: Desc
   speed: 10
   starPrefab: {fileID: 7579309704411386396, guid: c99886a7ad6260f489e1ce2b650fd47d, type: 3}
+  price: 0
+  throwPrice: 0

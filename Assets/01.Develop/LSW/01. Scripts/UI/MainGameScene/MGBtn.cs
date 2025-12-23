@@ -1,4 +1,5 @@
 using System;
+using _01.Develop.LSW._01._Scripts.UI.InGame;
 using DG.Tweening;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -15,7 +16,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         
         [SerializeField] private SubUI targetUI;
         [SerializeField] private Image mainBackGround;
-        
+
+        [SerializeField] private DiagonalStarTransition transition;
         public string targetSceneName;
 
         private void Start()
@@ -35,11 +37,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                     targetUI.Show(interactionTrm, mainBackGround);
                     break;
                 case MGBtnType.MoveScene:
-                    // mainUITrm.DOMoveY(-2000f, 3f)
-                    //     .SetEase(Ease.OutExpo)
-                    //     .OnComplete(() =>
-                    SceneManager.LoadSceneAsync(targetSceneName);
-                    //    );
+                    transition.Play(targetSceneName);
                     break;
             }
         }

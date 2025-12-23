@@ -13,7 +13,10 @@ MonoBehaviour:
   m_Name: HyeSungSugar
   m_EditorClassIdentifier: 
   starImage: {fileID: 21300000, guid: b74423c7ea87b6a4cb0b349f60d269e3, type: 3}
+  starIcon: {fileID: 21300000, guid: b74423c7ea87b6a4cb0b349f60d269e3, type: 3}
   starName: Name
   description: Desc
   speed: 10
   starPrefab: {fileID: 3415337360761219601, guid: 68c651b52f61e1a4489bb66f811e23a9, type: 3}
+  price: 0
+  throwPrice: 0
