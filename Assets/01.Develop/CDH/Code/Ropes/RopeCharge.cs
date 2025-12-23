@@ -94,6 +94,8 @@ public class RopeCharge : MonoBehaviour
     {
         if (isCharging)
             UpdateCharge();
+        else
+            ApplyVisual(0f);
 
         RotateVisualToMouse();
     }
