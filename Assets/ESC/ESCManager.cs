@@ -56,7 +56,6 @@ public class ESCManager : MonoSingleton<ESCManager>
         if (fullscreenToggle != null)
         {
             // 현재 상태 반영 (환경마다 fullScreen 값이 초기화되는 타이밍이 다를 수 있어서)
-            Screen.fullScreen = true;
             fullscreenToggle.SetIsOnWithoutNotify(Screen.fullScreen);
 
             fullscreenToggle.onValueChanged.RemoveListener(SetupFullscreenToggle);
