@@ -28,6 +28,8 @@ public class GameManager : MonoBehaviour
     private bool isCatchStar;
     private bool isGameStart;
 
+    private Coroutine coroutine;
+
     public List<StarSo> getStarList = new();
 
     private float initialRotationZ;
@@ -42,10 +44,19 @@ public class GameManager : MonoBehaviour
         if (timerVisual != null)
             initialRotationZ = timerVisual.localEulerAngles.z;
     }
-
-    private void Start()
+    private IEnumerator Start()
     {
+        countText.text = "3";
+        yield return new WaitForSeconds(1f);
+        countText.text = "2";
+        yield return new WaitForSeconds(1f);
+        countText.text = "1";
+        yield return new WaitForSeconds(1f);
+        countText.text = "";
+        clickUI.enabled = true;
         GameStart();
+        yield return new WaitForSeconds(4f);
+        clickUI.enabled = false;
     }
 
     public void AddStar(StarSo star)
@@ -106,9 +117,16 @@ public class GameManager : MonoBehaviour
         // TODO: 게임 종료 후 행동 정의
     }
 
-    public void SetRopeChargeTurn() => StartCoroutine(SetRopeChargeTurnRoutine());
+    public void SetRopeChargeTurn()
+    {
+        if(coroutine != null)
+            StopCoroutine(coroutine);
+        coroutine = StartCoroutine(SetRopeChargeTurnRoutine());
+    }
+
     public IEnumerator SetRopeChargeTurnRoutine()
     {
+        clickUI.enabled = false;
         countText.text = "3";
         yield return new WaitForSeconds(1f);
         countText.text = "2";
