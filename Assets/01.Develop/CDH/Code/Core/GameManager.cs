@@ -7,9 +7,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
+using Ami.BroAudio;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Sound")]
+    [SerializeField] private SoundID gameEndBellSoundID;
+    [Space]
+
+
     public float maxTimer;
     float currentTimer;
     [SerializeField] private SpriteRenderer clickUI;
@@ -115,6 +121,7 @@ public class GameManager : MonoBehaviour
         isGameStart = false;
         StarManager.Instance.EndGame();
         // TODO: 게임 종료 후 행동 정의
+        BroAudio.Play(gameEndBellSoundID);
     }
 
     public void SetRopeChargeTurn()
