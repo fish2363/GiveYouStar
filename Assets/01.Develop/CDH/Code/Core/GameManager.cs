@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
 
     public UnityEvent StartRopeCharge;
     public UnityEvent EndRopeCharge;
+    public UnityEvent EndGame;
 
     private bool isRopeCharging;
     private bool isRopeChargeEnd;
@@ -177,6 +178,7 @@ public class GameManager : MonoBehaviour
         StopChargeBlink();
         StarManager.Instance.EndGame(); 
         BroAudio.Play(gameEndBellSoundID);
+        EndGame?.Invoke();
     }
 
     public void SetRopeChargeTurn()

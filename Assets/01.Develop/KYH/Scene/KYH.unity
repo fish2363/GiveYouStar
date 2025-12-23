@@ -799,6 +799,21 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  EndGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 459726288}
+        m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Sound.BgmPlayer, Assembly-CSharp
+        m_MethodName: StopBGM
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   getStarList: []
   useChargeBlink: 1
   blinkMinAlpha: 0.15
@@ -1158,6 +1173,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &459726287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459726289}
+  - component: {fileID: 459726288}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &459726288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459726287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111022731247466888db46ff617ba801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmAudio:
+    ID: 268435459
+    _sourceAsset: {fileID: 11400000, guid: ae7dd3db63119c84e8b581e50ec4f443, type: 2}
+    <DebugObject>k__BackingField: {fileID: 459726287}
+  audioType: 1
+--- !u!4 &459726289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459726287}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531891186
 GameObject:
   m_ObjectHideFlags: 0
@@ -5849,3 +5913,4 @@ SceneRoots:
   - {fileID: 1156520551}
   - {fileID: 1956503017}
   - {fileID: 694241705}
+  - {fileID: 459726289}

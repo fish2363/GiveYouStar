@@ -242,7 +242,10 @@ public class RopePullController : MonoBehaviour
         if (player != null && Vector2.Distance(starTarget.transform.position, player.position) <= collectDistance)
         {
             if(StarManager.Instance.IsUnlock(starTarget.MyInfo))
+            {
+                Debug.LogError("TEstSDjanujodgn");
                 OnGetNewStar?.Invoke(starTarget.MyInfo);
+            }
 
             OnGetStar?.Invoke(starTarget.MyInfo);
             StarManager.Instance.AddGotStar(starTarget.MyInfo);
