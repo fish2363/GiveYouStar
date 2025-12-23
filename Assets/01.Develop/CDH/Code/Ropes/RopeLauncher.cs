@@ -1,4 +1,5 @@
 ﻿using _01.Develop.LSW._01._Scripts.Manager;
+using Ami.BroAudio;
 using Assets._01.Develop.CDH.Code.Fasdfags;
 using UnityEngine;
 using UnityEngine.Events;
@@ -8,6 +9,9 @@ public class RopeLauncher : MonoBehaviour
 {
     public UnityEvent OnRopeFinish;
     public UnityEvent OnRopeCatchStar;
+
+    [Header("Sound")]
+    [SerializeField] private SoundID throwRopeSoundID;
 
     [Header("References")]
     [SerializeField] private ArrowUI arrowUI;
@@ -56,6 +60,8 @@ public class RopeLauncher : MonoBehaviour
         curRope.SetSpeed(baseSpeed + PlayerStatManager.Instance.GetCurrentSpeed());
         curRope.SetSize(baseRopeSize + PlayerStatManager.Instance.GetCurrentRopeSize());
         ropePullController.SetMaxRopeStretchDistance(baseFailDist + PlayerStatManager.Instance.GetCurrentFailDist());
+
+        BroAudio.Play(throwRopeSoundID);
 
         curRope.Launch(playerTrm, dir, charge01);
         curRope.OnFinishRope += HandleCurRopeEnd;
