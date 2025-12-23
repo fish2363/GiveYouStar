@@ -866,7 +866,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 0
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a862f4efea71f80479a87f8f7b1fa506, type: 2}
   m_sharedMaterial: {fileID: 2782930133256584175, guid: a862f4efea71f80479a87f8f7b1fa506, type: 2}
@@ -4614,6 +4614,9 @@ MonoBehaviour:
   cameraManager: {fileID: 915437353}
   ropePullController: {fileID: 1604441329}
   ropePrefab: {fileID: 1497572060682003601, guid: 5ffe9219bb687d643b06d0bbe29a0093, type: 3}
+  baseRopeSize: 1
+  baseFailDist: 18
+  baseSpeed: 10
   spawnOffset: {x: 0, y: 0}
   minShootAngle: 0
   maxShootAngle: 90
