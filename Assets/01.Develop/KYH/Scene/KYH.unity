@@ -744,6 +744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ff3d3fc4618024ea2a8be417ee5a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEndBellSoundID:
+    ID: 1073741845
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 272540480}
   maxTimer: 50
   clickUI: {fileID: 1934635371}
   timerVisual: {fileID: 910746212}
@@ -786,6 +790,21 @@ MonoBehaviour:
       - m_Target: {fileID: 1069219452}
         m_TargetAssemblyTypeName: RopeCharge, Assembly-CSharp
         m_MethodName: ChargeRelease
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  EndGame:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 459726288}
+        m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Sound.BgmPlayer, Assembly-CSharp
+        m_MethodName: StopBGM
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1154,6 +1173,55 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &459726287
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 459726289}
+  - component: {fileID: 459726288}
+  m_Layer: 0
+  m_Name: Audio
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &459726288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459726287}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 111022731247466888db46ff617ba801, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bgmAudio:
+    ID: 268435459
+    _sourceAsset: {fileID: 11400000, guid: ae7dd3db63119c84e8b581e50ec4f443, type: 2}
+    <DebugObject>k__BackingField: {fileID: 459726287}
+  audioType: 1
+--- !u!4 &459726289
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 459726287}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &531891186
 GameObject:
   m_ObjectHideFlags: 0
@@ -2749,6 +2817,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  colorizeByCharge: 1
+  nearMinColor: {r: 1, g: 1, b: 1, a: 1}
+  nearMaxColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  colorTweenDuration: 0.06
+  redPower: 2.2
+  startRedFrom: 0
 --- !u!4 &1069219453
 Transform:
   m_ObjectHideFlags: 0
@@ -3952,6 +4026,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnGetNewStar:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 1764607376}
         m_TargetAssemblyTypeName: Assets._01.Member.CDH.Code.Synergies.DiscoverAlram,
           Assembly-CSharp
@@ -3967,6 +4044,18 @@ MonoBehaviour:
         m_CallState: 2
   pullGameObject: {fileID: 570849368}
   text: {fileID: 955167538}
+  ropePullSoundId:
+    ID: 1073741838
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
+  cutRopeSoundId:
+    ID: 1073741839
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
+  ropeWindSoundId:
+    ID: 1073741841
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
   player: {fileID: 609520108}
   cameraManager: {fileID: 915437353}
   autoFindMainCamera: 1
@@ -4731,6 +4820,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a862f4efea71f80479a87f8f7b1fa506, type: 2}
     - target: {fileID: 5931245378870811176, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931245378870811176, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_fontSizeMax
       value: 25
       objectReference: {fileID: 0}
@@ -4756,12 +4849,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_fontSize
-      value: 41
+      value: 43.6
       objectReference: {fileID: 0}
     - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: a862f4efea71f80479a87f8f7b1fa506, type: 2}
+    - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_lineSpacing
       value: 36.29
@@ -5700,6 +5797,10 @@ MonoBehaviour:
   OnRopeCatchStar:
     m_PersistentCalls:
       m_Calls: []
+  throwRopeSoundID:
+    ID: 1073741842
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 2101652521}
   arrowUI: {fileID: 1604677970}
   playerTrm: {fileID: 609520108}
   cameraManager: {fileID: 915437353}
@@ -5820,3 +5921,4 @@ SceneRoots:
   - {fileID: 1156520551}
   - {fileID: 1956503017}
   - {fileID: 694241705}
+  - {fileID: 459726289}

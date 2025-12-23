@@ -15,6 +15,7 @@ MonoBehaviour:
   starImage: {fileID: 21300000, guid: 65d9a44000ce68e439403f7e5b96bbf3, type: 3}
   starIcon: {fileID: 21300000, guid: 65d9a44000ce68e439403f7e5b96bbf3, type: 3}
   starName: "\uD478\uB978 \uBCC4"
+  starGrade: 0
   description: "\uC18C\uC6D0\uC744 \uC774\uB904\uC904 \uAC83\uB9CC \uAC19\uC740 \uD478\uB978
     \uBCC4\uC774\uB2E4."
   speed: 10
