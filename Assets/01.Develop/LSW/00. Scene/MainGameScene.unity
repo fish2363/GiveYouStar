@@ -149,7 +149,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   <IsFirstTutorial>k__BackingField: 0
-  <IsPlayEndTutorial>k__BackingField: 1
+  <IsPlayEndTutorial>k__BackingField: 0
 --- !u!4 &358551
 Transform:
   m_ObjectHideFlags: 0
@@ -1160,6 +1160,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2db0eec6dd42f98feedd3f229940b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statType: 0
   incAmountText: {fileID: 53464456}
   upgBtnText: {fileID: 1669512239}
   coinText: {fileID: 596924714}
@@ -3740,6 +3741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2db0eec6dd42f98feedd3f229940b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statType: 0
   incAmountText: {fileID: 430825184}
   upgBtnText: {fileID: 151440251}
   coinText: {fileID: 596924714}
@@ -10343,6 +10345,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4b2db0eec6dd42f98feedd3f229940b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  statType: 0
   incAmountText: {fileID: 1394780006}
   upgBtnText: {fileID: 532752241}
   coinText: {fileID: 596924714}
