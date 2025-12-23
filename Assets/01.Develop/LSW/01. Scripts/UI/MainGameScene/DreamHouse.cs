@@ -17,6 +17,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private HavingStarUI havingStarUIPrefab;
         [SerializeField] private Transform havingStarParent;
 
+        [SerializeField] private TextMeshProUGUI coinText;
         [SerializeField] private TextMeshProUGUI coinIncTextPrefab;
         
         public List<HavingStarUI> _havingStarUIs = new List<HavingStarUI>();
@@ -36,6 +37,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                     = Instantiate(havingStarUIPrefab, havingStarParent);
                 havingStarUI.onStarRemoved += RemoveHavingStar;
                 havingStarUI.onShowCoinIncText += ShowCoinIncText;
+                PlayerStatManager.Instance.onCoinAmountChanged += CoinTextUpdate;
                 havingStarUI.SetStar(star);
                 _havingStarUIs.Add(havingStarUI);
             }
@@ -96,6 +98,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             return randStar;
         }
         
+        public void CoinTextUpdate(int coin)
+            => coinText.SetText(coin.ToString());
+        
         private void RemoveHavingStar(HavingStarUI havingStar)
         {
             if(_havingStarUIs.Contains(havingStar))
@@ -121,6 +126,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         private void OnDestroy()
         {
+            PlayerStatManager.Instance.onCoinAmountChanged -= CoinTextUpdate;
             foreach (var remainStar in _havingStarUIs)
             {
                 remainStar.onStarRemoved -= RemoveHavingStar;

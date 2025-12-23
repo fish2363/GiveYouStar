@@ -11,10 +11,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
     public class MGBtn : MonoBehaviour
     {
         [SerializeField] private MGBtnType btnType;
-        [SerializeField] private GameObject interactionTrm;
         
         [SerializeField] private SubUI targetUI;
-        [SerializeField] private Image mainBackGround;
 
         public string targetSceneName;
 
@@ -37,7 +35,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             {
                 case MGBtnType.ShowUI:
                     targetUI.gameObject.SetActive(true);
-                    targetUI.Show(interactionTrm);
+                    targetUI.Show();
                     break;
                 case MGBtnType.MoveScene:
                     _moveScene = true;

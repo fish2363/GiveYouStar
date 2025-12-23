@@ -50,6 +50,19 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                 onUpgradeStat?.Invoke(statIncAmount);
                 
                 CurrentCost += costInc;
+
+                switch (statType)
+                {
+                    case StatType.FailDistance:
+                        PlayerStatManager.Instance.IncreaseFailDist(statIncAmount);
+                        break;
+                    case StatType.RopeSize:
+                        PlayerStatManager.Instance.IncreaseRopeSize(statIncAmount);
+                        break;
+                    case StatType.Speed:
+                        PlayerStatManager.Instance.IncreaseSpeed(statIncAmount);
+                        break;
+                }
                 
                 if(PlayerStatManager.Instance.GetCurrentStat(statType) >= maxIncAmount)
                     _isMax = true;

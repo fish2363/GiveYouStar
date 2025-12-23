@@ -53,7 +53,7 @@ public class TutorialContainerSelect : MonoBehaviour
 
             textChannel.RaiseEvent(textPanelEvent);
         }
-        else
+        else if (!TutorialManager.Instance.IsPlayEndTutorial && !TutorialManager.Instance.IsFirstTutorial)
             goStart.SetActive(true);
     }
 
