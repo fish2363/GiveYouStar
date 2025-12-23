@@ -111,7 +111,7 @@ public class RopeCharge : MonoBehaviour
             int idx = Random.Range(0, chargingDatas.Length);
             selectedCurve = chargingDatas[idx] != null ? chargingDatas[idx].chargeCurve : null;
         }
-
+        ShowVisual(true);
         ApplyVisual(charge01);
     }
 
@@ -132,6 +132,7 @@ public class RopeCharge : MonoBehaviour
         isCharging = false;
         ApplyVisual(charge01);
         onReleaseCharge01?.Invoke(charge01);
+        ShowVisual(false);
     }
 
     private void ApplyVisual(float value01)

@@ -101,6 +101,7 @@ public class TutorialContainerSelect : MonoBehaviour
             .AddEvent(() =>
             {
                 TutorialManager.Instance.IsPlayEndTutorial = false;
+                goStart.SetActive(true);
             });
 
             textChannel.RaiseEvent(textPanelEvent);
