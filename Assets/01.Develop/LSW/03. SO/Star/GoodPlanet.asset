@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9fc960b68412664409dcd3ceb65d60eb, type: 3}
+  m_Name: GoodPlanet
+  m_EditorClassIdentifier: 
+  starImage: {fileID: 21300000, guid: 449c44aaf3a3639408d93be6c4d80d11, type: 3}
+  starName: Name
+  description: Desc
+  speed: 10
+  starPrefab: {fileID: 3020416748926830540, guid: e11d105d32c9d374b94255f5042705bf, type: 3}

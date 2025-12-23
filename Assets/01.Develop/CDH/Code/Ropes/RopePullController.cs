@@ -1,15 +1,17 @@
 using _01.Develop.LSW._01._Scripts.So;
-using System;
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
+using UnityEngine.UI; // ✅ CanvasGroup
 
 public class RopePullController : MonoBehaviour
 {
     public UnityEvent OnChainBreak;
     public UnityEvent<StarSo> OnGetStar;
+
+    [SerializeField] private GameObject pullGameObject;
 
     [Header("References")]
     [SerializeField] private Transform player;
@@ -39,7 +41,7 @@ public class RopePullController : MonoBehaviour
     [Header("Pull Input")]
     [SerializeField] private float minDragWorld = 0.8f;
     [SerializeField] private float maxDragWorld = 5f;
-    [Range(1f, 4f)] [SerializeField] private float lengthPower = 2.4f;
+    [Range(1f, 4f)][SerializeField] private float lengthPower = 2.4f;
     [SerializeField] private float minEffectiveDragDuration = 0.12f;
     [SerializeField] private float pullCooldown = 0.12f;
 
@@ -60,6 +62,12 @@ public class RopePullController : MonoBehaviour
     [SerializeField] private Ease lensDownEase = Ease.OutQuad;
     [SerializeField] private Ease lensReturnEase = Ease.OutQuad;
 
+    [Header("PullGameObject Fade (CanvasGroup, Two Tweens)")]
+    [SerializeField] private float pullFadeInDuration = 0.06f;
+    [SerializeField] private float pullFadeOutDuration = 0.20f;
+    [SerializeField] private Ease pullFadeInEase = Ease.OutQuad;
+    [SerializeField] private Ease pullFadeOutEase = Ease.OutQuad;
+
     private LensDistortion lensDistortion;
     private Tween lensTween;
 
@@ -72,6 +80,11 @@ public class RopePullController : MonoBehaviour
     private float nextPullTime;
     private Vector2 pullVel;
     private Vector2 lastPullPosition;
+
+    // ✅ pullGameObject fade (두 트윈)
+    private CanvasGroup pullCanvasGroup;
+    private Tween pullFadeInTween;
+    private Tween pullFadeOutTween;
 
     private void Awake()
     {
@@ -86,9 +99,17 @@ public class RopePullController : MonoBehaviour
             SetupRopeLine();
 
         CacheLensDistortion();
+        CachePullCanvasGroup();
 
         if (starTarget != null)
             SetTarget(starTarget);
+    }
+
+    private void OnDisable()
+    {
+        lensTween?.Kill();
+        pullFadeInTween?.Kill();
+        pullFadeOutTween?.Kill();
     }
 
     private void CacheLensDistortion()
@@ -100,6 +121,67 @@ public class RopePullController : MonoBehaviour
 
         postProcessVolume.profile.TryGet(out lensDistortion);
     }
+
+    // ---------------- PullGameObject Fade (CanvasGroup) ----------------
+
+    private void CachePullCanvasGroup()
+    {
+        pullCanvasGroup = null;
+
+        if (pullGameObject == null) return;
+
+        pullCanvasGroup = pullGameObject.GetComponent<CanvasGroup>();
+        if (pullCanvasGroup == null)
+            pullCanvasGroup = pullGameObject.AddComponent<CanvasGroup>();
+
+        // 시작은 꺼두고 알파 0으로 준비(원하면 수정 가능)
+        pullCanvasGroup.alpha = 0f;
+        pullGameObject.SetActive(false);
+    }
+
+    private void ShowPullFadeIn()
+    {
+        if (pullGameObject == null || pullCanvasGroup == null) return;
+
+        // ✅ 반복 재생 대비: 반대 트윈/자기 트윈 모두 정리
+        pullFadeOutTween?.Kill();
+        pullFadeInTween?.Kill();
+
+        if (!pullGameObject.activeSelf)
+        {
+            pullGameObject.SetActive(true);
+            pullCanvasGroup.alpha = 0f; // 비활성에서 켤 때는 0에서 시작
+        }
+
+        // ✅ Fade In 트윈 (1)
+        pullFadeInTween = pullCanvasGroup
+            .DOFade(1f, pullFadeInDuration)
+            .SetEase(pullFadeInEase)
+            .SetUpdate(true); // (선택) 타임스케일 영향 안 받게. 싫으면 지워도 됨
+    }
+
+    private void HidePullFadeOut()
+    {
+        if (pullGameObject == null || pullCanvasGroup == null) return;
+        if (!pullGameObject.activeSelf) return;
+
+        // ✅ 반복 재생 대비
+        pullFadeInTween?.Kill();
+        pullFadeOutTween?.Kill();
+
+        // ✅ Fade Out 트윈 (2)
+        pullFadeOutTween = pullCanvasGroup
+            .DOFade(0f, pullFadeOutDuration)
+            .SetEase(pullFadeOutEase)
+            .SetUpdate(true)
+            .OnComplete(() =>
+            {
+                pullGameObject.SetActive(false);
+                // 다음 Show 때 0에서 페이드인 하도록 유지
+            });
+    }
+
+    // -----------------------------------------------------------------
 
     private void Update()
     {
@@ -116,7 +198,7 @@ public class RopePullController : MonoBehaviour
 
         if (cam == null || player == null || starRb == null) return;
 
-        // ✅ 드래그 시작: 렌즈 왜곡 "내리기"
+        // ✅ 드래그 시작: 렌즈 왜곡 "내리기" + pullGameObject 페이드인
         if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
@@ -124,9 +206,11 @@ public class RopePullController : MonoBehaviour
             dragStartTime = Time.time;
 
             PlayLensDistortionDown();
+
+            ShowPullFadeIn();
         }
 
-        // ✅ 드래그 끝: 렌즈 왜곡 "복귀"
+        // ✅ 드래그 끝: 렌즈 왜곡 "복귀" + pullGameObject 페이드아웃
         if (Input.GetMouseButtonUp(0))
         {
             if (!isDragging) return;
@@ -135,6 +219,8 @@ public class RopePullController : MonoBehaviour
             PlayLensDistortionReturn();
 
             TryPullOnRelease(MouseWorld2D(), Time.time - dragStartTime);
+
+            HidePullFadeOut();
         }
     }
 
@@ -176,8 +262,9 @@ public class RopePullController : MonoBehaviour
 
     private void EndPull()
     {
-        // 안전하게 렌즈 복귀
+        // 안전하게 렌즈 복귀 + pull UI도 정리
         PlayLensDistortionReturn(force: true);
+        HidePullFadeOut();
 
         if (cameraManager != null) cameraManager.EndFollowObj();
         if (destroyOnCollect && starTarget != null)
@@ -230,6 +317,8 @@ public class RopePullController : MonoBehaviour
 
         if (ropeLine != null)
             ropeLine.enabled = false;
+
+        HidePullFadeOut();
     }
 
     private void TryPullOnRelease(Vector2 dragEndWorld, float dragDuration)
@@ -258,7 +347,6 @@ public class RopePullController : MonoBehaviour
 
     // ---------------- Lens Distortion ----------------
 
-    // 드래그 중에 -0.35까지 "내리기"
     private void PlayLensDistortionDown(bool force = false)
     {
         if (lensDistortion == null) CacheLensDistortion();
@@ -266,7 +354,6 @@ public class RopePullController : MonoBehaviour
 
         float target = Mathf.Clamp(lensDistortionTarget, -1f, 1f);
 
-        // 이미 트윈 중이면 씹기(원래 요구) / force면 강제로 교체
         if (!force && lensTween != null && lensTween.IsActive() && lensTween.IsPlaying())
             return;
 
@@ -280,16 +367,12 @@ public class RopePullController : MonoBehaviour
             .SetEase(lensDownEase);
     }
 
-    // 드래그를 떼면 0으로 "복귀"
     private void PlayLensDistortionReturn(bool force = false)
     {
         if (lensDistortion == null) CacheLensDistortion();
         if (lensDistortion == null) return;
 
-        // 복귀는 "못 돌아가서 왜곡 남는" 상황 생기면 짜증나니까
-        // force 아니더라도 기존 트윈은 끊고 복귀시키는 쪽이 안정적임
         lensTween?.Kill();
-
         lensTween = DOTween.To(
                 () => lensDistortion.intensity.value,
                 x => lensDistortion.intensity.value = x,
@@ -319,8 +402,22 @@ public class RopePullController : MonoBehaviour
         ropeLine.startWidth = lineWidth;
         ropeLine.endWidth = lineWidth;
         ropeLine.material = new Material(Shader.Find("Sprites/Default"));
-        ropeLine.startColor = Color.white;
-        ropeLine.endColor = Color.white;
+        Gradient brownGradient = new Gradient();
+
+        brownGradient.SetKeys(
+            new GradientColorKey[]
+            {
+        new GradientColorKey(new Color(0.36f, 0.20f, 0.09f), 0f), // Dark Brown
+        new GradientColorKey(new Color(0.59f, 0.29f, 0.00f), 0.5f), // Brown
+        new GradientColorKey(new Color(0.76f, 0.60f, 0.42f), 1f), // Light Brown
+            },
+            new GradientAlphaKey[]
+            {
+        new GradientAlphaKey(1f, 0f),
+        new GradientAlphaKey(1f, 1f),
+            }
+        );
+        ropeLine.colorGradient = brownGradient;
         ropeLine.enabled = false;
     }
 

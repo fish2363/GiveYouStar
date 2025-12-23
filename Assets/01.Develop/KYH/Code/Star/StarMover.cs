@@ -13,6 +13,7 @@ public class StarMover : MonoBehaviour
     [SerializeField] private ParticleSystem particle;
     public StarSo MyInfo { get; private set; }
 
+
     public void Initialize(StarSo star)
     {
         MyInfo = star;
@@ -27,6 +28,7 @@ public class StarMover : MonoBehaviour
     private void Update()
     {
         if (isCatch) return;
+
         transform.position += moveDirection * speed * Time.deltaTime;
     }
 
@@ -37,10 +39,9 @@ public class StarMover : MonoBehaviour
         Camera.main.GetComponent<CinemachineImpulseSource>().GenerateImpulse();
         isCatch = isStop;
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.CompareTag("Star") && isCatch)
+        if (collision.gameObject.CompareTag("Star") && isCatch)
         {
             OnDestroy?.Invoke();
         }
