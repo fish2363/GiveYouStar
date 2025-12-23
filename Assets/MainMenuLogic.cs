@@ -6,6 +6,8 @@ using Assets._01.Develop.CDH.Code.Core;
 
 public class MainMenuLogic : MonoBehaviour
 {
+    public UnityEvent OnStart;
+
     [Header("UI")]
     [SerializeField] private TMP_Text pressAnyKeyText;
 
@@ -79,6 +81,8 @@ public class MainMenuLogic : MonoBehaviour
 
     private void PlayTransition()
     {
+        OnStart?.Invoke();
+
         _started = true;
 
         _blinkTween?.Kill();
