@@ -4820,6 +4820,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: a862f4efea71f80479a87f8f7b1fa506, type: 2}
     - target: {fileID: 5931245378870811176, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5931245378870811176, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_fontSizeMax
       value: 25
       objectReference: {fileID: 0}
@@ -4845,12 +4849,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_fontSize
-      value: 41
+      value: 43.6
       objectReference: {fileID: 0}
     - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_fontAsset
       value: 
       objectReference: {fileID: 11400000, guid: a862f4efea71f80479a87f8f7b1fa506, type: 2}
+    - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_fontStyle
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6567337770394648390, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_lineSpacing
       value: 36.29
