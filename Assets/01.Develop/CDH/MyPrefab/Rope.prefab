@@ -179,7 +179,7 @@ MonoBehaviour:
     _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
     <DebugObject>k__BackingField: {fileID: 5126771148484737643}
   baseSpeed: 6
-  speedByCharge: 50
+  speedByCharge: 10
   maxDistance: 200
   biasTurnDegPerSec: 180
   maxBiasAngleDeg: 35

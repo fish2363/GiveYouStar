@@ -5010,7 +5010,7 @@ MonoBehaviour:
   starSoundID:
     ID: 1073741840
     _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
-    <DebugObject>k__BackingField: {fileID: 5204726340962244434, guid: 72ed774e40f871e48a10368fef2afab1, type: 3}
+    <DebugObject>k__BackingField: {fileID: 3523978073557907013}
   speed: 2
   isCatch: 0
   particle: {fileID: 4373537587787016517}

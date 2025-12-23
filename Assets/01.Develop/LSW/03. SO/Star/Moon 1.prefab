@@ -39387,7 +39387,7 @@ MonoBehaviour:
   starSoundID:
     ID: 0
     _sourceAsset: {fileID: 0}
-    <DebugObject>k__BackingField: {fileID: 3523978073557907013, guid: b41e179a8f40f634391c7a082c0c5d42, type: 3}
+    <DebugObject>k__BackingField: {fileID: 8862248589327440636}
   speed: 2
   isCatch: 0
   particle: {fileID: 4440382775669792965}
