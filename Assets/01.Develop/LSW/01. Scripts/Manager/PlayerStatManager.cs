@@ -10,10 +10,10 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         public float initSpeed = 10f;
         public float initRopeSize = 10f;
 
-        public int Coin { get; private set; }
-        private float FailDist { get; set; }
-        private float Speed { get; set; }
-        private float RopeSize { get; set; }
+        [field:SerializeField] public int Coin { get; private set; }
+        [field:SerializeField] private float FailDist { get; set; }
+        [field:SerializeField] private float Speed { get; set; }
+        [field:SerializeField] private float RopeSize { get; set; }
         
         public event Action onStatsChanged;
 
