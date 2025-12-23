@@ -320,10 +320,10 @@ MonoBehaviour:
   onUpgradeStat:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1639851191}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
-        m_MethodName: IncreaseRopeSize
+        m_MethodName: IncreaseSpeed
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -711,7 +711,7 @@ MonoBehaviour:
   onUpgradeStat:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1639851191}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
         m_MethodName: IncreaseFailDist
@@ -3352,10 +3352,10 @@ MonoBehaviour:
   onUpgradeStat:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1639851191}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
-        m_MethodName: IncreaseSpeed
+        m_MethodName: IncreaseRopeSize
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
