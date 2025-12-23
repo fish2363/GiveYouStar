@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.So;
+using Assets._01.Develop.CDH.Code.Core;
 using DG.Tweening;
 using UnityEngine;
 
@@ -52,6 +53,11 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
                 {
                     bG.SetActive(false);
                 });
+        }
+
+        public void Exit(string sceneName)
+        {
+            TransitionManager.Instance.NextScene(sceneName);
         }
 
         private void OnDestroy()
