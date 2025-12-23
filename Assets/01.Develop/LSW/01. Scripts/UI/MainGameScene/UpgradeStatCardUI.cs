@@ -15,6 +15,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         
         [Header("Stat Upgrade Settings")]
         public float statIncAmount;
+        public float maxIncAmount;
         
         [Header("Cost Settings")]
         public int initCost;
@@ -23,7 +24,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         public UnityEvent<float> onUpgradeStat;
 
         private int CurrentCost { get; set; }
+        
         private float _incAmount;
+        private bool _isMax;
         
         private void Awake()
         {
@@ -38,12 +41,18 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         public void UpgradeStat()
         {
-            if (PlayerStatManager.Instance.ChangeCoinAmount(-CurrentCost))
+            if(_isMax)
+                return;
+            
+            if (PlayerStatManager.Instance.ChangeCoinAmount(-CurrentCost) )
             {
                 onUpgradeStat?.Invoke(statIncAmount);
                 
                 _incAmount += statIncAmount;
                 CurrentCost += costInc;
+                
+                if(_incAmount >= maxIncAmount)
+                    _isMax = true;
                 
                 ChangeStatUI();
             }
@@ -55,13 +64,14 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         private void ChangeStatUI()
         {
             incAmountText.SetText($"+{_incAmount}");
-            upgBtnText.SetText($"Upgrade\n(Cost : {CurrentCost})");
+            upgBtnText.SetText(_isMax ? "Upgrade Max" : $"Upgrade\n(Cost : {CurrentCost})");
             coinText.SetText(PlayerStatManager.Instance.GetCurrentCoin().ToString());
         }
 
         private void OnDestroy()
         {
-            PlayerStatManager.Instance.onCoinAmountChanged -= UpdateCoinUI;
+            if (PlayerStatManager.Instance != null)
+                PlayerStatManager.Instance.onCoinAmountChanged -= UpdateCoinUI;
         }
     }
 }
