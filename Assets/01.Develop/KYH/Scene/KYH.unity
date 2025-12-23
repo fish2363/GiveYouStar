@@ -744,6 +744,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ff3d3fc4618024ea2a8be417ee5a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameEndBellSoundID:
+    ID: 1073741845
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 272540480}
   maxTimer: 50
   clickUI: {fileID: 1934635371}
   timerVisual: {fileID: 910746212}
@@ -2749,6 +2753,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  colorizeByCharge: 1
+  nearMinColor: {r: 1, g: 1, b: 1, a: 1}
+  nearMaxColor: {r: 1, g: 0.2, b: 0.2, a: 1}
+  colorTweenDuration: 0.06
+  redPower: 2.2
+  startRedFrom: 0
 --- !u!4 &1069219453
 Transform:
   m_ObjectHideFlags: 0
@@ -3952,6 +3962,9 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnGetNewStar:
+    m_PersistentCalls:
+      m_Calls:
       - m_Target: {fileID: 1764607376}
         m_TargetAssemblyTypeName: Assets._01.Member.CDH.Code.Synergies.DiscoverAlram,
           Assembly-CSharp
@@ -3967,6 +3980,18 @@ MonoBehaviour:
         m_CallState: 2
   pullGameObject: {fileID: 570849368}
   text: {fileID: 955167538}
+  ropePullSoundId:
+    ID: 1073741838
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
+  cutRopeSoundId:
+    ID: 1073741839
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
+  ropeWindSoundId:
+    ID: 1073741841
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 1604441328}
   player: {fileID: 609520108}
   cameraManager: {fileID: 915437353}
   autoFindMainCamera: 1
@@ -5700,6 +5725,10 @@ MonoBehaviour:
   OnRopeCatchStar:
     m_PersistentCalls:
       m_Calls: []
+  throwRopeSoundID:
+    ID: 1073741842
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 2101652521}
   arrowUI: {fileID: 1604677970}
   playerTrm: {fileID: 609520108}
   cameraManager: {fileID: 915437353}

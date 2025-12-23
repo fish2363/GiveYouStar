@@ -1,15 +1,20 @@
-﻿using _01.Develop.LSW._01._Scripts.So;
+﻿using _01.Develop.LSW._01._Scripts.Manager;
+using _01.Develop.LSW._01._Scripts.So;
+using Ami.BroAudio;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
-using _01.Develop.LSW._01._Scripts.Manager;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
-using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Sound")]
+    [SerializeField] private SoundID gameEndBellSoundID;
+    [Space]
+
     public float maxTimer;
     float currentTimer;
     [SerializeField] private SpriteRenderer clickUI;
@@ -170,7 +175,8 @@ public class GameManager : MonoBehaviour
     {
         isGameStart = false;
         StopChargeBlink();
-        StarManager.Instance.EndGame();
+        StarManager.Instance.EndGame(); 
+        BroAudio.Play(gameEndBellSoundID);
     }
 
     public void SetRopeChargeTurn()
