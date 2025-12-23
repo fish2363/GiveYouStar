@@ -25,8 +25,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         
         public UnityEvent<float> onUpgradeStat;
 
+        private int _currentLevel = 0;
         private int CurrentCost { get; set; }
-        
+        private float _currentStatInc;
         private bool _isMax;
         
         private void Awake()
@@ -37,19 +38,44 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         private void Start()
         {
+            Init();
             ChangeStatUI();
+        }
+
+        private void Init()
+        {
+            int level = 1;
+            switch (statType)
+            {
+                case StatType.FailDistance:
+                    level = UpgradeManager.Instance.currentFailDistLevel;
+                    break;
+                case StatType.MaxTimer:
+                    level = UpgradeManager.Instance.currentSpeedLevel;
+                    break;
+                case StatType.RopeSize:
+                    level = UpgradeManager.Instance.currentRopeSizeLevel;
+                    break;
+            }
+            CurrentCost = initCost + costInc * level;
+            _currentStatInc = statIncAmount * level;
+            
+            if(_currentStatInc >= maxIncAmount)
+                _isMax = true;
         }
 
         public void UpgradeStat()
         {
             if(_isMax)
                 return;
-            
+
             if (PlayerStatManager.Instance.ChangeCoinAmount(-CurrentCost) )
             {
+                _currentLevel++;
                 onUpgradeStat?.Invoke(statIncAmount);
                 
                 CurrentCost += costInc;
+                _currentStatInc += statIncAmount;
 
                 switch (statType)
                 {
@@ -64,7 +90,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                         break;
                 }
                 
-                if(PlayerStatManager.Instance.GetCurrentStat(statType) >= maxIncAmount)
+                if(_currentStatInc >= maxIncAmount)
                     _isMax = true;
                 
                 ChangeStatUI();
@@ -87,6 +113,18 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         {
             if (PlayerStatManager.Instance != null)
                 PlayerStatManager.Instance.onCoinAmountChanged -= UpdateCoinUI;
+            switch (statType)
+            {
+                case StatType.FailDistance:
+                    UpgradeManager.Instance.currentFailDistLevel = _currentLevel;
+                    break;
+                case StatType.MaxTimer:
+                    UpgradeManager.Instance.currentSpeedLevel = _currentLevel;
+                    break;
+                case StatType.RopeSize:
+                    UpgradeManager.Instance.currentRopeSizeLevel = _currentLevel;
+                    break;
+            }
         }
     }
     
