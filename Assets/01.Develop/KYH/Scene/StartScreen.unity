@@ -1596,8 +1596,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initCoin: 10
-  initFailDist: 7
-  initSpeed: 5
+  initFailDist: 15
+  initSpeed: 10
   initRopeSize: 1
   <Coin>k__BackingField: 0
   <FailDist>k__BackingField: 0

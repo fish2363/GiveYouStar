@@ -20,13 +20,6 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             targetScale = baseScale;
         }
 
-        private void OnEnable()
-        {
-            // 혹시 켜질 때 스케일이 외부에서 바뀌는 구조면 여기서 다시 잡아도 됨
-            baseScale = transform.localScale;
-            targetScale = baseScale;
-        }
-
         private void Update()
         {
             float dt = useUnscaledTime ? Time.unscaledDeltaTime : Time.deltaTime;

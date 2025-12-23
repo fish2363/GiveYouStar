@@ -20,7 +20,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private TextMeshProUGUI coinText;
         [SerializeField] private TextMeshProUGUI coinIncTextPrefab;
         
-        private List<HavingStarUI> _havingStarUIs = new List<HavingStarUI>();
+        public List<HavingStarUI> _havingStarUIs = new List<HavingStarUI>();
         
         private void Start()
         {

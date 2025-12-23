@@ -1,3 +1,4 @@
+using _01.Develop.LSW._01._Scripts.UI.MainGameScene;
 using UnityEngine;
 
 public class TutorialContainerSelect : MonoBehaviour
@@ -7,6 +8,7 @@ public class TutorialContainerSelect : MonoBehaviour
     [SerializeField] private GameObject pressCollect;
     [SerializeField] private GameObject pressPower;
     [SerializeField] private GameObject goStart;
+    private DreamHouse house;
 
     private bool isExplainGift;
     private bool isCollector;
@@ -15,6 +17,12 @@ public class TutorialContainerSelect : MonoBehaviour
     private bool isGiveGift;
     private bool isCanPowerUp;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+    private void Awake()
+    {
+        house = FindAnyObjectByType<DreamHouse>();
+    }
+
     void Start()
     {
         if(TutorialManager.Instance.IsPlayEndTutorial)
@@ -92,7 +100,7 @@ public class TutorialContainerSelect : MonoBehaviour
             .AddDialogue("최대로 강화할 수 있는 한계치가\n있는 거 명심하고 신중히 선택하게나!")
             .AddEvent(() =>
             {
-
+                TutorialManager.Instance.IsPlayEndTutorial = false;
             });
 
             textChannel.RaiseEvent(textPanelEvent);
@@ -111,7 +119,7 @@ public class TutorialContainerSelect : MonoBehaviour
             .AddDialogue("허허, 잠시만 기다려보게.")
             .AddDialogue("저 별들이 다 어떤 별인지\n우리 친구는 알고 있나?")
             .AddDialogue("어떤 종류인지 정확히 알아야 실수\n없이 선물을 나눠줄 수 있을 게야. ")
-            .AddDialogue("우선 서둘러 도감을 펼쳐서 확인해보고\n가도록 하세! 준비됐으면 말해주게나, 허허허!")
+            .AddDialogue("우선 서둘러 도감을 펼쳐서 확인해보고 가도록 하세!\n준비됐으면 돌아가기 버튼을 눌러, 허허허!")
             .AddEvent(() =>
             {
                 isCollector = true;
@@ -121,10 +129,12 @@ public class TutorialContainerSelect : MonoBehaviour
         }
         else if(isGiveGift)
         {
+            string eve = house._havingStarUIs.Count > 0 ? "밑을 보게나, 자네가 챙겨온\n선물들이 차례대로 모여있구만!" : "음...아이들에게 줄 선물이 없구먼\n원래라면 아래쪽에 챙겨온 선물들이 쌓여있다네.";
             TextPanelEvent textPanelEvent = new();
-            textPanelEvent.AddDialogue("밑을 보게나, 자네가 챙겨온\n선물들이 차례대로 모여있구만!")
+            textPanelEvent.AddDialogue(eve)
             .AddDialogue("선물을 끌어서 그 선물을 간절히 원하는 아이에게 전해주면,\n아이들이 참 기뻐할 게야.")
             .AddDialogue("원하는 아이가 없다면\n오른쪽 밑, 선물상자에 넣게!")
+            .AddDialogue("선물을 다 나눠주었다면\n되돌아가지.")
             .AddEvent(() =>
             {
                 isCanPowerUp = true;
