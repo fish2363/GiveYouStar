@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mario
   m_EditorClassIdentifier: 
   starImage: {fileID: 21300000, guid: 98f20675c2761d74494fc8a430d40dfe, type: 3}
-  starIcon: {fileID: 21300000, guid: 98f20675c2761d74494fc8a430d40dfe, type: 3}
+  starIcon: {fileID: 21300000, guid: 952f4df3e8abeae498aaf5e3001a4bbc, type: 3}
   starName: Name
   description: Desc
   speed: 10

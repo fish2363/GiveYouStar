@@ -19,8 +19,10 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         private void Start()
         {
-            if(ChildManager.Instance.GetReqStarsEmpty()) 
+            if (ChildManager.Instance.GetReqStarsEmpty())
                 SetInitChild();
+            else
+                SetChildUI();
             
             List<StarSo> havingStars 
                 = new List<StarSo>(StarManager.Instance.GetAllGotStars());
@@ -36,6 +38,14 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             foreach (var childUI in childrenUI)
             {
                 childUI.onStarGiven += SetChild;
+            }
+        }
+
+        private void SetChildUI()
+        {
+            for (int i = 0; i < childrenUI.Count; i++)
+            {
+                childrenUI[i].SetReqStar(ChildManager.Instance.GetReqStars()[i]);
             }
         }
 
