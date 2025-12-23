@@ -3,5 +3,6 @@ using UnityEngine;
 
 public class TutorialManager : MonoSingleton<TutorialManager>
 {
-    public static bool IsTutorial { get; set; } = true;
+    [field:SerializeField] public bool IsFirstTutorial { get; set; } = true;
+    [field:SerializeField] public bool IsPlayEndTutorial { get; set; } = false;
 }
