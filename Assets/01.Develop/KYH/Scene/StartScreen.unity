@@ -1595,9 +1595,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fb437ea13e8447abc1c3707f5f74f7e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initCoin: 10
+  initCoin: 0
   initFailDist: 15
-  initSpeed: 10
+  initSpeed: 16
   initRopeSize: 1
   <Coin>k__BackingField: 0
   <FailDist>k__BackingField: 0
@@ -2461,20 +2461,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cb6db97ec63cc9d4aa423b4c43dfc1b0, type: 2}
   - {fileID: 11400000, guid: 465c23277a8fac243ba07a2ce6b0d888, type: 2}
   - {fileID: 11400000, guid: eb66523ff811455468189c739faf77fc, type: 2}
-  _gotStarContainer:
-  - {fileID: 11400000, guid: 7b23211582e3f1143adc0e8071d04ed0, type: 2}
-  - {fileID: 11400000, guid: 3001d7aacba0f3c44b4ee7461fce11ba, type: 2}
-  - {fileID: 11400000, guid: 8c5de9295ed9d0344a69db3d8d783cfd, type: 2}
-  - {fileID: 11400000, guid: 4d409fb1c000abe44b5c80e243d11a87, type: 2}
-  - {fileID: 11400000, guid: a6e69a23a1671e1409ad98e883232bb7, type: 2}
-  - {fileID: 11400000, guid: 88ecb18232bef7d4a917ed20181f9d61, type: 2}
-  - {fileID: 11400000, guid: 61ad0e56cceeccc428006b4fa6e86aa5, type: 2}
-  - {fileID: 11400000, guid: 8f5f502f03387214ea8874bf17091db1, type: 2}
-  - {fileID: 11400000, guid: 8eff380bdbed68441b1be3e72a644f8a, type: 2}
-  - {fileID: 11400000, guid: 465c23277a8fac243ba07a2ce6b0d888, type: 2}
-  - {fileID: 11400000, guid: cb6db97ec63cc9d4aa423b4c43dfc1b0, type: 2}
-  - {fileID: 11400000, guid: 6c1ae202392b6184fb9e3efd2f7a5d0d, type: 2}
-  - {fileID: 11400000, guid: eb66523ff811455468189c739faf77fc, type: 2}
+  _gotStarContainer: []
 --- !u!1 &1779033140
 GameObject:
   m_ObjectHideFlags: 0
