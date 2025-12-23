@@ -12,6 +12,8 @@ using UnityEngine.InputSystem;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameEventChannelSO textChannel;
+
     [Header("Sound")]
     [SerializeField] private SoundID gameEndBellSoundID;
     [Space]
@@ -180,9 +182,31 @@ public class GameManager : MonoBehaviour
 
     private void GameEnd()
     {
+        if (TutorialManager.Instance.IsPlayEndTutorial)
+        {
+            string rewards = getStarList.Count > 0 ? "허허허! 자네가 오늘 수확한\n눈부신 별들이 여기 다 모였군!" : "이런... 이번 기회는 아쉽지만 돌아가지\n원래 뭐든지 처음은 쉽지 않은 법이라네.";
+            TextPanelEvent textPanelEvent = new();
+            textPanelEvent
+                .AddDialogue(rewards)
+                .AddDialogue("최대한 많은 아이들의 동심을\n지켜야 하니 빨리 서두르지!")
+                .AddEvent(() =>
+                {
+                    RealGameEnd();
+                });
+
+            textChannel.RaiseEvent(textPanelEvent);
+        }
+        else
+        {
+            RealGameEnd();
+        }
+    }
+
+    private void RealGameEnd()
+    {
         isGameStart = false;
         StopChargeBlink();
-        StarManager.Instance.EndGame(); 
+        StarManager.Instance.EndGame();
         BroAudio.Play(gameEndBellSoundID);
         EndGame?.Invoke();
     }

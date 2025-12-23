@@ -11,9 +11,26 @@ public class TutorialContainerSelect : MonoBehaviour
     private bool isExplainGift;
     private bool isCollector;
     private bool isPowerUp;
+
+    private bool isGiveGift;
+    private bool isCanPowerUp;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        if(TutorialManager.Instance.IsPlayEndTutorial)
+        {
+            goStart.SetActive(false);
+            TextPanelEvent textPanelEvent = new();
+            textPanelEvent.AddDialogue("자, 지체할 시간이 없네.").
+            AddDialogue("이 아름다운 별들을 기다리고 있을 아이들에게\n서둘러 선물을 나눠주러 가세나! 허허허!")
+            .AddEvent(() =>
+            {
+                isGiveGift = true;
+                pressGift.SetActive(true);
+            });
+
+            textChannel.RaiseEvent(textPanelEvent);
+        }
         if(TutorialManager.Instance.IsFirstTutorial)
         {
             goStart.SetActive(false);
@@ -50,47 +67,85 @@ public class TutorialContainerSelect : MonoBehaviour
 
     public void GoPowerUp()
     {
-        if (!isPowerUp) return;
-        pressPower.SetActive(false);
-        TextPanelEvent textPanelEvent = new();
-        textPanelEvent.AddDialogue("여기선 별을 더 빠르고 정확하게 낚을 수\n있도록 도구를 강화할 수 있다네. ")
-        .AddRestMinute(1f)
-        .AddDialogue("참!")
-        .AddDialogue("필요한 재화는 아이들에게 별을 선물하고 받은\n'감사의 마음'으로 바꿀 수 있으니 참고하게나.")
-        .AddEvent(() =>
+        if (isPowerUp)
         {
-            
-        });
+            pressPower.SetActive(false);
+            TextPanelEvent textPanelEvent = new();
+            textPanelEvent.AddDialogue("여기선 별을 더 빠르고 정확하게 낚을 수\n있도록 도구를 강화할 수 있다네. ")
+            .AddRestMinute(1f)
+            .AddDialogue("참!")
+            .AddDialogue("필요한 재화는 아이들에게 별을 선물하고 받은\n'감사의 마음'으로 바꿀 수 있으니 참고하게나.")
+            .AddEvent(() =>
+            {
 
-        textChannel.RaiseEvent(textPanelEvent);
+            });
+
+            textChannel.RaiseEvent(textPanelEvent);
+        }
+        else if(isCanPowerUp)
+        {
+            pressPower.SetActive(false);
+            TextPanelEvent textPanelEvent = new();
+            textPanelEvent.AddDialogue("아이들의 감사표시가 모이면\n바로 도구를 강화할 수 있다네.")
+            .AddRestMinute(1f)
+            .AddDialogue("참!")
+            .AddDialogue("최대로 강화할 수 있는 한계치가\n있는 거 명심하고 신중히 선택하게나!")
+            .AddEvent(() =>
+            {
+
+            });
+
+            textChannel.RaiseEvent(textPanelEvent);
+        }
     }
 
 
     public void GoGiftKid()
     {
-        if (!isExplainGift) return;
-        TextPanelEvent textPanelEvent = new();
-        textPanelEvent.AddDialogue("아이들이 각자 갖고 싶은\n별을 재잘거리고 있구먼!")
-        .AddDialogue("당장이라도 출발하고 싶지만...")
-        .AddRestMinute(1f)
-        .AddDialogue("허허, 잠시만 기다려보게.")
-        .AddDialogue("저 별들이 다 어떤 별인지\n우리 친구는 알고 있나?")
-        .AddDialogue("어떤 종류인지 정확히 알아야 실수\n없이 선물을 나눠줄 수 있을 게야. ")
-        .AddDialogue("우선 서둘러 도감을 펼쳐서 확인해보고\n가도록 하세! 준비됐으면 말해주게나, 허허허!")
-        .AddEvent(() =>
+        if (isExplainGift)
         {
-            isCollector = true;
-        });
+            TextPanelEvent textPanelEvent = new();
+            textPanelEvent.AddDialogue("아이들이 각자 갖고 싶은\n별을 이야기하고 있구먼!")
+            .AddDialogue("당장이라도 출발하고 싶지만...")
+            .AddRestMinute(1f)
+            .AddDialogue("허허, 잠시만 기다려보게.")
+            .AddDialogue("저 별들이 다 어떤 별인지\n우리 친구는 알고 있나?")
+            .AddDialogue("어떤 종류인지 정확히 알아야 실수\n없이 선물을 나눠줄 수 있을 게야. ")
+            .AddDialogue("우선 서둘러 도감을 펼쳐서 확인해보고\n가도록 하세! 준비됐으면 말해주게나, 허허허!")
+            .AddEvent(() =>
+            {
+                isCollector = true;
+            });
 
-        textChannel.RaiseEvent(textPanelEvent);
+            textChannel.RaiseEvent(textPanelEvent);
+        }
+        else if(isGiveGift)
+        {
+            TextPanelEvent textPanelEvent = new();
+            textPanelEvent.AddDialogue("밑을 보게나, 자네가 챙겨온\n선물들이 차례대로 모여있구만!")
+            .AddDialogue("선물을 끌어서 그 선물을 간절히 원하는 아이에게 전해주면,\n아이들이 참 기뻐할 게야.")
+            .AddDialogue("원하는 아이가 없다면\n오른쪽 밑, 선물상자에 넣게!")
+            .AddEvent(() =>
+            {
+                isCanPowerUp = true;
+            });
+
+            textChannel.RaiseEvent(textPanelEvent);
+        }
     }
 
     public void SetActivePressGiftDown()
     {
-        if (!TutorialManager.Instance.IsFirstTutorial || !isExplainGift) return;
-        isExplainGift = false;
+        if (!TutorialManager.Instance.IsFirstTutorial && !TutorialManager.Instance.IsPlayEndTutorial) return;
 
-        pressCollect.SetActive(true);
+        if (isExplainGift)
+            pressCollect.SetActive(true);
+        else if(isGiveGift)
+            pressPower.SetActive(true);
+
+        isExplainGift = false;
+        isGiveGift = false;
+
         pressGift.SetActive(false);
     }
 
@@ -104,8 +159,9 @@ public class TutorialContainerSelect : MonoBehaviour
 
     public void SetActivePressPowerDown()
     {
-        if (!TutorialManager.Instance.IsFirstTutorial ||  !isPowerUp) return;
+        if (!TutorialManager.Instance.IsFirstTutorial && !TutorialManager.Instance.IsPlayEndTutorial) return;
         isPowerUp = false;
+        isCanPowerUp = false;
 
         goStart.SetActive(true);
     }

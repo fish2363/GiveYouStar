@@ -895,6 +895,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 39ff3d3fc4618024ea2a8be417ee5a0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  textChannel: {fileID: 11400000, guid: bf70f95a08a44914eabb52d9abce6c54, type: 2}
   gameEndBellSoundID:
     ID: 1073741845
     _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
