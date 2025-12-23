@@ -12,6 +12,7 @@ public class RopePullController : MonoBehaviour
 {
     public UnityEvent OnChainBreak;
     public UnityEvent<StarSo> OnGetStar;
+    public UnityEvent<StarSo> OnGetNewStar;
 
     [SerializeField] private GameObject pullGameObject;
 
@@ -233,6 +234,8 @@ public class RopePullController : MonoBehaviour
 
         if (player != null && Vector2.Distance(starTarget.transform.position, player.position) <= collectDistance)
         {
+            if(!StarManager.Instance.IsAlreadyUnlock(starTarget.MyInfo))
+                OnGetNewStar?.Invoke(starTarget.MyInfo);
             OnGetStar?.Invoke(starTarget.MyInfo);
             StarManager.Instance.AddGotStar(starTarget.MyInfo);
             EndPull();

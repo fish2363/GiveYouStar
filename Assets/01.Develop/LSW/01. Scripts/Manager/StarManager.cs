@@ -31,6 +31,15 @@ namespace _01.Develop.LSW._01._Scripts.Manager
                 _stars[star] = true;
             }
         }
+
+        public bool IsAlreadyUnlock(StarSo star)
+        {
+            if (_stars.ContainsKey(star)) // stars에 star가 있고
+            {
+                return _stars[star]; // 그 스타가 이미 언락되어있는지 아닌지
+            }
+            return false;
+        }
         
         public void AddGotStar(StarSo star)
         {
