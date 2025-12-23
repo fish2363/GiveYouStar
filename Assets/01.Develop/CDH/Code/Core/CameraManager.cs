@@ -176,6 +176,12 @@ public class CameraManager : MonoBehaviour
         vcamDefault.Priority = backPriority;
         vcamFollow.Priority = activePriority;
         vFullCam.Priority = backPriority;
+
+        var confiner = vcamFollow.GetComponent<CinemachineConfiner2D>();
+        if (confiner == null) return;
+
+        confiner.InvalidateLensCache();
+        confiner.InvalidateBoundingShapeCache();
     }
 
     private void MovePanels(RectTransform upTarget, RectTransform downTarget)

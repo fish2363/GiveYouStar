@@ -3602,7 +3602,7 @@ Transform:
   m_GameObject: {fileID: 1491234014}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 5.3, y: -15.1, z: -54.84}
+  m_LocalPosition: {x: 75.6, y: 76.2, z: -54.84}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4198,9 +4198,41 @@ PrefabInstance:
       propertyPath: waitingDuration
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 1305084862712654743, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: -5177388603050735206, guid: 8884154dfe85442a3a3578be807dbcdf, type: 3}
+    - target: {fileID: 1305084862712654743, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305084862712654743, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305084862712654743, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1305084862712654743, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 2.67
+      objectReference: {fileID: 0}
     - target: {fileID: 3090117814165515868, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_Name
       value: SynergyDiscoverAlram
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290444988592694753, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4290444988592694753, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 397794055727333533, guid: 4aae6b9c3c6eb65429acb7372835575f, type: 3}
+    - target: {fileID: 4290444988592694753, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_PixelsPerUnitMultiplier
+      value: 2.5
       objectReference: {fileID: 0}
     - target: {fileID: 5931245378870811176, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
       propertyPath: m_overflowMode
@@ -4210,6 +4242,14 @@ PrefabInstance:
       propertyPath: m_overflowMode
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 7634934582299033570, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Type
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634934582299033570, guid: f326851cd8c96a544946b6bfeb73f770, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 397794055727333533, guid: 4aae6b9c3c6eb65429acb7372835575f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

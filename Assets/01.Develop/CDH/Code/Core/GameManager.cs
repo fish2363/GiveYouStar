@@ -53,8 +53,18 @@ public class GameManager : MonoBehaviour
         countText.text = "1";
         yield return new WaitForSeconds(1f);
         countText.text = "";
+
         clickUI.enabled = true;
+
         GameStart();
+
+        // ✅ 여기 추가: Cinemachine/Camera가 한 번 정착할 시간 주기
+        yield return null;              // 1프레임
+                                        // yield return null;           // 필요하면 2프레임
+
+        // (이 이후부터) 카메라 Follow/전환/줌 트윈 시작하도록 구성
+        // 예: cameraManager.AllowCameraSwitch = true;
+
         yield return new WaitForSeconds(4f);
         clickUI.enabled = false;
     }
