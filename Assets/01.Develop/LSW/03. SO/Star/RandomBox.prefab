@@ -39385,7 +39385,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isCatch: 0
   particle: {fileID: 3129962976552669915}
-  hereEffect: {fileID: 5003515671937011119}
 --- !u!61 &394821618186509582
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -39409,7 +39408,7 @@ BoxCollider2D:
     m_Bits: 4294967295
   m_ForceReceiveLayers:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 183
   m_ContactCaptureLayers:
     serializedVersion: 2
     m_Bits: 4294967295

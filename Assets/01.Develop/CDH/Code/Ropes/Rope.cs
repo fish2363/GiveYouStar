@@ -149,6 +149,11 @@ brownGradient.SetKeys(
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        if(collision.CompareTag("Area"))
+        {
+            OnFinishRope?.Invoke();
+            Destroy(gameObject);
+        }
         if (collision.CompareTag("Star"))
         {
             OnCatchStar?.Invoke(collision.GetComponent<StarMover>());

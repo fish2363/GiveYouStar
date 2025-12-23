@@ -17,6 +17,12 @@ public class CameraManager : MonoBehaviour
     [SerializeField] private RectTransform downPanel;
     [SerializeField] private RectTransform downPanelPos;
 
+    [Header("Minimap UI")]
+    [SerializeField] private CanvasGroup minimap;
+    [SerializeField] private RectTransform minimapRect; // ✅ 추가 (미니맵 루트 RectTransform)
+
+    private Tween minimapTween; // ✅ 트윈 관리
+
     private CinemachineCamera currentCam;
 
     private int activePriority = 10;
@@ -45,11 +51,9 @@ public class CameraManager : MonoBehaviour
     private bool isFollowing;
     public bool isFullCamActive = false;
 
-    // ✅ 추가: 카메라 위치 → UI Y로 변환
     [Header("Distance UI (Camera -> UI LocalY)")]
-    [SerializeField] private RectTransform distanceUI;                 // 새로 만든 UI
+    [SerializeField] private RectTransform distanceUI;
     [SerializeField] private Vector2 targetWorldPos = new Vector2(250f, 250f);
-    [Tooltip("이 거리 이상이면 UI는 -250에 가까움. 값 작을수록 빨리 올라감.")]
     [SerializeField] private float uiMaxDistance = 500f;
     [SerializeField] private float uiMinLocalY = -250f;
     [SerializeField] private float uiMaxLocalY = 250f;
@@ -77,18 +81,28 @@ public class CameraManager : MonoBehaviour
         vFullCam.Priority = backPriority;
 
         isFollowing = false;
+
+        // ✅ 시작 상태: 꺼진 상태(세로 0 + 투명)
+        if (minimap != null)
+        {
+            minimap.alpha = 0f;
+            minimap.blocksRaycasts = false;
+            minimap.interactable = false;
+        }
+        if (minimapRect != null)
+        {
+            minimapRect.localScale = new Vector3(1f, 0f, 1f);
+            // Pivot은 (0.5,0.5)면 TV처럼 중앙에서 켜짐. (0.5,0)면 아래에서 위로 켜짐.
+        }
     }
 
     private void LateUpdate()
     {
-        // 따라가던 대상이 사라지면 복귀
         if (isFollowing && currentTarget == null)
             EndFollowObj();
 
-        // ✅ 매 프레임 카메라 위치 기반 UI 갱신
         UpdateDistanceUIByCameraPos();
 
-        // Tab 키로 FullCam 전환
         if (!isFollowing)
         {
             if (Input.GetKeyDown(KeyCode.Tab))
@@ -138,9 +152,6 @@ public class CameraManager : MonoBehaviour
     {
         if (target == null) return;
 
-        // (원래 코드 유지)
-        upPanel.DOAnchorPosY(2100f, 0.2f);
-        downPanel.DOAnchorPosY(-1000f, 0.2f);
         MovePanels(upPanelPos, downPanelPos);
 
         currentTarget = target;
@@ -169,6 +180,9 @@ public class CameraManager : MonoBehaviour
 
     private void MovePanels(RectTransform upTarget, RectTransform downTarget)
     {
+        // ✅ 미니맵: TV 켜지듯 등장
+        ShowMinimapTV(true);
+
         if (upPanel != null && upTarget != null)
         {
             upPanel.DOKill();
@@ -184,6 +198,9 @@ public class CameraManager : MonoBehaviour
 
     public void EndFollowObj()
     {
+        // ✅ 미니맵: TV 꺼지듯 사라짐(세로 0)
+        ShowMinimapTV(false);
+
         isFollowing = false;
         currentTarget = null;
 
@@ -202,6 +219,47 @@ public class CameraManager : MonoBehaviour
         vFullCam.Priority = backPriority;
 
         RestoreBlendLater(returnBlendTime + 0.01f);
+    }
+
+    // =======================
+    // ✅ TV on/off Minimap Anim
+    // =======================
+    private void ShowMinimapTV(bool show)
+    {
+        if (minimap == null || minimapRect == null) return;
+
+        minimapTween?.Kill();
+
+        if (show)
+        {
+            minimap.blocksRaycasts = true;
+            minimap.interactable = true;
+
+            // 시작 상태 보정
+            minimap.alpha = 0f;
+            minimapRect.localScale = new Vector3(4.736695f, 0f, 1f);
+
+            minimapTween = DOTween.Sequence()
+                .Join(minimap.DOFade(1f, 0.15f).SetEase(Ease.OutQuad))
+                // TV 켜짐 느낌: 0 -> 1.1 -> 1 (살짝 튀는 느낌)
+                .Join(minimapRect.DOScaleY(4.836695f, 0.12f).SetEase(Ease.OutBack))
+                .Append(minimapRect.DOScaleY(4.736695f, 0.08f).SetEase(Ease.OutQuad));
+        }
+        else
+        {
+            minimap.blocksRaycasts = false;
+            minimap.interactable = false;
+
+            minimapTween = DOTween.Sequence()
+                .Join(minimap.DOFade(0f, 0.12f).SetEase(Ease.OutQuad))
+                .Join(minimapRect.DOScaleY(0f, 0.12f).SetEase(Ease.InQuad))
+                .OnComplete(() =>
+                {
+                    // 완전 종료 상태 고정
+                    minimap.alpha = 0f;
+                    minimapRect.localScale = new Vector3(1f, 0f, 1f);
+                });
+        }
     }
 
     private void SetBlendTime(float t)
@@ -252,14 +310,10 @@ public class CameraManager : MonoBehaviour
         }
     }
 
-    // =======================
-    // ✅ Camera -> UI Mapping
-    // =======================
     private void UpdateDistanceUIByCameraPos()
     {
         if (distanceUI == null) return;
 
-        // 실제 화면을 렌더링하는 카메라(브레인 출력 카메라) 우선
         Transform camTr = null;
         if (brain != null && brain.OutputCamera != null)
             camTr = brain.OutputCamera.transform;
@@ -271,7 +325,6 @@ public class CameraManager : MonoBehaviour
         Vector2 camPos2D = new Vector2(camTr.position.x, camTr.position.y);
         float dist = Vector2.Distance(camPos2D, targetWorldPos);
 
-        // dist=0 -> t=1, dist>=uiMaxDistance -> t=0
         float t = 1f - Mathf.Clamp01(dist / Mathf.Max(0.0001f, uiMaxDistance));
         float y = Mathf.Lerp(uiMinLocalY, uiMaxLocalY, t);
 
