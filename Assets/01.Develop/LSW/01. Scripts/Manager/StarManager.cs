@@ -20,7 +20,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             base.Awake();
             foreach (var star in allStarList)
             {
-                _stars.Add(star, false); ;
+                _stars.Add(star, false);
             }
         }
         
@@ -32,12 +32,10 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             }
         }
 
-        public bool IsAlreadyUnlock(StarSo star)
+        public bool IsUnlock(StarSo star)
         {
-            if (_stars.ContainsKey(star)) // stars에 star가 있고
-            {
-                return _stars[star]; // 그 스타가 이미 언락되어있는지 아닌지
-            }
+            if (_stars.ContainsKey(star) && !_stars[star])
+                return true;
             return false;
         }
         
