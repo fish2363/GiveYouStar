@@ -38,19 +38,33 @@ public class StarMover : MonoBehaviour
     // Random Spin Mode
     // =========================
     [Header("Random Spin Mode")]
-    [SerializeField, Range(0f, 1f)] private float spinChance = 0.5f; // 회전할 확률(0~1)
-    [SerializeField] private float minSpinDegPerSec = 60f;          // 회전할 때 최소 속도(도/초)
-    [SerializeField] private float maxSpinDegPerSec = 180f;         // 회전할 때 최대 속도(도/초)
+    [SerializeField, Range(0f, 1f)] private float spinChance = 0.5f;
+    [SerializeField] private float minSpinDegPerSec = 60f;
+    [SerializeField] private float maxSpinDegPerSec = 180f;
 
     private bool _doSpin;
     private float _spinSpeedDegPerSec;
 
+    // =========================
+    // Repel Nearby Stars
+    // =========================
+    [Header("Repel Nearby Stars (on Catch)")]
+    [SerializeField] private bool repelOnCatch = true;
+    [SerializeField] private float repelRadius = 2.5f;
+    [SerializeField] private float repelSpeedMultiplier = 2.0f;  // 밀쳐낼 때 속도 배수
+    [SerializeField] private float repelDuration = 0.35f;        // 밀쳐진 상태 유지 시간
+    [SerializeField] private LayerMask starLayerMask;            // Star 레이어로 설정 권장
+    [SerializeField] private bool useTagCheck = true;            // 레이어 세팅 귀찮으면 태그로 필터
+
+    private static readonly Collider2D[] _overlap = new Collider2D[32];
+    private bool _repelTriggered;
+
     private void OnEnable()
     {
-        // 원래 스케일 저장
+        _repelTriggered = false;
+
         _originScale = transform.localScale;
 
-        // 스폰 팝 애니메이션
         if (playSpawnPop)
         {
             transform.localScale = Vector3.zero;
@@ -59,19 +73,12 @@ public class StarMover : MonoBehaviour
         }
 
         _doSpin = UnityEngine.Random.value < spinChance;
-
         if (_doSpin)
         {
             _spinSpeedDegPerSec = UnityEngine.Random.Range(minSpinDegPerSec, maxSpinDegPerSec);
-
-            // 시계/반시계 랜덤
-            if (UnityEngine.Random.value < 0.5f)
-                _spinSpeedDegPerSec *= -1f;
+            if (UnityEngine.Random.value < 0.5f) _spinSpeedDegPerSec *= -1f;
         }
-        else
-        {
-            _spinSpeedDegPerSec = 0f;
-        }
+        else _spinSpeedDegPerSec = 0f;
     }
 
     public void Initialize(StarSo star)
@@ -82,7 +89,7 @@ public class StarMover : MonoBehaviour
 
     public void SetMoveDirection(Vector3 dir)
     {
-        moveDirection = dir.normalized;
+        moveDirection = dir.sqrMagnitude > 0.0001f ? dir.normalized : Vector3.right;
     }
 
     private void Update()
@@ -92,9 +99,7 @@ public class StarMover : MonoBehaviour
         transform.position += moveDirection * speed * Time.deltaTime;
 
         if (_doSpin && Mathf.Abs(_spinSpeedDegPerSec) > 0.001f)
-        {
             transform.Rotate(0f, 0f, _spinSpeedDegPerSec * Time.deltaTime);
-        }
     }
 
     public void SetStop(bool isStop)
@@ -109,7 +114,69 @@ public class StarMover : MonoBehaviour
             if (impulse != null) impulse.GenerateImpulse();
         }
 
+        // 잡히는 순간 주변 별 밀쳐내기 (1회만)
+        if (isStop && repelOnCatch && !_repelTriggered)
+        {
+            _repelTriggered = true;
+            RepelNearbyStars();
+        }
+
         isCatch = isStop;
+    }
+
+    private void RepelNearbyStars()
+    {
+        Vector2 center = transform.position;
+
+        int count = Physics2D.OverlapCircleNonAlloc(center, repelRadius, _overlap, starLayerMask);
+        for (int i = 0; i < count; i++)
+        {
+            var col = _overlap[i];
+            if (col == null) continue;
+
+            var other = col.GetComponent<StarMover>();
+            if (other == null) continue;
+            if (other == this) continue;
+            if (other.isCatch) continue; // 이미 잡힌 애는 건드리지 않기
+
+            if (useTagCheck && !col.CompareTag("Star"))
+                continue;
+
+            Vector3 dir = (other.transform.position - transform.position);
+            if (dir.sqrMagnitude < 0.0001f)
+                dir = UnityEngine.Random.insideUnitCircle.normalized;
+
+            other.PushAway(dir, speed * repelSpeedMultiplier, repelDuration);
+        }
+
+        // 배열 클린(안 해도 되지만 깔끔하게)
+        for (int i = 0; i < count; i++) _overlap[i] = null;
+    }
+
+    // "밀쳐내기" 동작: 일정 시간 빠르게 날아가게 했다가 원래 speed로 복구
+    public void PushAway(Vector3 dir, float pushSpeed, float duration)
+    {
+        StartCoroutine(PushAwayRoutine(dir, pushSpeed, duration));
+    }
+
+    private IEnumerator PushAwayRoutine(Vector3 dir, float pushSpeed, float duration)
+    {
+        float prevSpeed = speed;
+        Vector3 prevDir = moveDirection;
+
+        SetMoveDirection(dir);
+        speed = pushSpeed;
+
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            yield return null;
+        }
+
+        // 원래 상태로 복구
+        speed = prevSpeed;
+        moveDirection = prevDir;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -124,14 +191,12 @@ public class StarMover : MonoBehaviour
 
     private IEnumerator SpawnPopRoutine(Vector3 targetScale)
     {
-        // 0 -> overshoot -> target
         float t = 0f;
         float half = Mathf.Max(0.01f, popDuration * 0.6f);
         float rest = Mathf.Max(0.01f, popDuration - half);
 
         Vector3 overScale = targetScale * overshoot;
 
-        // 1) 0 -> overshoot
         while (t < half)
         {
             t += Time.deltaTime;
@@ -141,7 +206,6 @@ public class StarMover : MonoBehaviour
             yield return null;
         }
 
-        // 2) overshoot -> target
         t = 0f;
         while (t < rest)
         {
@@ -156,10 +220,7 @@ public class StarMover : MonoBehaviour
         _popCo = null;
     }
 
-    private static float EaseOutQuad(float x)
-    {
-        return 1f - (1f - x) * (1f - x);
-    }
+    private static float EaseOutQuad(float x) => 1f - (1f - x) * (1f - x);
 
     private static float EaseOutBack(float x)
     {
@@ -167,4 +228,12 @@ public class StarMover : MonoBehaviour
         const float c3 = c1 + 1f;
         return 1f + c3 * Mathf.Pow(x - 1f, 3f) + c1 * Mathf.Pow(x - 1f, 2f);
     }
+
+#if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.cyan;
+        Gizmos.DrawWireSphere(transform.position, repelRadius);
+    }
+#endif
 }
