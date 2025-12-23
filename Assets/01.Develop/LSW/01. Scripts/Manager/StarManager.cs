@@ -8,7 +8,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
 {
     public class StarManager : MonoSingleton<StarManager>
     {
-        [SerializeField] private List<StarSo> starList = new List<StarSo>();
+        [SerializeField] private List<StarSo> starList = new();
         
         public event Action<List<StarSo>> onGameEnd;
         
