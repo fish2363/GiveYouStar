@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
 {
     public float maxTimer;
     float currentTimer;
+    [SerializeField] private SpriteRenderer clickUI;
 
     [SerializeField] private Transform timerVisual; // ✅ 회전용 이미지 (예: RectTransform or 일반 Transform)
     public CameraManager cameraManager;
@@ -114,11 +115,12 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(1f);
         countText.text = "1";
         yield return new WaitForSeconds(1f);
-        countText.text = "GO!";
-        isRopeChargeTurn = true;
-        yield return new WaitForSeconds(0.2f);
         countText.text = "";
+        clickUI.enabled = true;
+        isRopeChargeTurn = true;
         OnStartCharge?.Invoke(true);
+        yield return new WaitForSeconds(4f);
+        clickUI.enabled = false;
     }
     public void SetCatchStar()
     {

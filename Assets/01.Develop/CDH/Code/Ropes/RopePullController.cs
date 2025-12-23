@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
-using UnityEngine.UI; // ✅ CanvasGroup
+using UnityEngine.UI;
 
 public class RopePullController : MonoBehaviour
 {
@@ -35,14 +35,13 @@ public class RopePullController : MonoBehaviour
     [Header("Star Drift")]
     [SerializeField] private Vector2 driftDirection = new Vector2(1, 1);
     [SerializeField] private float driftSpeed = 8f;
-
     [Tooltip("옆으로 새는 속도를 드리프트 방향으로 되돌리는 힘")]
     [SerializeField] private float driftReturnStrength = 3f;
 
     [Header("Pull Input")]
     [SerializeField] private float minDragWorld = 0.8f;
     [SerializeField] private float maxDragWorld = 5f;
-    [Range(1f, 4f)][SerializeField] private float lengthPower = 2.4f;
+    [Range(1f, 4f)] [SerializeField] private float lengthPower = 2.4f;
     [SerializeField] private float minEffectiveDragDuration = 0.12f;
     [SerializeField] private float pullCooldown = 0.12f;
 
@@ -55,6 +54,35 @@ public class RopePullController : MonoBehaviour
     [Header("Rope Break Settings")]
     [SerializeField] private float maxRopeStretchDistance = 10f;
 
+    // =========================
+    // UI - Break Meter
+    // =========================
+    [Header("UI - Rope Break Meter (Image Filled 360)")]
+    [SerializeField] private Image breakMeterImage;
+    [SerializeField] private bool hideMeterWhenNoTarget = true;
+    [SerializeField] private float meterSmooth = 12f;
+    private float meterFill = 1f;
+
+    [Header("UI Follow (Star -> UI)")]
+    [SerializeField] private Canvas uiCanvas;
+    [SerializeField] private Camera uiCamera;
+    [SerializeField] private Vector2 followOffsetWorld = new Vector2(0f, 1.2f);
+    [SerializeField] private Vector2 followOffsetUI = Vector2.zero;
+    [SerializeField] private bool hideWhenOffscreen = true;
+
+    [Header("UI Follow Smoothing (Fix Jitter)")]
+    [SerializeField] private float followSmoothTime = 0.06f;
+    [SerializeField] private bool pixelSnap = true;
+
+    // ✅ 노랑 -> 빨강만 사용
+    [Header("UI - Meter Color (Yellow -> Red Only)")]
+    [SerializeField] private Color yellowColor = new Color(1f, 0.85f, 0.15f, 1f);
+    [SerializeField] private Color redColor = new Color(1f, 0.2f, 0.2f, 1f);
+    [SerializeField] private bool useHSVColorLerp = true;
+
+    // =========================
+    // Post Processing + Pull UI
+    // =========================
     [Header("PostProcessing - Lens Distortion (URP Volume)")]
     [SerializeField] private Volume postProcessVolume;
     [SerializeField] private float lensDistortionTarget = -0.35f;
@@ -82,10 +110,13 @@ public class RopePullController : MonoBehaviour
     private Vector2 pullVel;
     private Vector2 lastPullPosition;
 
-    // ✅ pullGameObject fade (두 트윈)
     private CanvasGroup pullCanvasGroup;
     private Tween pullFadeInTween;
     private Tween pullFadeOutTween;
+
+    private RectTransform breakMeterRect;
+    private Vector2 followVelUI;
+    private bool lastOffscreenState;
 
     private void Awake()
     {
@@ -101,9 +132,12 @@ public class RopePullController : MonoBehaviour
 
         CacheLensDistortion();
         CachePullCanvasGroup();
+        InitBreakMeter();
 
         if (starTarget != null)
             SetTarget(starTarget);
+        else
+            HideBreakMeterIfNeeded();
     }
 
     private void OnDisable()
@@ -113,29 +147,29 @@ public class RopePullController : MonoBehaviour
         pullFadeOutTween?.Kill();
     }
 
+    public void SetMaxRopeStretchDistance(float maxRopeStretchDistance)
+    {
+        this.maxRopeStretchDistance = maxRopeStretchDistance;
+    }
+
     private void CacheLensDistortion()
     {
         lensDistortion = null;
-
-        if (postProcessVolume == null || postProcessVolume.profile == null)
-            return;
-
+        if (postProcessVolume == null || postProcessVolume.profile == null) return;
         postProcessVolume.profile.TryGet(out lensDistortion);
     }
 
-    // ---------------- PullGameObject Fade (CanvasGroup) ----------------
+    // ---------------- PullGameObject Fade ----------------
 
     private void CachePullCanvasGroup()
     {
         pullCanvasGroup = null;
-
         if (pullGameObject == null) return;
 
         pullCanvasGroup = pullGameObject.GetComponent<CanvasGroup>();
         if (pullCanvasGroup == null)
             pullCanvasGroup = pullGameObject.AddComponent<CanvasGroup>();
 
-        // 시작은 꺼두고 알파 0으로 준비(원하면 수정 가능)
         pullCanvasGroup.alpha = 0f;
         pullGameObject.SetActive(false);
     }
@@ -144,21 +178,19 @@ public class RopePullController : MonoBehaviour
     {
         if (pullGameObject == null || pullCanvasGroup == null) return;
 
-        // ✅ 반복 재생 대비: 반대 트윈/자기 트윈 모두 정리
         pullFadeOutTween?.Kill();
         pullFadeInTween?.Kill();
 
         if (!pullGameObject.activeSelf)
         {
             pullGameObject.SetActive(true);
-            pullCanvasGroup.alpha = 0f; // 비활성에서 켤 때는 0에서 시작
+            pullCanvasGroup.alpha = 0f;
         }
 
-        // ✅ Fade In 트윈 (1)
         pullFadeInTween = pullCanvasGroup
             .DOFade(1f, pullFadeInDuration)
             .SetEase(pullFadeInEase)
-            .SetUpdate(true); // (선택) 타임스케일 영향 안 받게. 싫으면 지워도 됨
+            .SetUpdate(true);
     }
 
     private void HidePullFadeOut()
@@ -166,20 +198,14 @@ public class RopePullController : MonoBehaviour
         if (pullGameObject == null || pullCanvasGroup == null) return;
         if (!pullGameObject.activeSelf) return;
 
-        // ✅ 반복 재생 대비
         pullFadeInTween?.Kill();
         pullFadeOutTween?.Kill();
 
-        // ✅ Fade Out 트윈 (2)
         pullFadeOutTween = pullCanvasGroup
             .DOFade(0f, pullFadeOutDuration)
             .SetEase(pullFadeOutEase)
             .SetUpdate(true)
-            .OnComplete(() =>
-            {
-                pullGameObject.SetActive(false);
-                // 다음 Show 때 0에서 페이드인 하도록 유지
-            });
+            .OnComplete(() => pullGameObject.SetActive(false));
     }
 
     // -----------------------------------------------------------------
@@ -200,7 +226,6 @@ public class RopePullController : MonoBehaviour
 
         if (cam == null || player == null || starRb == null) return;
 
-        // ✅ 드래그 시작: 렌즈 왜곡 "내리기" + pullGameObject 페이드인
         if (Input.GetMouseButtonDown(0))
         {
             isDragging = true;
@@ -208,27 +233,25 @@ public class RopePullController : MonoBehaviour
             dragStartTime = Time.time;
 
             PlayLensDistortionDown();
-
             ShowPullFadeIn();
         }
 
-        // ✅ 드래그 끝: 렌즈 왜곡 "복귀" + pullGameObject 페이드아웃
         if (Input.GetMouseButtonUp(0))
         {
             if (!isDragging) return;
             isDragging = false;
 
             PlayLensDistortionReturn();
-
             TryPullOnRelease(MouseWorld2D(), Time.time - dragStartTime);
-
             HidePullFadeOut();
         }
     }
 
-    public void SetMaxRopeStretchDistance(float maxRopeStretchDistance)
+    // ✅ 카메라/시네머신 업데이트 이후에 UI 위치 갱신
+    private void LateUpdate()
     {
-        this.maxRopeStretchDistance = maxRopeStretchDistance;
+        if (starTarget == null) return;
+        UpdateBreakMeterFollowSmooth();
     }
 
     private void FixedUpdate()
@@ -250,13 +273,16 @@ public class RopePullController : MonoBehaviour
         starRb.gravityScale = 0f;
         starRb.linearVelocity = driftDirection * driftSpeed + pullVel;
 
-        if (maxRopeStretchDistance > 0f)
+        if (maxRopeStretchDistance > 0f && starTarget != null)
         {
             float distFromLastPull = Vector2.Distance(starTarget.transform.position, lastPullPosition);
+
+            UpdateBreakMeter(distFromLastPull);
+
             if (distFromLastPull > maxRopeStretchDistance)
             {
                 Vector2 toPlayer = ((Vector2)player.position - (Vector2)starTarget.transform.position).normalized;
-                Vector2 currentDir = starRb.linearVelocity.normalized;
+                Vector2 currentDir = starRb.linearVelocity.sqrMagnitude > 0.0001f ? starRb.linearVelocity.normalized : Vector2.zero;
 
                 if (Vector2.Dot(toPlayer, currentDir) < 0f)
                 {
@@ -265,13 +291,21 @@ public class RopePullController : MonoBehaviour
                 }
             }
         }
+        else
+        {
+            if (breakMeterImage != null)
+            {
+                breakMeterImage.fillAmount = 1f;
+                breakMeterImage.color = yellowColor;
+            }
+        }
     }
 
     private void EndPull()
     {
-        // 안전하게 렌즈 복귀 + pull UI도 정리
         PlayLensDistortionReturn(force: true);
         HidePullFadeOut();
+        HideBreakMeterIfNeeded();
 
         if (cameraManager != null) cameraManager.EndFollowObj();
         if (destroyOnCollect && starTarget != null)
@@ -291,18 +325,39 @@ public class RopePullController : MonoBehaviour
         pullVel = Vector2.zero;
         nextPullTime = 0f;
 
-        if (starTarget == null) return;
+        if (starTarget == null)
+        {
+            HideBreakMeterIfNeeded();
+            return;
+        }
 
         starRb = starTarget.GetComponent<Rigidbody2D>();
         if (starRb == null)
         {
             Debug.LogError("[RopePullController] Star Target에 Rigidbody2D가 없습니다.");
             starTarget = null;
+            HideBreakMeterIfNeeded();
             return;
         }
 
         starTarget.OnDestroy += HandleDestroy;
         lastPullPosition = starTarget.transform.position;
+
+        if (breakMeterImage != null)
+        {
+            meterFill = 1f;
+            breakMeterImage.fillAmount = 1f;
+            breakMeterImage.color = yellowColor;
+
+            breakMeterImage.enabled = true;
+            breakMeterImage.gameObject.SetActive(true);
+        }
+
+        if (breakMeterRect != null)
+        {
+            followVelUI = Vector2.zero;
+            lastOffscreenState = false;
+        }
 
         if (followWhenRoped && cameraManager != null)
             cameraManager.CatchFollowObj(starTarget.transform);
@@ -326,6 +381,7 @@ public class RopePullController : MonoBehaviour
             ropeLine.enabled = false;
 
         HidePullFadeOut();
+        HideBreakMeterIfNeeded();
     }
 
     private void TryPullOnRelease(Vector2 dragEndWorld, float dragDuration)
@@ -350,6 +406,140 @@ public class RopePullController : MonoBehaviour
         pullVel = dv;
 
         lastPullPosition = starTarget.transform.position;
+    }
+
+    // ---------------- Break Meter ----------------
+
+    private void InitBreakMeter()
+    {
+        if (breakMeterImage == null) return;
+
+        breakMeterRect = breakMeterImage.rectTransform;
+
+        if (uiCanvas == null)
+            uiCanvas = breakMeterImage.GetComponentInParent<Canvas>();
+
+        breakMeterImage.type = Image.Type.Filled;
+        breakMeterImage.fillMethod = Image.FillMethod.Radial360;
+        breakMeterImage.fillOrigin = (int)Image.Origin360.Top;
+        breakMeterImage.fillClockwise = false;
+
+        meterFill = 1f;
+        breakMeterImage.fillAmount = 1f;
+        breakMeterImage.color = yellowColor;
+
+        if (hideMeterWhenNoTarget)
+            breakMeterImage.gameObject.SetActive(false);
+    }
+
+    private void HideBreakMeterIfNeeded()
+    {
+        if (breakMeterImage == null) return;
+        if (hideMeterWhenNoTarget)
+            breakMeterImage.gameObject.SetActive(false);
+    }
+
+    private void UpdateBreakMeter(float distFromLastPull)
+    {
+        if (breakMeterImage == null) return;
+        if (maxRopeStretchDistance <= 0.0001f) return;
+
+        float progress01 = Mathf.Clamp01(distFromLastPull / maxRopeStretchDistance); // 0~1
+        float targetFill = 1f - progress01;
+
+        if (meterSmooth <= 0f)
+            meterFill = targetFill;
+        else
+            meterFill = Mathf.Lerp(meterFill, targetFill, 1f - Mathf.Exp(-meterSmooth * Time.fixedDeltaTime));
+
+        breakMeterImage.fillAmount = meterFill;
+
+        // ✅ 노랑 -> 빨강
+        breakMeterImage.color = EvaluateYellowToRed(progress01);
+    }
+
+    private Color EvaluateYellowToRed(float progress01)
+    {
+        progress01 = Mathf.Clamp01(progress01);
+
+        if (!useHSVColorLerp)
+            return Color.Lerp(yellowColor, redColor, progress01);
+
+        Color.RGBToHSV(yellowColor, out float h1, out float s1, out float v1);
+        Color.RGBToHSV(redColor, out float h2, out float s2, out float v2);
+
+        float hue = Mathf.LerpAngle(h1 * 360f, h2 * 360f, progress01) / 360f;
+        float sat = Mathf.Lerp(s1, s2, progress01);
+        float val = Mathf.Lerp(v1, v2, progress01);
+
+        Color c = Color.HSVToRGB(hue, sat, val);
+        c.a = Mathf.Lerp(yellowColor.a, redColor.a, progress01);
+        return c;
+    }
+
+    // ---------------- UI Follow Smooth (Fix Jitter) ----------------
+
+    private void UpdateBreakMeterFollowSmooth()
+    {
+        if (breakMeterImage == null || breakMeterRect == null) return;
+        if (uiCanvas == null) return;
+        if (starTarget == null) return;
+        if (!breakMeterImage.gameObject.activeSelf) return;
+
+        Camera worldCam = cam != null ? cam : Camera.main;
+        if (worldCam == null) return;
+
+        Vector3 worldPos = starTarget.transform.position + (Vector3)followOffsetWorld;
+        Vector3 screenPos = worldCam.WorldToScreenPoint(worldPos);
+
+        bool off =
+            screenPos.z < 0f ||
+            screenPos.x < 0f || screenPos.x > Screen.width ||
+            screenPos.y < 0f || screenPos.y > Screen.height;
+
+        if (hideWhenOffscreen)
+        {
+            if (off != lastOffscreenState)
+            {
+                breakMeterImage.enabled = !off;
+                lastOffscreenState = off;
+            }
+            if (off) return;
+        }
+        else
+        {
+            if (!breakMeterImage.enabled) breakMeterImage.enabled = true;
+        }
+
+        RectTransform canvasRect = uiCanvas.transform as RectTransform;
+
+        Camera camForUI = uiCamera;
+        if (camForUI == null && uiCanvas.renderMode != RenderMode.ScreenSpaceOverlay)
+            camForUI = uiCanvas.worldCamera;
+
+        if (!RectTransformUtility.ScreenPointToLocalPointInRectangle(canvasRect, screenPos, camForUI, out Vector2 localPoint))
+            return;
+
+        Vector2 target = localPoint + followOffsetUI;
+
+        if (pixelSnap)
+        {
+            float sf = uiCanvas != null ? uiCanvas.scaleFactor : 1f;
+            if (sf <= 0.0001f) sf = 1f;
+            target.x = Mathf.Round(target.x * sf) / sf;
+            target.y = Mathf.Round(target.y * sf) / sf;
+        }
+
+        if (followSmoothTime <= 0.0001f)
+        {
+            breakMeterRect.anchoredPosition = target;
+        }
+        else
+        {
+            Vector2 cur = breakMeterRect.anchoredPosition;
+            Vector2 next = Vector2.SmoothDamp(cur, target, ref followVelUI, followSmoothTime, Mathf.Infinity, Time.unscaledDeltaTime);
+            breakMeterRect.anchoredPosition = next;
+        }
     }
 
     // ---------------- Lens Distortion ----------------
@@ -409,19 +599,19 @@ public class RopePullController : MonoBehaviour
         ropeLine.startWidth = lineWidth;
         ropeLine.endWidth = lineWidth;
         ropeLine.material = new Material(Shader.Find("Sprites/Default"));
-        Gradient brownGradient = new Gradient();
 
+        Gradient brownGradient = new Gradient();
         brownGradient.SetKeys(
             new GradientColorKey[]
             {
-        new GradientColorKey(new Color(0.36f, 0.20f, 0.09f), 0f), // Dark Brown
-        new GradientColorKey(new Color(0.59f, 0.29f, 0.00f), 0.5f), // Brown
-        new GradientColorKey(new Color(0.76f, 0.60f, 0.42f), 1f), // Light Brown
+                new GradientColorKey(new Color(0.36f, 0.20f, 0.09f), 0f),
+                new GradientColorKey(new Color(0.59f, 0.29f, 0.00f), 0.5f),
+                new GradientColorKey(new Color(0.76f, 0.60f, 0.42f), 1f),
             },
             new GradientAlphaKey[]
             {
-        new GradientAlphaKey(1f, 0f),
-        new GradientAlphaKey(1f, 1f),
+                new GradientAlphaKey(1f, 0f),
+                new GradientAlphaKey(1f, 1f),
             }
         );
         ropeLine.colorGradient = brownGradient;

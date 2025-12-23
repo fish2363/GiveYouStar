@@ -1,5 +1,7 @@
 using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.UI.InGame;
+using Assets._01.Develop.CDH.Code.Core;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,7 +16,6 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private SubUI targetUI;
         [SerializeField] private Image mainBackGround;
 
-        [SerializeField] private DiagonalStarTransition transition;
         public string targetSceneName;
 
         private bool _moveScene;
@@ -41,7 +42,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                 case MGBtnType.MoveScene:
                     _moveScene = true;
                     StarManager.Instance.ClearGotStars();
-                    transition.Play(targetSceneName);
+                    TransitionManager.Instance.NextScene(targetSceneName);
                     break;
             }
         }
