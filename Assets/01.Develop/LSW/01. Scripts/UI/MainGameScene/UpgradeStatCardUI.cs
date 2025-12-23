@@ -8,6 +8,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 {
     public class UpgradeStatCardUI : MonoBehaviour
     {
+        public StatType statType;
+        
         [Header("UI References")]
         [SerializeField] private TextMeshProUGUI incAmountText;
         [SerializeField] private TextMeshProUGUI upgBtnText;
@@ -25,7 +27,6 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         private int CurrentCost { get; set; }
         
-        private float _incAmount;
         private bool _isMax;
         
         private void Awake()
@@ -48,10 +49,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             {
                 onUpgradeStat?.Invoke(statIncAmount);
                 
-                _incAmount += statIncAmount;
                 CurrentCost += costInc;
                 
-                if(_incAmount >= maxIncAmount)
+                if(PlayerStatManager.Instance.GetCurrentStat(statType) >= maxIncAmount)
                     _isMax = true;
                 
                 ChangeStatUI();
@@ -63,7 +63,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         
         private void ChangeStatUI()
         {
-            incAmountText.SetText($"+{_incAmount}");
+            float incAmount =
+                PlayerStatManager.Instance.GetCurrentStat(statType) - PlayerStatManager.Instance.GetInitStat(statType);
+            incAmountText.SetText($"+{incAmount}");
             upgBtnText.SetText(_isMax ? "Upgrade Max" : $"Upgrade\n(Cost : {CurrentCost})");
             coinText.SetText(PlayerStatManager.Instance.GetCurrentCoin().ToString());
         }
@@ -74,4 +76,6 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                 PlayerStatManager.Instance.onCoinAmountChanged -= UpdateCoinUI;
         }
     }
+    
+    public enum StatType { FailDistance, Speed, RopeSize }
 }
