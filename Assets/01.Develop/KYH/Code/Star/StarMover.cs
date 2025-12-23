@@ -1,4 +1,5 @@
 using _01.Develop.LSW._01._Scripts.So;
+using Ami.BroAudio;
 using System;
 using System.Collections;
 using Unity.Cinemachine;
@@ -6,6 +7,9 @@ using UnityEngine;
 
 public class StarMover : MonoBehaviour
 {
+    [Header("SOund")]
+    [SerializeField] private SoundID starSoundID;
+
     [Header("Move")]
     [SerializeField] private float speed = 2f;
     private Vector3 moveDirection;
@@ -112,6 +116,7 @@ public class StarMover : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Star") && isCatch)
         {
+            BroAudio.Play(starSoundID);
             Conflict?.Play();
             OnDestroy?.Invoke();
         }
