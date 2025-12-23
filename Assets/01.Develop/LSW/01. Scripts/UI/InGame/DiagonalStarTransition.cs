@@ -1,4 +1,4 @@
-using DG.Tweening;
+ï»¿using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -14,15 +14,29 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
         [SerializeField] private DiagonalFallingStar starPrefab;
 
         [Header("Settings")]
-        [SerializeField] private float starSize = 128f; // °İÀÚ ¹èÄ¡ ¹× º° Å©±â ±âÁØ
-        [SerializeField] private float spacingMultiplier = 0.7f; // °İÀÚ °£°İ ¹èÀ² (³·À»¼ö·Ï ´õ ¸¹ÀÌ °ãÄ§)
-        [SerializeField] private Vector2 sizeScaleRange = new(0.8f, 1.2f); // Å©±â ¹èÀ² ·£´ı ¹üÀ§
-        [SerializeField] private float positionJitter = 40f; // À§Ä¡ ·£´ı ¿ÀÇÁ¼Â °­µµ
+        [SerializeField] private float starSize = 128f;                 // ë³„ ê¸°ì¤€ í¬ê¸°
+        [SerializeField] private float spacingMultiplier = 0.7f;        // ê²©ì ê°„ê²© ë°°ìœ¨ (ë‚®ì„ìˆ˜ë¡ ê²¹ì¹¨ ë§ìŒ)
+        [SerializeField] private Vector2 sizeScaleRange = new(0.95f, 1.15f); // ë„ˆë¬´ ì‘ìœ¼ë©´ êµ¬ë© ìƒê¹€
+        [SerializeField] private float endPositionJitter = 0f;          // âœ… ë„ì°© ìœ„ì¹˜ ì§€í„°(êµ¬ë© ë°©ì§€) - ì›¬ë§Œí•˜ë©´ 0 ì¶”ì²œ
+        [SerializeField] private float startPositionJitter = 30f;       // ì‹œì‘ ìœ„ì¹˜ë§Œ ëœë¤(ìì—°ìŠ¤ëŸ¬ì›€)
         [SerializeField] private Vector2 durationRange = new(0.8f, 1.2f);
-        [SerializeField] private Vector2 delayRange = new(0f, 0.4f);
-        
-        private List<DiagonalFallingStar> stars = new();
-        private List<Tween> starTweens = new();
+
+        [Header("Sequential Fill (BottomRight -> TopLeft)")]
+        [SerializeField] private float totalStartStaggerTime = 1.2f;    // âœ… ì²« ë³„ ì‹œì‘~ë§ˆì§€ë§‰ ë³„ ì‹œì‘ê¹Œì§€ ì‹œê°„(ìˆœì°¨ê° ê°•í•´ì§)
+        [SerializeField] private float afterActivateHold = 0.08f;
+
+        private readonly List<DiagonalFallingStar> stars = new();
+        private readonly List<Tween> starTweens = new();
+
+        private int totalStars;
+        private int completedStars;
+
+        private struct SpawnInfo
+        {
+            public int c, r;
+            public Vector2 startPos;
+            public Vector2 endPos;
+        }
 
         [ContextMenu("Play Transition")]
         public void Play() => Play("MainGameScene");
@@ -32,102 +46,130 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
             transitionRoot.gameObject.SetActive(true);
             transitionRoot.SetAsLastSibling();
 
-            // Äµ¹ö½º Å©±â Áï½Ã °»½Å
             Canvas.ForceUpdateCanvases();
 
-            SpawnStars();
+            SpawnStarsSequential();
             StartCoroutine(TransitionSequence(nextScene));
         }
 
-        private void SpawnStars()
+        private void SpawnStarsSequential()
         {
             ClearStars();
             starTweens.Clear();
+            completedStars = 0;
 
-            // 1. ÄÁÅ×ÀÌ³Ê ½ÇÁ¦ Å©±â È®º¸
             float screenW = starContainer.rect.width;
             float screenH = starContainer.rect.height;
-
-            // 2. ´ë°¢¼± ÀÌµ¿ ½Ã È­¸é ºóÆ´À» ¸·±â À§ÇØ ¹üÀ§¸¦ ÃæºĞÈ÷ È®º¸
-            // È­¸é Å©±â¸¦ ´ë°¢¼±À¸·Î °¡·ÎÁö¸£´Â ±æÀÌ¸¦ ±âÁØÀ¸·Î °İÀÚ¸¦ »ı¼º
             float diagonal = Mathf.Sqrt(screenW * screenW + screenH * screenH);
-            
-            // ½ÇÁ¦ ¹èÄ¡ °£°İ
+
             float step = starSize * spacingMultiplier;
 
-            // °İÀÚ Å©±â¸¦ È­¸é ´ë°¢¼±º¸´Ù ³Ë³ËÇÏ°Ô ÀâÀ½
             int cols = Mathf.CeilToInt(diagonal / step) + 4;
             int rows = Mathf.CeilToInt(diagonal / step) + 4;
 
-            // °İÀÚÀÇ ½ÃÀÛ À§Ä¡ (µµÂø ÁöÁ¡ ±âÁØ)
-            // È­¸é ÀüÃ¼¸¦ µ¤µµ·Ï Áß¾Ó Á¤·ÄµÈ °İÀÚ °è»ê
+            totalStars = cols * rows;
+
             Vector2 gridOrigin = new Vector2(-(cols - 1) * step * 0.5f, (rows - 1) * step * 0.5f);
 
-            // moveVector: ¿À¸¥ÂÊ ¾Æ·¡ ¹æÇâ (45µµ ´ë°¢¼±)
-            // º°ÀÌ È­¸é ¹Û¿¡¼­ ¾ÈÀ¸·Î µé¾î¿À±â À§ÇÑ ¿ÀÇÁ¼Â
-            Vector2 moveVector = new Vector2(diagonal * 1.2f, -diagonal * 1.2f);
+            // âœ… ì™¼ìª½ ìœ„(í™”ë©´ ë°–)ì—ì„œ ë‚ ì•„ì˜¤ê²Œ
+            Vector2 startOffset = new Vector2(-diagonal * 1.25f, diagonal * 1.25f);
+
+            // 1) ëª¨ë“  ìŠ¤í° ë°ì´í„°ë¥¼ ë§Œë“  ë’¤
+            List<SpawnInfo> infos = new List<SpawnInfo>(totalStars);
 
             for (int c = 0; c < cols; c++)
             {
                 for (int r = 0; r < rows; r++)
                 {
-                    var star = Instantiate(starPrefab, starContainer);
-                    stars.Add(star);
-
-                    RectTransform rt = star.rect;
-                    
-                    rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
-                    
-                    // Å©±â ·£´ıÈ­ (±âÁØ Å©±â starSize »ç¿ë)
-                    float randomScale = Random.Range(sizeScaleRange.x, sizeScaleRange.y);
-                    rt.sizeDelta = new Vector2(starSize * randomScale, starSize * randomScale);
-
-                    // °İÀÚ ¹èÄ¡ (step °£°İÀ¸·Î ¹èÄ¡ÇÏ¿© °ãÄ§ À¯µµ)
-                    float targetX = gridOrigin.x + (c * step) + Random.Range(-positionJitter, positionJitter);
-                    float targetY = gridOrigin.y - (r * step) + Random.Range(-positionJitter, positionJitter);
-                    
+                    // ë„ì°© ìœ„ì¹˜(ê²©ì). âœ… ì—¬ê¸° ì§€í„°ë¥¼ ê±°ì˜/ì•„ì˜ˆ ë¹¼ì•¼ êµ¬ë©ì´ ì¤„ì–´ë“¦
+                    float targetX = gridOrigin.x + (c * step) + Random.Range(-endPositionJitter, endPositionJitter);
+                    float targetY = gridOrigin.y - (r * step) + Random.Range(-endPositionJitter, endPositionJitter);
                     Vector2 endPos = new Vector2(targetX, targetY);
-                    
-                    // ÀÌµ¿ º¤ÅÍ¿¡ ¾à°£ÀÇ ¹«ÀÛÀ§¼º Ãß°¡ (°¢µµ ¹× °Å¸® ¹Ì¼¼ Á¶Á¤)
-                    Vector2 randomizedMoveVector = moveVector + new Vector2(Random.Range(-20f, 20f), Random.Range(-20f, 20f));
-                    Vector2 startPos = endPos - randomizedMoveVector;
 
-                    var tween = star.Fall(startPos, endPos, 
-                             Random.Range(durationRange.x, durationRange.y), 
-                             Random.Range(delayRange.x, delayRange.y));
-                    
-                    starTweens.Add(tween);
+                    // ì‹œì‘ ìœ„ì¹˜ëŠ” endPos ê¸°ì¤€ ì™¼ìª½ ìœ„ë¡œ + ì‹œì‘ ì§€í„°
+                    Vector2 randomizedOffset = startOffset + new Vector2(
+                        Random.Range(-startPositionJitter, startPositionJitter),
+                        Random.Range(-startPositionJitter, startPositionJitter)
+                    );
+                    Vector2 startPos = endPos + randomizedOffset;
+
+                    infos.Add(new SpawnInfo { c = c, r = r, startPos = startPos, endPos = endPos });
                 }
+            }
+
+            // 2) âœ… ì˜¤ë¥¸ìª½ ì•„ë˜ë¶€í„° â€œë³„ í•˜ë‚˜ì”©â€ ìˆœì°¨ ì •ë ¬
+            // ìš°ì„ ìˆœìœ„:
+            // (dx+dy) ì‘ì€ê²Œ ë¨¼ì € (BR ê·¼ì²˜ ë¨¼ì €)
+            // ê°™ì€ ë‹¨ê³„ë©´ ë” ì˜¤ë¥¸ìª½(dx ì‘ì€) ë¨¼ì €, ê·¸ ë‹¤ìŒ ë” ì•„ë˜(dy ì‘ì€) ë¨¼ì €
+            infos.Sort((a, b) =>
+            {
+                int dxA = (cols - 1) - a.c;
+                int dyA = (rows - 1) - a.r;
+                int stepA = dxA + dyA;
+
+                int dxB = (cols - 1) - b.c;
+                int dyB = (rows - 1) - b.r;
+                int stepB = dxB + dyB;
+
+                int cmp = stepA.CompareTo(stepB);
+                if (cmp != 0) return cmp;
+
+                cmp = dxA.CompareTo(dxB);
+                if (cmp != 0) return cmp;
+
+                return dyA.CompareTo(dyB);
+            });
+
+            // 3) âœ… delayë¥¼ index ê¸°ë°˜ìœ¼ë¡œ ë¿Œë ¤ì„œ "ì§„ì§œ ìˆœì°¨"ë¡œ ë§Œë“¤ê¸°
+            float perStarDelay = (totalStars <= 1) ? 0f : (totalStartStaggerTime / (totalStars - 1));
+
+            for (int i = 0; i < infos.Count; i++)
+            {
+                var info = infos[i];
+
+                var star = Instantiate(starPrefab, starContainer);
+                stars.Add(star);
+
+                RectTransform rt = star.rect;
+                rt.anchorMin = rt.anchorMax = rt.pivot = new Vector2(0.5f, 0.5f);
+
+                // í¬ê¸° ëœë¤ (ë„ˆë¬´ ì‘ìœ¼ë©´ êµ¬ë© â†’ ë²”ìœ„ ë„ˆë¬´ ë‚®ê²Œ ì¡ì§€ ë§ˆ)
+                float randomScale = Random.Range(sizeScaleRange.x, sizeScaleRange.y);
+                rt.sizeDelta = new Vector2(starSize * randomScale, starSize * randomScale);
+
+                float duration = Random.Range(durationRange.x, durationRange.y);
+                float delay = i * perStarDelay;
+
+                Tween tween = star.Fall(info.startPos, info.endPos, duration, delay);
+
+                // ë„ì°©í–ˆì„ ë•Œ ì•„ì£¼ ì‚´ì§ 'ê½‰ ì°¨ëŠ” ëŠë‚Œ' (êµ¬ë© ì²´ê° ì¤„ì–´ë“¦)
+                tween.OnComplete(() =>
+                {
+                    completedStars++;
+                    if (rt != null) rt.DOPunchScale(Vector3.one * 0.06f, 0.12f, 1, 0.6f);
+                });
+
+                starTweens.Add(tween);
             }
         }
 
         private IEnumerator TransitionSequence(string sceneName)
         {
-            // ¾À ºñµ¿±â ·Îµå ½ÃÀÛ
             AsyncOperation op = SceneManager.LoadSceneAsync(sceneName);
-            
-            if(op != null)
-                op.allowSceneActivation = false;
+            if (op != null) op.allowSceneActivation = false;
 
-            // ¸ğµç º°ÀÌ ¸ñÀûÁö¿¡ µµÂøÇÒ ¶§±îÁö ´ë±â
-            foreach (var t in starTweens)
-            {
-                if (t != null && t.IsActive())
-                {
-                    yield return t.WaitForCompletion();
-                }
-            }
+            // âœ… í™”ë©´ì´ ê½‰ ì°° ë•Œê¹Œì§€(ëª¨ë“  ë³„ ë„ì°©)
+            while (completedStars < totalStars)
+                yield return null;
 
-            // ¾À ·Îµù ¿Ï·á ´ë±â
             if (op != null)
             {
                 while (op.progress < 0.9f) yield return null;
                 op.allowSceneActivation = true;
             }
 
-            // ¾À ÀüÈ¯ ÈÄ ¾à°£ÀÇ ´ë±â ÈÄ Á¤¸® (¾À ÀüÈ¯ ½ÃÁ¡ÀÇ ºÎµå·¯¿òÀ» À§ÇØ)
-            yield return new WaitForSeconds(0.1f);
-            
+            yield return new WaitForSeconds(afterActivateHold);
+
             ClearStars();
             starTweens.Clear();
             transitionRoot.gameObject.SetActive(false);
@@ -135,7 +177,16 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
 
         private void ClearStars()
         {
-            foreach (var s in stars) if (s != null) Destroy(s.gameObject);
+            foreach (var t in starTweens)
+            {
+                if (t != null && t.IsActive()) t.Kill(false);
+            }
+
+            foreach (var s in stars)
+            {
+                if (s != null) Destroy(s.gameObject);
+            }
+
             stars.Clear();
         }
     }
