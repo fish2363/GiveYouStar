@@ -13,6 +13,7 @@ public class StarMover : MonoBehaviour
     [SerializeField] private ParticleSystem particle;
     public StarSo MyInfo { get; private set; }
 
+
     public void Initialize(StarSo star)
     {
         MyInfo = star;
@@ -27,6 +28,7 @@ public class StarMover : MonoBehaviour
     private void Update()
     {
         if (isCatch) return;
+
         transform.position += moveDirection * speed * Time.deltaTime;
     }
 

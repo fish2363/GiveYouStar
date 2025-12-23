@@ -10,7 +10,7 @@ public class StarSpawner : MonoBehaviour
 
     private void Start()
     {
-        SpawnStars(30);
+        SpawnStars(50);
     }
 
     public void SpawnStars(int totalCount)
