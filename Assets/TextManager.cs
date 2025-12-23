@@ -11,6 +11,7 @@ public class TextManager : MonoBehaviour
 
     [Header("UI")]
     [SerializeField] private Image textPanel;
+    [SerializeField] private Image dontTouchPanel;
     [SerializeField] private TextMeshProUGUI tmpText;
 
     [Header("--텍스트 설정--")]
@@ -34,6 +35,7 @@ public class TextManager : MonoBehaviour
             return;
         }
         TextPanelEvent.IsRUNNING = true;
+        dontTouchPanel.gameObject.SetActive(true);
         StartCoroutine(TextRoutine(obj));
     }
 
@@ -58,6 +60,7 @@ public class TextManager : MonoBehaviour
             }
         }
         EndPanelDialogueUI();
+        dontTouchPanel.gameObject.SetActive(false);
         TextPanelEvent.IsRUNNING = false;
     }
 
