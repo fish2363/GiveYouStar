@@ -901,8 +901,8 @@ MonoBehaviour:
   incAmountText: {fileID: 53464456}
   upgBtnText: {fileID: 1669512239}
   coinText: {fileID: 596924714}
-  statIncAmount: 0.3
-  maxIncAmount: 0
+  statIncAmount: 0.5
+  maxIncAmount: 49
   initCost: 2
   costInc: 1
   onUpgradeStat:
@@ -3321,8 +3321,8 @@ MonoBehaviour:
   incAmountText: {fileID: 430825184}
   upgBtnText: {fileID: 151440251}
   coinText: {fileID: 596924714}
-  statIncAmount: 0.3
-  maxIncAmount: 0
+  statIncAmount: 0.1
+  maxIncAmount: 49
   initCost: 2
   costInc: 2
   onUpgradeStat:
@@ -8242,7 +8242,7 @@ MonoBehaviour:
   upgBtnText: {fileID: 532752241}
   coinText: {fileID: 596924714}
   statIncAmount: 0.5
-  maxIncAmount: 0
+  maxIncAmount: 49
   initCost: 3
   costInc: 2
   onUpgradeStat:
