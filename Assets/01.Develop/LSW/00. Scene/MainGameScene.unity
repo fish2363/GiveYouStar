@@ -817,7 +817,7 @@ GameObject:
   - component: {fileID: 126069780}
   - component: {fileID: 126069779}
   m_Layer: 5
-  m_Name: Upgrade RoopSpeed Card
+  m_Name: Upgrade Launch Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -863,7 +863,6 @@ MonoBehaviour:
   upgBtnText: {fileID: 1669512239}
   coinText: {fileID: 596924714}
   statIncAmount: 0.3
-  maxIncAmount: 0
   initCost: 2
   costInc: 1
   onUpgradeStat:
@@ -3168,9 +3167,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initCoin: 10
-  initFailDist: 5
-  initSpeed: 10
-  initRopeSize: 10
+  initFailDist: 10
+  initSpeed: 1
+  initRopeSize: 1
   <Coin>k__BackingField: 0
   <FailDist>k__BackingField: 0
   <Speed>k__BackingField: 0
@@ -3189,7 +3188,7 @@ GameObject:
   - component: {fileID: 624687272}
   - component: {fileID: 624687271}
   m_Layer: 5
-  m_Name: Upgrade RopeSize Card
+  m_Name: Upgrade Pull Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3235,7 +3234,6 @@ MonoBehaviour:
   upgBtnText: {fileID: 151440251}
   coinText: {fileID: 596924714}
   statIncAmount: 0.3
-  maxIncAmount: 0
   initCost: 2
   costInc: 2
   onUpgradeStat:
@@ -4529,7 +4527,7 @@ MonoBehaviour:
   targetUI: {fileID: 0}
   mainBackGround: {fileID: 0}
   transition: {fileID: 631420350}
-  targetSceneName: KYH_Test
+  targetSceneName: KYH
 --- !u!114 &852492550
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6244,18 +6242,6 @@ MonoBehaviour:
           Assembly-CSharp
         m_MethodName: OnClick
         m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 904002329}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -8023,7 +8009,7 @@ GameObject:
   - component: {fileID: 1988224360}
   - component: {fileID: 1988224361}
   m_Layer: 5
-  m_Name: Upgrade FailRange Card
+  m_Name: Upgrade Sight Card
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8133,7 +8119,6 @@ MonoBehaviour:
   upgBtnText: {fileID: 532752241}
   coinText: {fileID: 596924714}
   statIncAmount: 0.5
-  maxIncAmount: 1
   initCost: 3
   costInc: 2
   onUpgradeStat:

@@ -26,7 +26,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 181752065809871350}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -92,9 +92,14 @@ MonoBehaviour:
   transitionRoot: {fileID: 9192295267051592896}
   starContainer: {fileID: 7616818419322702399}
   starPrefab: {fileID: 5332347607131607412, guid: 2047d641b958e2b4999f9f6754965944, type: 3}
-  starSize: 64
-  durationRange: {x: 0.8, y: 1.5}
-  delayRange: {x: 0, y: 0.3}
+  starSize: 300
+  spacingMultiplier: 0.4
+  sizeScaleRange: {x: 1, y: 1.5}
+  endPositionJitter: 0
+  startPositionJitter: 30
+  durationRange: {x: 2, y: 1.5}
+  totalStartStaggerTime: 2.07
+  afterActivateHold: 0.08
 --- !u!1 &4952863611264068900
 GameObject:
   m_ObjectHideFlags: 0
