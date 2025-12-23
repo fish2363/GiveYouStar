@@ -38,7 +38,10 @@ public class RopeCharge : MonoBehaviour
     {
         StartCharge();
     }
-
+    public void ShowVisual(bool isShow)
+    {
+        chargeVisual.GetComponent<SpriteRenderer>().enabled = isShow;
+    }
     public void ChargeRelease()
     {
         ReleaseCharge();

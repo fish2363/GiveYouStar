@@ -15,6 +15,8 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private Transform timerVisual; // ✅ 회전용 이미지 (예: RectTransform or 일반 Transform)
     public CameraManager cameraManager;
+    [SerializeField] private TMP_Text countText;
+    public UnityEvent<bool> OnStartCharge;
 
     public UnityEvent StartRopeCharge;
     public UnityEvent EndRopeCharge;
@@ -103,8 +105,26 @@ public class GameManager : MonoBehaviour
         // TODO: 게임 종료 후 행동 정의
     }
 
-    public void SetRopeChargeTurn() => isRopeChargeTurn = true;
-    public void SetCatchStar() => isCatchStar = true;
+    public void SetRopeChargeTurn() => StartCoroutine(SetRopeChargeTurnRoutine());
+    public IEnumerator SetRopeChargeTurnRoutine()
+    {
+        countText.text = "3";
+        yield return new WaitForSeconds(1f);
+        countText.text = "2";
+        yield return new WaitForSeconds(1f);
+        countText.text = "1";
+        yield return new WaitForSeconds(1f);
+        countText.text = "GO!";
+        isRopeChargeTurn = true;
+        yield return new WaitForSeconds(0.2f);
+        countText.text = "";
+        OnStartCharge?.Invoke(true);
+    }
+    public void SetCatchStar()
+    {
+        isCatchStar = true;
+        OnStartCharge?.Invoke(false);
+    }
 
     public void EndCatchStar()
     {
