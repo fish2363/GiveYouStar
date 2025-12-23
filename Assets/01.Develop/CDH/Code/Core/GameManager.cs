@@ -2,6 +2,7 @@
 using _01.Develop.LSW._01._Scripts.So;
 using Ami.BroAudio;
 using DG.Tweening;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -77,7 +78,12 @@ public class GameManager : MonoBehaviour
         StopChargeBlink();
     }
 
-    private IEnumerator Start()
+    public void FirstStart()
+    {
+        StartCoroutine(GameStartReady());
+    }
+
+    private IEnumerator GameStartReady()
     {
         // 카운트다운
         if (countText != null)

@@ -37,11 +37,9 @@ public class TutorialContainerSelect : MonoBehaviour
         if (!isCollector) return;
         pressCollect.SetActive(false);
         TextPanelEvent textPanelEvent = new();
-        textPanelEvent.AddDialogue("각자 가지고 싶은\n별을 이야기 하고 있군요..")
-        .AddDialogue("바로 출발해봅시다!")
-        .AddRestMinute(1f)
-        .AddDialogue("근데 저게 다\n무슨 별이죠..?")
-        .AddDialogue("종류를 알아야 선물을 할텐데..\n우선 도감을 확인해볼까요?")
+        textPanelEvent.AddDialogue("허허, 이걸 보게!")
+        .AddDialogue("자네가 앞으로 모으게 될 별들의 정보가\n모두 담겨있는 소중한 기록지라네.")
+        .AddDialogue("아직 도감에는 어떤 별도 볼 수 없지만\n별을 발견한 뒤, 도감에 그려진 별을 누르면\n그 별에 대해 더 알 수 있을 걸세")
         .AddEvent(() =>
         {
             isPowerUp = true;
@@ -55,11 +53,10 @@ public class TutorialContainerSelect : MonoBehaviour
         if (!isPowerUp) return;
         pressPower.SetActive(false);
         TextPanelEvent textPanelEvent = new();
-        textPanelEvent.AddDialogue("각자 가지고 싶은\n별을 이야기 하고 있군요..")
-        .AddDialogue("바로 출발해봅시다!")
+        textPanelEvent.AddDialogue("여기선 별을 더 빠르고 정확하게 낚을 수\n있도록 도구를 강화할 수 있다네. ")
         .AddRestMinute(1f)
-        .AddDialogue("근데 저게 다\n무슨 별이죠..?")
-        .AddDialogue("종류를 알아야 선물을 할텐데..\n우선 도감을 확인해볼까요?")
+        .AddDialogue("참!")
+        .AddDialogue("필요한 재화는 아이들에게 별을 선물하고 받은\n'감사의 마음'으로 바꿀 수 있으니 참고하게나.")
         .AddEvent(() =>
         {
             
@@ -118,5 +115,6 @@ public class TutorialContainerSelect : MonoBehaviour
         if (isPowerUp || isCollector || isExplainGift) return;
 
         TutorialManager.Instance.IsFirstTutorial = false;
+        TutorialManager.Instance.IsPlayEndTutorial = true;
     }
 }
