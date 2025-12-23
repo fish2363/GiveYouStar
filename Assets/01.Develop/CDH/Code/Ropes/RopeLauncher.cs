@@ -18,6 +18,10 @@ public class RopeLauncher : MonoBehaviour
     [Header("Spawn")]
     [SerializeField] private Vector2 spawnOffset = Vector2.zero;
 
+    [Header("Angle Limit")]
+    [SerializeField] private float minShootAngle = -60f; // degrees
+    [SerializeField] private float maxShootAngle = 60f;  // degrees
+
     private Camera cam;
     private Rope curRope;
 
@@ -34,13 +38,22 @@ public class RopeLauncher : MonoBehaviour
         curRope = Instantiate(ropePrefab, spawnPos, Quaternion.identity);
 
         Vector2 worldMouse = cam.ScreenToWorldPoint(Mouse.current.position.ReadValue());
-        Vector2 dir = (worldMouse - (Vector2)spawnPos).normalized;
+        Vector2 rawDir = worldMouse - (Vector2)spawnPos;
+
+        float angleDeg = Mathf.Atan2(rawDir.y, rawDir.x) * Mathf.Rad2Deg;
+        float clampedAngle = Mathf.Clamp(angleDeg, minShootAngle, maxShootAngle);
+
+        Vector2 dir = new Vector2(
+            Mathf.Cos(clampedAngle * Mathf.Deg2Rad),
+            Mathf.Sin(clampedAngle * Mathf.Deg2Rad)
+        ).normalized;
 
         curRope.Launch(playerTrm, dir, charge01);
         curRope.OnFinishRope += HandleCurRopeEnd;
         curRope.OnCatchStar += HandleCurRopeCatchStar;
 
         arrowUI.SetPivotWorld(curRope.transform);
+        arrowUI.Show(true);
 
         if (cameraManager != null)
             cameraManager.BeginFollowObj(curRope.transform);
