@@ -1,8 +1,9 @@
 using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.So;
+using Ami.BroAudio;
+using DG.Tweening;
 using UnityEngine;
 using UnityEngine.Events;
-using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
@@ -13,6 +14,11 @@ public class RopePullController : MonoBehaviour
     public UnityEvent<StarSo> OnGetStar;
 
     [SerializeField] private GameObject pullGameObject;
+
+    [Header("sound")]
+    [SerializeField] private SoundID ropePullSoundId;
+    [SerializeField] private SoundID cutRopeSoundId;
+    [SerializeField] private SoundID ropeWindSoundId;
 
     [Header("References")]
     [SerializeField] private Transform player;
@@ -83,7 +89,7 @@ public class RopePullController : MonoBehaviour
     // Post Processing + Pull UI
     // =========================
     [Header("PostProcessing - Lens Distortion (URP Volume)")]
-    [SerializeField] private Volume postProcessVolume;
+    [SerializeField] private UnityEngine.Rendering.Volume postProcessVolume;
     [SerializeField] private float lensDistortionTarget = -0.35f;
     [SerializeField] private float lensDownDuration = 0.08f;
     [SerializeField] private float lensReturnDuration = 0.18f;
@@ -246,6 +252,8 @@ public class RopePullController : MonoBehaviour
 
             PlayLensDistortionDown();
 
+            BroAudio.Play(ropePullSoundId);
+
             // 평소에는 보이고, 클릭하면 페이드로 사라짐
             HidePullFadeOut();
         }
@@ -334,6 +342,9 @@ public class RopePullController : MonoBehaviour
 
         OnChainBreak?.Invoke();
         ClearTarget();
+
+        BroAudio.Play(cutRopeSoundId);
+        BroAudio.Stop(ropeWindSoundId);
     }
 
     public void SetTarget(StarMover newTarget)

@@ -11,6 +11,7 @@ public class Rope : MonoBehaviour
     [Header("Audio")]
     [SerializeField] private SoundID bgmAudio;
     [SerializeField] private SoundID cutRopeSoundId;
+    [SerializeField] private SoundID ropeWindSoundId;
 
     [Header("Movement")]
     [SerializeField] private float baseSpeed = 18f;
@@ -58,6 +59,8 @@ public class Rope : MonoBehaviour
 
         SetupLineIfNeeded();
         UpdateLine();
+
+        BroAudio.Play(ropeWindSoundId);
     }
 
     private void Awake()
@@ -73,6 +76,7 @@ public class Rope : MonoBehaviour
         {
             OnFinishRope?.Invoke();
             BroAudio.Play(cutRopeSoundId);
+            BroAudio.Stop(ropeWindSoundId);
             Destroy(gameObject);
             return;
         }
@@ -82,6 +86,7 @@ public class Rope : MonoBehaviour
         {
             OnFinishRope?.Invoke();
             BroAudio.Play(cutRopeSoundId);
+            BroAudio.Stop(ropeWindSoundId);
             Destroy(gameObject);
             return;
         }
@@ -170,12 +175,14 @@ brownGradient.SetKeys(
         {
             OnFinishRope?.Invoke();
             BroAudio.Play(cutRopeSoundId);
+            BroAudio.Stop(ropeWindSoundId);
             Destroy(gameObject);
         }
         if (collision.CompareTag("Star"))
         {
             OnCatchStar?.Invoke(collision.GetComponent<StarMover>());
             BroAudio.Play(bgmAudio);
+            BroAudio.Stop(ropeWindSoundId);
             Destroy(gameObject);
         }
     }

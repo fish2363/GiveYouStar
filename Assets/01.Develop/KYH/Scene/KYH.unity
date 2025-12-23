@@ -1282,7 +1282,7 @@ GameObject:
   - component: {fileID: 609520109}
   - component: {fileID: 609520110}
   m_Layer: 0
-  m_Name: PlayerPos
+  m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3759,6 +3759,7 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  pullGameObject: {fileID: 570849368}
   ropePullSoundId:
     ID: 1073741838
     _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
@@ -3767,7 +3768,10 @@ MonoBehaviour:
     ID: 1073741839
     _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
     <DebugObject>k__BackingField: {fileID: 1604441328}
-  pullGameObject: {fileID: 570849368}
+  ropeWindSoundId:
+    ID: 0
+    _sourceAsset: {fileID: 0}
+    <DebugObject>k__BackingField: {fileID: 0}
   player: {fileID: 609520108}
   cameraManager: {fileID: 915437353}
   autoFindMainCamera: 1
@@ -5132,6 +5136,10 @@ MonoBehaviour:
   OnRopeCatchStar:
     m_PersistentCalls:
       m_Calls: []
+  throwRopeSoundID:
+    ID: 1073741842
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 2101652521}
   arrowUI: {fileID: 1604677970}
   playerTrm: {fileID: 609520108}
   cameraManager: {fileID: 915437353}
