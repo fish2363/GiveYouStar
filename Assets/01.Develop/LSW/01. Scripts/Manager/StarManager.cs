@@ -8,7 +8,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
 {
     public class StarManager : MonoSingleton<StarManager>
     {
-        [SerializeField] private List<StarSo> starList = new();
+        [SerializeField] private List<StarSo> allStarList = new List<StarSo>();
         
         public event Action<List<StarSo>> onGameEnd;
         
@@ -18,9 +18,9 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         protected override void Awake()
         {
             base.Awake();
-            foreach (var star in starList)
+            foreach (var star in allStarList)
             {
-                _stars.Add(star, false);
+                _stars.Add(star, false); ;
             }
         }
         
@@ -35,6 +35,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         public void AddGotStar(StarSo star)
         {
             _gotStarContainer.Add(star);
+            UnlockStar(star);
         }
 
         public List<StarSo> GetAllGotStars()
@@ -43,8 +44,14 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         public Dictionary<StarSo, bool> GetStarList()
             => _stars;
 
-        public (StarSo, bool) GetStar(StarSo starSo)
+        public (StarSo, bool) GetStarStatue(StarSo starSo)
             => (starSo, _stars[starSo]);
+        
+        public List<StarSo> GetAllStars()
+            => allStarList;
+        
+        public void ClearGotStars()
+            => _gotStarContainer.Clear();
         
         public void EndGame()
         {

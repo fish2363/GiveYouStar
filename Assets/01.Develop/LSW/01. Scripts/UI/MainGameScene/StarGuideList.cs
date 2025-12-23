@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 {
-    public class StarList : MonoBehaviour
+    public class StarGuideList : MonoBehaviour
     {
         [Header("Star Slot List")]
         private readonly List<StarSlot> _starSlotList = new List<StarSlot>();
@@ -27,10 +27,11 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             starNameText.SetText(string.Empty);
             starDescriptionText.SetText(string.Empty);
             
-            foreach (var star in StarManager.Instance.GetStarList())
+            foreach (var star in StarManager.Instance.GetAllStars())
             {
                 StarSlot starSlot = Instantiate(starSlotPrefab, starSlotParent);
-                starSlot.Initialize(star.Key, star.Value);
+                bool isUnlocked = StarManager.Instance.GetStarStatue(star).Item2;
+                starSlot.Initialize(star, isUnlocked);
                 starSlot.onShowStarInformation += ShowStars;
                 _starSlotList.Add(starSlot);
             }

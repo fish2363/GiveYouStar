@@ -18,14 +18,10 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         public void Initialize(StarSo star, bool isUnlocked)
         {
             starSo = star;
-            if (isUnlocked)
-            {
-                starIcon.sprite = star.starImage;
-            }
-            else
-            {
-                // starIcon.sprite = 
-            }
+            
+            starIcon.color = isUnlocked ? Color.white : Color.black;
+            starIcon.sprite = star.starIcon;
+            
             _isUnlocked = isUnlocked;
         }
         
