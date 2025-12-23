@@ -179,7 +179,7 @@ public class TutorialContainerSelect : MonoBehaviour
 
     public void StartGame()
     {
-        if (isPowerUp || isCollector || isExplainGift) return;
+        if (isPowerUp || isCollector || isExplainGift || !TutorialManager.Instance.IsFirstTutorial) return;
 
         TutorialManager.Instance.IsFirstTutorial = false;
         TutorialManager.Instance.IsPlayEndTutorial = true;
