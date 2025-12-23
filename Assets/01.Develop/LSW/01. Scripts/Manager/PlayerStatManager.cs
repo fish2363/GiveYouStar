@@ -6,9 +6,9 @@ namespace _01.Develop.LSW._01._Scripts.Manager
     public class PlayerStatManager : MonoSingleton<PlayerStatManager>
     {
         public int initCoin = 10;
-        public float initFailDist = 5f;
-        public float initSpeed = 10f;
-        public float initRopeSize = 10f;
+        public float initFailDist = 10f;
+        public float initSpeed = 1f;
+        public float initRopeSize = 1f;
 
         [field:SerializeField] public int Coin { get; private set; }
         [field:SerializeField] private float FailDist { get; set; }
