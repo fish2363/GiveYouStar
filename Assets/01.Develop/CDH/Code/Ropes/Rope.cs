@@ -152,11 +152,6 @@ brownGradient.SetKeys(
         transform.localScale = new Vector3(size, size, size);
     }
 
-    public void SetMaxDistance(float maxDistance)
-    {
-        this.maxDistance = maxDistance;
-    }
-
     public void SetSpeed(float speed)
     {
         this.baseSpeed = speed;

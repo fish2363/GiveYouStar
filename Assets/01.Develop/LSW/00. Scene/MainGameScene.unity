@@ -3167,9 +3167,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   initCoin: 10
-  initFailDist: 5
-  initSpeed: 10
-  initRopeSize: 10
+  initFailDist: 10
+  initSpeed: 1
+  initRopeSize: 1
+  <Coin>k__BackingField: 0
+  <FailDist>k__BackingField: 0
+  <Speed>k__BackingField: 0
+  <RopeSize>k__BackingField: 0
 --- !u!1 &624687269
 GameObject:
   m_ObjectHideFlags: 0
@@ -4523,7 +4527,7 @@ MonoBehaviour:
   targetUI: {fileID: 0}
   mainBackGround: {fileID: 0}
   transition: {fileID: 631420350}
-  targetSceneName: KYH_Test
+  targetSceneName: KYH
 --- !u!114 &852492550
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -54,8 +54,9 @@ public class RopeLauncher : MonoBehaviour
         ).normalized;
 
         curRope.SetSpeed(baseSpeed + PlayerStatManager.Instance.GetCurrentSpeed());
-        curRope.SetSize(baseRopeSize * PlayerStatManager.Instance.GetCurrentRopeSize());
-        curRope.SetMaxDistance(baseFailDist * PlayerStatManager.Instance.GetCurrentFailDist());
+        curRope.SetSize(baseRopeSize + PlayerStatManager.Instance.GetCurrentRopeSize());
+        ropePullController.SetMaxRopeStretchDistance(baseFailDist + PlayerStatManager.Instance.GetCurrentFailDist());
+
         curRope.Launch(playerTrm, dir, charge01);
         curRope.OnFinishRope += HandleCurRopeEnd;
         curRope.OnCatchStar += HandleCurRopeCatchStar;

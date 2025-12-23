@@ -226,6 +226,11 @@ public class RopePullController : MonoBehaviour
         }
     }
 
+    public void SetMaxRopeStretchDistance(float maxRopeStretchDistance)
+    {
+        this.maxRopeStretchDistance = maxRopeStretchDistance;
+    }
+
     private void FixedUpdate()
     {
         if (starRb == null) return;
