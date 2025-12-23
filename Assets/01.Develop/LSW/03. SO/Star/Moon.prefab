@@ -39387,7 +39387,7 @@ MonoBehaviour:
   starSoundID:
     ID: 1073741840
     _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
-    <DebugObject>k__BackingField: {fileID: 8862248589327440636}
+    <DebugObject>k__BackingField: {fileID: 5204726340962244434, guid: 72ed774e40f871e48a10368fef2afab1, type: 3}
   speed: 2
   isCatch: 0
   particle: {fileID: 4440382775669792965}
@@ -39398,6 +39398,14 @@ MonoBehaviour:
   spinChance: 0.5
   minSpinDegPerSec: 60
   maxSpinDegPerSec: 180
+  repelOnCatch: 1
+  repelRadius: 2.5
+  repelSpeedMultiplier: 2
+  repelDuration: 0.35
+  starLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  useTagCheck: 1
 --- !u!61 &7285767885070721783
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -24667,6 +24667,14 @@ MonoBehaviour:
   spinChance: 0.5
   minSpinDegPerSec: 60
   maxSpinDegPerSec: 180
+  repelOnCatch: 1
+  repelRadius: 2.5
+  repelSpeedMultiplier: 2
+  repelDuration: 0.35
+  starLayerMask:
+    serializedVersion: 2
+    m_Bits: 64
+  useTagCheck: 1
 --- !u!61 &1359546378364204072
 BoxCollider2D:
   m_ObjectHideFlags: 0
