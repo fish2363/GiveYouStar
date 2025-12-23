@@ -147,6 +147,21 @@ brownGradient.SetKeys(
         line.SetPosition(1, transform.position);
     }
 
+    public void SetSize(float size)
+    {
+        transform.localScale = new Vector3(size, size, size);
+    }
+
+    public void SetMaxDistance(float maxDistance)
+    {
+        this.maxDistance = maxDistance;
+    }
+
+    public void SetSpeed(float speed)
+    {
+        this.baseSpeed = speed;
+    }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if(collision.CompareTag("Area"))

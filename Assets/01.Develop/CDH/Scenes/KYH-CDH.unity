@@ -1072,16 +1072,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 055710441884b8b40a35e6a80d12f43f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  layers:
-  - {tr: {fileID: 661027504}, moveFactor: 2, baseLocalPos: {x: 0, y: 0, z: 0}}
-  maxOffset: 0.6
-  axisScale: {x: 1, y: 1}
-  followSpeed: 18
-  returnSpeed: 14
-  moveOppositeToDrag: 1
-  _targetOffset: {x: 0, y: 0, z: 0}
-  _offset: {x: 0, y: 0, z: 0}
-  _dragging: 0
 --- !u!1 &674428180
 GameObject:
   m_ObjectHideFlags: 0
@@ -1503,12 +1493,19 @@ MonoBehaviour:
   upPanelPos: {fileID: 1531181674}
   downPanel: {fileID: 531891187}
   downPanelPos: {fileID: 1683480195}
+  minimap: {fileID: 0}
+  minimapRect: {fileID: 0}
   followZoomFactor: 1.52
   catchZoomFactor: 1
   followBlendTime: 4
   returnBlendTime: 0.05
   blendStyle: 1
   isFullCamActive: 0
+  distanceUI: {fileID: 0}
+  targetWorldPos: {x: 250, y: 250}
+  uiMaxDistance: 500
+  uiMinLocalY: -250
+  uiMaxLocalY: 250
 --- !u!4 &915437354
 Transform:
   m_ObjectHideFlags: 0
@@ -2684,6 +2681,54 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!1 &1639851189
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1639851190}
+  - component: {fileID: 1639851191}
+  m_Layer: 0
+  m_Name: PlayerStatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1639851190
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639851189}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1639851191
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1639851189}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7fb437ea13e8447abc1c3707f5f74f7e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  initCoin: 10
+  initFailDist: 22.3
+  initSpeed: 401.3
+  initRopeSize: 283.41
 --- !u!1 &1683480194
 GameObject:
   m_ObjectHideFlags: 0
@@ -3209,7 +3254,12 @@ MonoBehaviour:
   cameraManager: {fileID: 915437353}
   ropePullController: {fileID: 1604441329}
   ropePrefab: {fileID: 1497572060682003601, guid: 5ffe9219bb687d643b06d0bbe29a0093, type: 3}
+  baseRopeSize: 1
+  baseFailDist: 18
+  baseSpeed: 10
   spawnOffset: {x: 0, y: 0}
+  minShootAngle: -60
+  maxShootAngle: 60
 --- !u!4 &2101652523
 Transform:
   m_ObjectHideFlags: 0
@@ -3319,3 +3369,4 @@ SceneRoots:
   - {fileID: 173736572}
   - {fileID: 1414537197}
   - {fileID: 1156520551}
+  - {fileID: 1639851190}

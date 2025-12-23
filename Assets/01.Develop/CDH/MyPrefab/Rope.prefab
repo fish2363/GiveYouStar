@@ -11,8 +11,8 @@ GameObject:
   - component: {fileID: 7428285610839734549}
   - component: {fileID: 7848550132231077143}
   - component: {fileID: 6497616200357647875}
+  - component: {fileID: 6538825437416239726}
   - component: {fileID: 1497572060682003601}
-  - component: {fileID: 6628509549089058520}
   m_Layer: 0
   m_Name: Rope
   m_TagString: Untagged
@@ -117,31 +117,8 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1497572060682003601
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5126771148484737643}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 540d1e138fe29314dbc4bb0286dd162a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: 6
-  speedByCharge: 50
-  maxDistance: 200
-  biasTurnDegPerSec: 180
-  maxBiasAngleDeg: 35
-  deadZone: 0.07
-  exponent: 1.4
-  scaleByDistanceFromDiagonal: 1
-  invertLeftRight: 0
-  line: {fileID: 0}
-  lineWidth: 0.05
---- !u!61 &6628509549089058520
-BoxCollider2D:
+--- !u!70 &6538825437416239726
+CapsuleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -174,15 +151,29 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_CompositeOperation: 0
   m_CompositeOrder: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 6.4, y: 6.4}
-    newSize: {x: 6.4, y: 6.4}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  m_Offset: {x: 0.008171632, y: 0.106293574}
+  m_Size: {x: 1.4479913, y: 0.8551043}
+  m_Direction: 1
+--- !u!114 &1497572060682003601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5126771148484737643}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 540d1e138fe29314dbc4bb0286dd162a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  baseSpeed: 6
+  speedByCharge: 50
+  maxDistance: 200
+  biasTurnDegPerSec: 180
+  maxBiasAngleDeg: 35
+  deadZone: 0.07
+  exponent: 1.4
+  scaleByDistanceFromDiagonal: 1
+  invertLeftRight: 0
+  line: {fileID: 0}
+  lineWidth: 0.05
