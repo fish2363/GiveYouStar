@@ -19752,13 +19752,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57cdca149b087c44885dda32e3c057c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starSoundID:
+    ID: 1073741840
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 4711834628526676560}
+  speed: 2
   isCatch: 0
   particle: {fileID: 6419404013847669954}
   Conflict: {fileID: 1774447013477990415}
   playSpawnPop: 1
   popDuration: 0.25
   overshoot: 1.15
-  spinWhileMove: 1
+  spinChance: 0.5
   minSpinDegPerSec: 0.05
   maxSpinDegPerSec: 1
 --- !u!61 &7557102939687413499

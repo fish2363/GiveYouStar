@@ -39384,9 +39384,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e57cdca149b087c44885dda32e3c057c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  starSoundID:
+    ID: 1073741840
+    _sourceAsset: {fileID: 11400000, guid: 64b527eab9cd52d4ea7c29c04cf2b1a7, type: 2}
+    <DebugObject>k__BackingField: {fileID: 5204726340962244434, guid: 72ed774e40f871e48a10368fef2afab1, type: 3}
+  speed: 2
   isCatch: 0
   particle: {fileID: 3129962976552669915}
   Conflict: {fileID: 5162225532225350528}
+  playSpawnPop: 1
+  popDuration: 0.25
+  overshoot: 1.15
+  spinChance: 0.5
+  minSpinDegPerSec: 60
+  maxSpinDegPerSec: 180
 --- !u!61 &394821618186509582
 BoxCollider2D:
   m_ObjectHideFlags: 0

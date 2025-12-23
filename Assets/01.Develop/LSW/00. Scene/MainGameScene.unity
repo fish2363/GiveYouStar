@@ -1170,7 +1170,7 @@ MonoBehaviour:
   onUpgradeStat:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 609013362}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
         m_MethodName: IncreaseSpeed
@@ -3684,58 +3684,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 596924712}
   m_CullTransparentMesh: 1
---- !u!1 &609013360
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 609013361}
-  - component: {fileID: 609013362}
-  m_Layer: 0
-  m_Name: PlayerStatManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &609013361
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 609013360}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2016339197}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &609013362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 609013360}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7fb437ea13e8447abc1c3707f5f74f7e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  initCoin: 10
-  initFailDist: 10
-  initSpeed: 1
-  initRopeSize: 1
-  <Coin>k__BackingField: 0
-  <FailDist>k__BackingField: 0
-  <Speed>k__BackingField: 0
-  <RopeSize>k__BackingField: 0
 --- !u!1 &624687269
 GameObject:
   m_ObjectHideFlags: 0
@@ -3802,7 +3750,7 @@ MonoBehaviour:
   onUpgradeStat:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 609013362}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
         m_MethodName: IncreaseRopeSize
@@ -4685,6 +4633,10 @@ PrefabInstance:
     - target: {fileID: 151421634837945242, guid: a27b83b424391734f8e73fe9fba632a4, type: 3}
       propertyPath: m_Name
       value: GameCanvas
+      objectReference: {fileID: 0}
+    - target: {fileID: 151421634837945242, guid: a27b83b424391734f8e73fe9fba632a4, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2680196960298136604, guid: a27b83b424391734f8e73fe9fba632a4, type: 3}
       propertyPath: m_fontAsset
@@ -9400,77 +9352,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1708948858}
   m_CullTransparentMesh: 1
---- !u!1 &1727469994
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1727469995}
-  - component: {fileID: 1727469996}
-  m_Layer: 0
-  m_Name: StarManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1727469995
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1727469994}
-  serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2016339197}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1727469996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1727469994}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 70c05826a4e24cfea14e2a4a8a7a6993, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  allStarList:
-  - {fileID: 11400000, guid: 7b23211582e3f1143adc0e8071d04ed0, type: 2}
-  - {fileID: 11400000, guid: 3001d7aacba0f3c44b4ee7461fce11ba, type: 2}
-  - {fileID: 11400000, guid: 8c5de9295ed9d0344a69db3d8d783cfd, type: 2}
-  - {fileID: 11400000, guid: 4d409fb1c000abe44b5c80e243d11a87, type: 2}
-  - {fileID: 11400000, guid: a6e69a23a1671e1409ad98e883232bb7, type: 2}
-  - {fileID: 11400000, guid: 61ad0e56cceeccc428006b4fa6e86aa5, type: 2}
-  - {fileID: 11400000, guid: 8f5f502f03387214ea8874bf17091db1, type: 2}
-  - {fileID: 11400000, guid: 8eff380bdbed68441b1be3e72a644f8a, type: 2}
-  - {fileID: 11400000, guid: 6c1ae202392b6184fb9e3efd2f7a5d0d, type: 2}
-  - {fileID: 11400000, guid: cb6db97ec63cc9d4aa423b4c43dfc1b0, type: 2}
-  - {fileID: 11400000, guid: 465c23277a8fac243ba07a2ce6b0d888, type: 2}
-  - {fileID: 11400000, guid: eb66523ff811455468189c739faf77fc, type: 2}
-  _gotStarContainer:
-  - {fileID: 11400000, guid: 7b23211582e3f1143adc0e8071d04ed0, type: 2}
-  - {fileID: 11400000, guid: 3001d7aacba0f3c44b4ee7461fce11ba, type: 2}
-  - {fileID: 11400000, guid: 8c5de9295ed9d0344a69db3d8d783cfd, type: 2}
-  - {fileID: 11400000, guid: 4d409fb1c000abe44b5c80e243d11a87, type: 2}
-  - {fileID: 11400000, guid: a6e69a23a1671e1409ad98e883232bb7, type: 2}
-  - {fileID: 11400000, guid: 88ecb18232bef7d4a917ed20181f9d61, type: 2}
-  - {fileID: 11400000, guid: 61ad0e56cceeccc428006b4fa6e86aa5, type: 2}
-  - {fileID: 11400000, guid: 8f5f502f03387214ea8874bf17091db1, type: 2}
-  - {fileID: 11400000, guid: 8eff380bdbed68441b1be3e72a644f8a, type: 2}
-  - {fileID: 11400000, guid: 465c23277a8fac243ba07a2ce6b0d888, type: 2}
-  - {fileID: 11400000, guid: cb6db97ec63cc9d4aa423b4c43dfc1b0, type: 2}
-  - {fileID: 11400000, guid: 6c1ae202392b6184fb9e3efd2f7a5d0d, type: 2}
-  - {fileID: 11400000, guid: eb66523ff811455468189c739faf77fc, type: 2}
 --- !u!1 &1774429621
 GameObject:
   m_ObjectHideFlags: 0
@@ -9546,50 +9427,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1774429621}
   m_CullTransparentMesh: 1
---- !u!1 &1794804617
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1794804618}
-  - component: {fileID: 1794804619}
-  m_Layer: 0
-  m_Name: ChildManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1794804618
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1794804617}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2016339197}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1794804619
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1794804617}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d2cfd6c38ac8442f8d50cef9cc1f1cb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1797028716
 GameObject:
   m_ObjectHideFlags: 0
@@ -9801,6 +9638,7 @@ GameObject:
   - component: {fileID: 1890500006}
   - component: {fileID: 1890500008}
   - component: {fileID: 1890500007}
+  - component: {fileID: 1890500009}
   m_Layer: 5
   m_Name: Upgrade UI
   m_TagString: Untagged
@@ -9879,6 +9717,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1890500004}
   m_CullTransparentMesh: 1
+--- !u!225 &1890500009
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1890500004}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1913117395
 GameObject:
   m_ObjectHideFlags: 0
@@ -10503,7 +10353,7 @@ MonoBehaviour:
   onUpgradeStat:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 609013362}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: _01.Develop.LSW._01._Scripts.Manager.PlayerStatManager,
           Assembly-CSharp
         m_MethodName: IncreaseFailDist
@@ -10516,40 +10366,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
---- !u!1 &2016339196
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 2016339197}
-  m_Layer: 0
-  m_Name: Manager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &2016339197
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2016339196}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1727469995}
-  - {fileID: 609013361}
-  - {fileID: 1794804618}
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2022656804
 GameObject:
   m_ObjectHideFlags: 0
@@ -11113,7 +10929,6 @@ SceneRoots:
   - {fileID: 1671090260}
   - {fileID: 1887088319}
   - {fileID: 1548821172}
-  - {fileID: 2016339197}
   - {fileID: 633709891}
   - {fileID: 759087766}
   - {fileID: 358551}

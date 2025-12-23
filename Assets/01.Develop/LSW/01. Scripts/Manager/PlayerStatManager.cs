@@ -1,4 +1,5 @@
 using System;
+using _01.Develop.LSW._01._Scripts.UI.MainGameScene;
 using UnityEngine;
 
 namespace _01.Develop.LSW._01._Scripts.Manager
@@ -72,6 +73,36 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             
             RopeSize = Mathf.Max(0f, RopeSize + amount);
             onStatsChanged?.Invoke();
+        }
+
+        public float GetCurrentStat(StatType statType)
+        {
+            switch (statType)
+            {
+                case StatType.FailDistance:
+                    return FailDist;
+                case StatType.Speed:
+                    return Speed;
+                case StatType.RopeSize:
+                    return RopeSize;
+            }
+
+            return 0f;
+        }
+        
+        public float GetInitStat(StatType statType)
+        {
+            switch (statType)
+            {
+                case StatType.FailDistance:
+                    return initFailDist;
+                case StatType.Speed:
+                    return initSpeed;
+                case StatType.RopeSize:
+                    return initRopeSize;
+            }
+
+            return 0f;
         }
 
         private void ResetAllStat()

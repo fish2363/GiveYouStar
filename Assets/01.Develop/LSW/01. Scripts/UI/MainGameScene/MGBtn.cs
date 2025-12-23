@@ -37,7 +37,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
             {
                 case MGBtnType.ShowUI:
                     targetUI.gameObject.SetActive(true);
-                    targetUI.Show(interactionTrm, mainBackGround);
+                    targetUI.Show(interactionTrm);
                     break;
                 case MGBtnType.MoveScene:
                     _moveScene = true;

@@ -19,9 +19,6 @@ public class RopeLauncher : MonoBehaviour
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private RopePullController ropePullController;
     [SerializeField] private Rope ropePrefab;
-    [SerializeField] private float baseRopeSize = 1f;
-    [SerializeField] private float baseFailDist = 18f;
-    [SerializeField] private float baseSpeed = 10f;
 
 
     [Header("Spawn")]
@@ -57,9 +54,9 @@ public class RopeLauncher : MonoBehaviour
             Mathf.Sin(clampedAngle * Mathf.Deg2Rad)
         ).normalized;
 
-        curRope.SetSpeed(baseSpeed + PlayerStatManager.Instance.GetCurrentSpeed());
-        curRope.SetSize(baseRopeSize + PlayerStatManager.Instance.GetCurrentRopeSize());
-        ropePullController.SetMaxRopeStretchDistance(baseFailDist + PlayerStatManager.Instance.GetCurrentFailDist());
+        curRope.SetSpeed(PlayerStatManager.Instance.GetCurrentSpeed());
+        curRope.SetSize(PlayerStatManager.Instance.GetCurrentRopeSize());
+        ropePullController.SetMaxRopeStretchDistance(PlayerStatManager.Instance.GetCurrentFailDist());
 
         BroAudio.Play(throwRopeSoundID);
 

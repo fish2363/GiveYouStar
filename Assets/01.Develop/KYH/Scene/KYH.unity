@@ -9056,7 +9056,7 @@ MonoBehaviour:
   ropePrefab: {fileID: 1497572060682003601, guid: 5ffe9219bb687d643b06d0bbe29a0093, type: 3}
   baseRopeSize: 1
   baseFailDist: 18
-  baseSpeed: 10
+  baseSpeed: 1
   spawnOffset: {x: 0, y: 0}
   minShootAngle: 0
   maxShootAngle: 90
