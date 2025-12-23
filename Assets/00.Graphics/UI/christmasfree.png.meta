@@ -1,0 +1,2815 @@
+fileFormatVersion: 2
+guid: 57a6ac84a81665244ac81a382ee83439
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1046625092863581445
+    second: christmasfree_0
+  - first:
+      213: 1584258472830386683
+    second: christmasfree_1
+  - first:
+      213: 6239046423623085236
+    second: christmasfree_2
+  - first:
+      213: 4798347475696151418
+    second: christmasfree_3
+  - first:
+      213: 7284430130355848040
+    second: christmasfree_4
+  - first:
+      213: -6675956514634002137
+    second: christmasfree_5
+  - first:
+      213: 3913984215468493165
+    second: christmasfree_6
+  - first:
+      213: 5211400704729119798
+    second: christmasfree_7
+  - first:
+      213: -2263586944040535057
+    second: christmasfree_8
+  - first:
+      213: 8430253965486894437
+    second: christmasfree_9
+  - first:
+      213: -6918844589976629991
+    second: christmasfree_10
+  - first:
+      213: 6824827419488630210
+    second: christmasfree_11
+  - first:
+      213: -2082604349696059849
+    second: christmasfree_12
+  - first:
+      213: -1274886356915199749
+    second: christmasfree_13
+  - first:
+      213: 6016329186107963043
+    second: christmasfree_14
+  - first:
+      213: -8210793516644154942
+    second: christmasfree_15
+  - first:
+      213: -7938446285312590432
+    second: christmasfree_16
+  - first:
+      213: -517552366242625725
+    second: christmasfree_17
+  - first:
+      213: -1650173045072782603
+    second: christmasfree_18
+  - first:
+      213: -9074899518586015440
+    second: christmasfree_19
+  - first:
+      213: 8093451447271729521
+    second: christmasfree_20
+  - first:
+      213: -3886038783729697771
+    second: christmasfree_21
+  - first:
+      213: -7612972241604398019
+    second: christmasfree_22
+  - first:
+      213: -7823280947463031788
+    second: christmasfree_23
+  - first:
+      213: 5900466802479502748
+    second: christmasfree_24
+  - first:
+      213: 413041282087832541
+    second: christmasfree_25
+  - first:
+      213: -6813213125850477316
+    second: christmasfree_26
+  - first:
+      213: 5298960268007626838
+    second: christmasfree_27
+  - first:
+      213: -2907906588755403317
+    second: christmasfree_28
+  - first:
+      213: -6829013546821182323
+    second: christmasfree_29
+  - first:
+      213: 5121868385428694573
+    second: christmasfree_30
+  - first:
+      213: 4369347719029788411
+    second: christmasfree_31
+  - first:
+      213: 2333207961386006877
+    second: christmasfree_32
+  - first:
+      213: 3255664373020107580
+    second: christmasfree_33
+  - first:
+      213: 2245141032032405727
+    second: christmasfree_34
+  - first:
+      213: 7190825929821163071
+    second: christmasfree_35
+  - first:
+      213: -4626883185994387805
+    second: christmasfree_36
+  - first:
+      213: 6591157624075398173
+    second: christmasfree_37
+  - first:
+      213: -8659469793952930970
+    second: christmasfree_38
+  - first:
+      213: 9092259445866914299
+    second: christmasfree_39
+  - first:
+      213: 428882102579442230
+    second: christmasfree_40
+  - first:
+      213: 5877093210754096187
+    second: christmasfree_41
+  - first:
+      213: 8119444919183873721
+    second: christmasfree_42
+  - first:
+      213: 8821076085617849088
+    second: christmasfree_43
+  - first:
+      213: 2722265038317638678
+    second: christmasfree_44
+  - first:
+      213: -523847370682531499
+    second: christmasfree_45
+  - first:
+      213: 8177838098818115661
+    second: christmasfree_46
+  - first:
+      213: -8551798748042856179
+    second: christmasfree_47
+  - first:
+      213: 3159359192968155263
+    second: christmasfree_48
+  - first:
+      213: 6061872086952526784
+    second: christmasfree_49
+  - first:
+      213: -249217514719547664
+    second: christmasfree_50
+  - first:
+      213: -3754590466771564955
+    second: christmasfree_51
+  - first:
+      213: 4449674814263413609
+    second: christmasfree_52
+  - first:
+      213: 1526282346132609964
+    second: christmasfree_53
+  - first:
+      213: 601047702719721580
+    second: christmasfree_54
+  - first:
+      213: 866321699723026124
+    second: christmasfree_55
+  - first:
+      213: 107101492905485134
+    second: christmasfree_56
+  - first:
+      213: 5772593959272292124
+    second: christmasfree_57
+  - first:
+      213: 3793981509325155218
+    second: christmasfree_58
+  - first:
+      213: -3947961510698546613
+    second: christmasfree_59
+  - first:
+      213: -1724250888813220210
+    second: christmasfree_60
+  - first:
+      213: 7692892240079747822
+    second: christmasfree_61
+  - first:
+      213: 2503358845434213731
+    second: christmasfree_62
+  - first:
+      213: -1962211380503131947
+    second: christmasfree_63
+  - first:
+      213: 2924662207512507776
+    second: christmasfree_64
+  - first:
+      213: -2029133431536471537
+    second: christmasfree_65
+  - first:
+      213: 2884386847257708187
+    second: christmasfree_66
+  - first:
+      213: 2968431979801510972
+    second: christmasfree_67
+  - first:
+      213: -7509678904992396145
+    second: christmasfree_68
+  - first:
+      213: 654110262818597287
+    second: christmasfree_69
+  - first:
+      213: -2209230300897878519
+    second: christmasfree_70
+  - first:
+      213: -8480826126907620078
+    second: christmasfree_71
+  - first:
+      213: -7739492467920893610
+    second: christmasfree_72
+  - first:
+      213: 2936743062757095919
+    second: christmasfree_73
+  - first:
+      213: 7200760223216118087
+    second: christmasfree_74
+  - first:
+      213: 3208314920342109462
+    second: christmasfree_75
+  - first:
+      213: -915591906224332797
+    second: christmasfree_76
+  - first:
+      213: -5348040246993914811
+    second: christmasfree_77
+  - first:
+      213: 8930547142740558770
+    second: christmasfree_78
+  - first:
+      213: 7019653853740148912
+    second: christmasfree_79
+  - first:
+      213: 5968472698681366646
+    second: christmasfree_80
+  - first:
+      213: -9210711498636605158
+    second: christmasfree_81
+  - first:
+      213: -8134849318913654856
+    second: christmasfree_82
+  - first:
+      213: -3560373246725085260
+    second: christmasfree_83
+  - first:
+      213: -4273257867184465686
+    second: christmasfree_84
+  - first:
+      213: 3242780435181488428
+    second: christmasfree_85
+  - first:
+      213: 8431721840614325994
+    second: christmasfree_86
+  - first:
+      213: -972451907485422334
+    second: christmasfree_87
+  - first:
+      213: -387405297895252070
+    second: christmasfree_88
+  - first:
+      213: 3196293480892514577
+    second: christmasfree_89
+  - first:
+      213: 9109691374614285633
+    second: christmasfree_90
+  - first:
+      213: 1508670003389365827
+    second: christmasfree_91
+  - first:
+      213: 2168288056717561582
+    second: christmasfree_92
+  - first:
+      213: 5113076390852432358
+    second: christmasfree_93
+  - first:
+      213: -6920788296333749331
+    second: christmasfree_94
+  - first:
+      213: 1413093952192856349
+    second: christmasfree_95
+  - first:
+      213: 6690306400204083564
+    second: christmasfree_96
+  - first:
+      213: 4774145999740685872
+    second: christmasfree_97
+  - first:
+      213: 6072324986177821570
+    second: christmasfree_98
+  - first:
+      213: -522724988517868852
+    second: christmasfree_99
+  - first:
+      213: -2029544370995914549
+    second: christmasfree_100
+  - first:
+      213: -8304186835420480775
+    second: christmasfree_101
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: christmasfree_0
+      rect:
+        serializedVersion: 2
+        x: 4
+        y: 229
+        width: 24
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf22bd6f504a971f0800000000000000
+      internalID: -1046625092863581445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_1
+      rect:
+        serializedVersion: 2
+        x: 37
+        y: 226
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf14571ffaa6cf510800000000000000
+      internalID: 1584258472830386683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 130
+        width: 93
+        height: 121
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 8, y: 9, z: 7, w: 6}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4bca9399aab859650800000000000000
+      internalID: 6239046423623085236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_3
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 130
+        width: 92
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 7, y: 10, z: 7, w: 8}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7be2cd3b97279240800000000000000
+      internalID: 4798347475696151418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_4
+      rect:
+        serializedVersion: 2
+        x: 5
+        y: 194
+        width: 21
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8634307eb9e771560800000000000000
+      internalID: 7284430130355848040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_5
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 194
+        width: 28
+        height: 27
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7211941bbec3a53a0800000000000000
+      internalID: -6675956514634002137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_6
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 176
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d694c7328e3415630800000000000000
+      internalID: 3913984215468493165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_7
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 160
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63c799b645d925840800000000000000
+      internalID: 5211400704729119798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_8
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 176
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: feb704adaaf1690e0800000000000000
+      internalID: -2263586944040535057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_9
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 160
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56dac23f0574ef470800000000000000
+      internalID: 8430253965486894437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_10
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 176
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d4f46c0835bff90800000000000000
+      internalID: -6918844589976629991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_11
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 160
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c537f7e068a6be50800000000000000
+      internalID: 6824827419488630210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_12
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 176
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 736dea8c06a1913e0800000000000000
+      internalID: -2082604349696059849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_13
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 160
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf0e31fec91be4ee0800000000000000
+      internalID: -1274886356915199749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_14
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 144
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3a6b7c5d48b4e7350800000000000000
+      internalID: 6016329186107963043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_15
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 144
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2c1485c9cc66d0e80800000000000000
+      internalID: -8210793516644154942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_16
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 144
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ad7c67c929f4d190800000000000000
+      internalID: -7938446285312590432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_17
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 144
+        width: 13
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34702717dd841d8f0800000000000000
+      internalID: -517552366242625725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_18
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 129
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5fa1386cb586919e0800000000000000
+      internalID: -1650173045072782603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_19
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 129
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 031315ef7fa7f0280800000000000000
+      internalID: -9074899518586015440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_20
+      rect:
+        serializedVersion: 2
+        x: 34
+        y: 129
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 179a089d537b15070800000000000000
+      internalID: 8093451447271729521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_21
+      rect:
+        serializedVersion: 2
+        x: 50
+        y: 129
+        width: 11
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 51c7668b054021ac0800000000000000
+      internalID: -3886038783729697771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_22
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 115
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d34b24ed41a495690800000000000000
+      internalID: -7612972241604398019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_23
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 116
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 41472648d6f1e6390800000000000000
+      internalID: -7823280947463031788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_24
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 115
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c9596ca7b4ba2e150800000000000000
+      internalID: 5900466802479502748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_25
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 114
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddbca609bda6bb500800000000000000
+      internalID: 413041282087832541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_26
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 115
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cfc47ae82ca9271a0800000000000000
+      internalID: -6813213125850477316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_27
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 116
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 658d085e940b98940800000000000000
+      internalID: 5298960268007626838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_28
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 115
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcd57314d5a05a7d0800000000000000
+      internalID: -2907906588755403317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_29
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 114
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d8c946f5c587a31a0800000000000000
+      internalID: -6829013546821182323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_30
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d26e7c3e828841740800000000000000
+      internalID: 5121868385428694573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_31
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 112
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bfe0fe4c99a03ac30800000000000000
+      internalID: 4369347719029788411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_32
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d59b68d6748316020800000000000000
+      internalID: 2333207961386006877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_33
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 112
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c3322cd7f717e2d20800000000000000
+      internalID: 3255664373020107580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_34
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd802f49fd7582f10800000000000000
+      internalID: 2245141032032405727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_35
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 112
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f3e88a4a512fac360800000000000000
+      internalID: 7190825929821163071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_36
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 112
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3aea391b1420acfb0800000000000000
+      internalID: -4626883185994387805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_37
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 112
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1c2f9900fe787b50800000000000000
+      internalID: 6591157624075398173
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_38
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 99
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 663e53c2a1263d780800000000000000
+      internalID: -8659469793952930970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_39
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 99
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf1669c0bc13e2e70800000000000000
+      internalID: 9092259445866914299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_40
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 98
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63235cefff1b3f500800000000000000
+      internalID: 428882102579442230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_41
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 83
+        width: 8
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b3c9bd21321af8150800000000000000
+      internalID: 5877093210754096187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_42
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 99
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9b61e45a2201ea070800000000000000
+      internalID: 8119444919183873721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_43
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 99
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 003f1fbb6f1ca6a70800000000000000
+      internalID: 8821076085617849088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_44
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 98
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 614536111ad67c520800000000000000
+      internalID: 2722265038317638678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_45
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 96
+        width: 29
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55102f1879beab8f0800000000000000
+      internalID: -523847370682531499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_46
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 96
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d48a5be3c648d7170800000000000000
+      internalID: 8177838098818115661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_47
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d0976481958e15980800000000000000
+      internalID: -8551798748042856179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_48
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 96
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f705bbe627c48db20800000000000000
+      internalID: 3159359192968155263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_49
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c349a0cb88102450800000000000000
+      internalID: 6061872086952526784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_50
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 96
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fee553adf99a8cf0800000000000000
+      internalID: -249217514719547664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_51
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 96
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5664307fcd305ebc0800000000000000
+      internalID: -3754590466771564955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_52
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 96
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 96b4c2e0bab60cd30800000000000000
+      internalID: 4449674814263413609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_53
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 82
+        width: 8
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cab1f2c05b17e2510800000000000000
+      internalID: 1526282346132609964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_54
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 81
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c607cad73b9575800800000000000000
+      internalID: 601047702719721580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_55
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 81
+        width: 27
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cce1435fefac50c00800000000000000
+      internalID: 866321699723026124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_56
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 81
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e43ab878d308c7100800000000000000
+      internalID: 107101492905485134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_57
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 83
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1f9df61f9f5c1050800000000000000
+      internalID: 5772593959272292124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_58
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29be9b3d41ee6a430800000000000000
+      internalID: 3793981509325155218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_59
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 80
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a06e75ce50639c0800000000000000
+      internalID: -3947961510698546613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_60
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8ee2acb3fa3218e0800000000000000
+      internalID: -1724250888813220210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_61
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 80
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eeaff41dbb4a2ca60800000000000000
+      internalID: 7692892240079747822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_62
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 36530774b97bdb220800000000000000
+      internalID: 2503358845434213731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_63
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 80
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d8c1ea4523d4c4e0800000000000000
+      internalID: -1962211380503131947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_64
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 80
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 085face38cc769820800000000000000
+      internalID: 2924662207512507776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_65
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 80
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f02366315e117d3e0800000000000000
+      internalID: -2029133431536471537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_66
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 67
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b96ca913e86670820800000000000000
+      internalID: 2884386847257708187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_67
+      rect:
+        serializedVersion: 2
+        x: 19
+        y: 68
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c348aff782df13920800000000000000
+      internalID: 2968431979801510972
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_68
+      rect:
+        serializedVersion: 2
+        x: 35
+        y: 67
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f8c0faae2d248c790800000000000000
+      internalID: -7509678904992396145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_69
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 66
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7a96d3381ddd31900800000000000000
+      internalID: 654110262818597287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_70
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 67
+        width: 9
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 90ed3ff0fbc3751e0800000000000000
+      internalID: -2209230300897878519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_71
+      rect:
+        serializedVersion: 2
+        x: 83
+        y: 68
+        width: 9
+        height: 7
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 215c1d7229d0e4a80800000000000000
+      internalID: -8480826126907620078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_72
+      rect:
+        serializedVersion: 2
+        x: 99
+        y: 67
+        width: 8
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 65983c32b9cc79490800000000000000
+      internalID: -7739492467920893610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_73
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 66
+        width: 9
+        height: 11
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe9ba3c814861c820800000000000000
+      internalID: 2936743062757095919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_74
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7492f81954d3ee360800000000000000
+      internalID: 7200760223216118087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_75
+      rect:
+        serializedVersion: 2
+        x: 144
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61db392fb69368c20800000000000000
+      internalID: 3208314920342109462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_76
+      rect:
+        serializedVersion: 2
+        x: 160
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 300a646230a2b43f0800000000000000
+      internalID: -915591906224332797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_77
+      rect:
+        serializedVersion: 2
+        x: 176
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5447f610bb1f7c5b0800000000000000
+      internalID: -5348040246993914811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_78
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b34eec6f4dafeb70800000000000000
+      internalID: 8930547142740558770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_79
+      rect:
+        serializedVersion: 2
+        x: 208
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0b8226efcf1da6160800000000000000
+      internalID: 7019653853740148912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_80
+      rect:
+        serializedVersion: 2
+        x: 224
+        y: 64
+        width: 16
+        height: 16
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 67815801c4644d250800000000000000
+      internalID: 5968472698681366646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_81
+      rect:
+        serializedVersion: 2
+        x: 240
+        y: 64
+        width: 16
+        height: 15
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a19c82341bafc2080800000000000000
+      internalID: -9210711498636605158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_82
+      rect:
+        serializedVersion: 2
+        x: 2
+        y: 51
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8bfb2dc05a53b1f80800000000000000
+      internalID: -8134849318913654856
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_83
+      rect:
+        serializedVersion: 2
+        x: 18
+        y: 51
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4b7a5215563079ec0800000000000000
+      internalID: -3560373246725085260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_84
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 50
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae893d84c9652b4c0800000000000000
+      internalID: -4273257867184465686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_85
+      rect:
+        serializedVersion: 2
+        x: 51
+        y: 35
+        width: 8
+        height: 25
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c294493ff9ba00d20800000000000000
+      internalID: 3242780435181488428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_86
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 51
+        width: 9
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: aee38b2475e730570800000000000000
+      internalID: 8431721840614325994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_87
+      rect:
+        serializedVersion: 2
+        x: 82
+        y: 51
+        width: 10
+        height: 9
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 20d2e2574282182f0800000000000000
+      internalID: -972451907485422334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_88
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 50
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9f59d22fe8af9af0800000000000000
+      internalID: -387405297895252070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_89
+      rect:
+        serializedVersion: 2
+        x: 128
+        y: 35
+        width: 49
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 6, y: 6, z: 6, w: 5}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 111ce767cf38b5c20800000000000000
+      internalID: 3196293480892514577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_90
+      rect:
+        serializedVersion: 2
+        x: 211
+        y: 35
+        width: 25
+        height: 26
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 14d035d3a002c6e70800000000000000
+      internalID: 9109691374614285633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_91
+      rect:
+        serializedVersion: 2
+        x: 3
+        y: 33
+        width: 27
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 34e7f43ff5fdfe410800000000000000
+      internalID: 1508670003389365827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_92
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 33
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: eee4f5fdf7e471e10800000000000000
+      internalID: 2168288056717561582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_93
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 33
+        width: 27
+        height: 14
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e1123223eb45f640800000000000000
+      internalID: 5113076390852432358
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_94
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 33
+        width: 13
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da3985f56bb64ff90800000000000000
+      internalID: -6920788296333749331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_95
+      rect:
+        serializedVersion: 2
+        x: 117
+        y: 35
+        width: 6
+        height: 10
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1145be66715c9310800000000000000
+      internalID: 1413093952192856349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_96
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7
+        width: 49
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c61dfa6693eb8dc50800000000000000
+      internalID: 6690306400204083564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_97
+      rect:
+        serializedVersion: 2
+        x: 55
+        y: 7
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 03e45640e7c214240800000000000000
+      internalID: 4774145999740685872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_98
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 7
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28b9bd1076b354450800000000000000
+      internalID: 6072324986177821570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_99
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 6
+        width: 50
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: cca1c287468eeb8f0800000000000000
+      internalID: -522724988517868852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_100
+      rect:
+        serializedVersion: 2
+        x: 183
+        y: 6
+        width: 34
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bc815e6c52c95d3e0800000000000000
+      internalID: -2029544370995914549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_101
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 6
+        width: 18
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9fa7946121a91cc80800000000000000
+      internalID: -8304186835420480775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_102
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 82
+        width: 12
+        height: 12
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8996cce7592b2145bdab3ad5b3b9704
+      internalID: 1877674145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: christmasfree_103
+      rect:
+        serializedVersion: 2
+        x: 178
+        y: 36
+        width: 28
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 5, y: 5, z: 5, w: 5}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65734325220f8524ea7a55353676dd0e
+      internalID: -1846895079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: b14c991b7df8e24489a6c66c481b5caa
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      christmasfree_0: -1046625092863581445
+      christmasfree_1: 1584258472830386683
+      christmasfree_10: -6918844589976629991
+      christmasfree_100: -2029544370995914549
+      christmasfree_101: -8304186835420480775
+      christmasfree_102: 1877674145
+      christmasfree_103: -1846895079
+      christmasfree_11: 6824827419488630210
+      christmasfree_12: -2082604349696059849
+      christmasfree_13: -1274886356915199749
+      christmasfree_14: 6016329186107963043
+      christmasfree_15: -8210793516644154942
+      christmasfree_16: -7938446285312590432
+      christmasfree_17: -517552366242625725
+      christmasfree_18: -1650173045072782603
+      christmasfree_19: -9074899518586015440
+      christmasfree_2: 6239046423623085236
+      christmasfree_20: 8093451447271729521
+      christmasfree_21: -3886038783729697771
+      christmasfree_22: -7612972241604398019
+      christmasfree_23: -7823280947463031788
+      christmasfree_24: 5900466802479502748
+      christmasfree_25: 413041282087832541
+      christmasfree_26: -6813213125850477316
+      christmasfree_27: 5298960268007626838
+      christmasfree_28: -2907906588755403317
+      christmasfree_29: -6829013546821182323
+      christmasfree_3: 4798347475696151418
+      christmasfree_30: 5121868385428694573
+      christmasfree_31: 4369347719029788411
+      christmasfree_32: 2333207961386006877
+      christmasfree_33: 3255664373020107580
+      christmasfree_34: 2245141032032405727
+      christmasfree_35: 7190825929821163071
+      christmasfree_36: -4626883185994387805
+      christmasfree_37: 6591157624075398173
+      christmasfree_38: -8659469793952930970
+      christmasfree_39: 9092259445866914299
+      christmasfree_4: 7284430130355848040
+      christmasfree_40: 428882102579442230
+      christmasfree_41: 5877093210754096187
+      christmasfree_42: 8119444919183873721
+      christmasfree_43: 8821076085617849088
+      christmasfree_44: 2722265038317638678
+      christmasfree_45: -523847370682531499
+      christmasfree_46: 8177838098818115661
+      christmasfree_47: -8551798748042856179
+      christmasfree_48: 3159359192968155263
+      christmasfree_49: 6061872086952526784
+      christmasfree_5: -6675956514634002137
+      christmasfree_50: -249217514719547664
+      christmasfree_51: -3754590466771564955
+      christmasfree_52: 4449674814263413609
+      christmasfree_53: 1526282346132609964
+      christmasfree_54: 601047702719721580
+      christmasfree_55: 866321699723026124
+      christmasfree_56: 107101492905485134
+      christmasfree_57: 5772593959272292124
+      christmasfree_58: 3793981509325155218
+      christmasfree_59: -3947961510698546613
+      christmasfree_6: 3913984215468493165
+      christmasfree_60: -1724250888813220210
+      christmasfree_61: 7692892240079747822
+      christmasfree_62: 2503358845434213731
+      christmasfree_63: -1962211380503131947
+      christmasfree_64: 2924662207512507776
+      christmasfree_65: -2029133431536471537
+      christmasfree_66: 2884386847257708187
+      christmasfree_67: 2968431979801510972
+      christmasfree_68: -7509678904992396145
+      christmasfree_69: 654110262818597287
+      christmasfree_7: 5211400704729119798
+      christmasfree_70: -2209230300897878519
+      christmasfree_71: -8480826126907620078
+      christmasfree_72: -7739492467920893610
+      christmasfree_73: 2936743062757095919
+      christmasfree_74: 7200760223216118087
+      christmasfree_75: 3208314920342109462
+      christmasfree_76: -915591906224332797
+      christmasfree_77: -5348040246993914811
+      christmasfree_78: 8930547142740558770
+      christmasfree_79: 7019653853740148912
+      christmasfree_8: -2263586944040535057
+      christmasfree_80: 5968472698681366646
+      christmasfree_81: -9210711498636605158
+      christmasfree_82: -8134849318913654856
+      christmasfree_83: -3560373246725085260
+      christmasfree_84: -4273257867184465686
+      christmasfree_85: 3242780435181488428
+      christmasfree_86: 8431721840614325994
+      christmasfree_87: -972451907485422334
+      christmasfree_88: -387405297895252070
+      christmasfree_89: 3196293480892514577
+      christmasfree_9: 8430253965486894437
+      christmasfree_90: 9109691374614285633
+      christmasfree_91: 1508670003389365827
+      christmasfree_92: 2168288056717561582
+      christmasfree_93: 5113076390852432358
+      christmasfree_94: -6920788296333749331
+      christmasfree_95: 1413093952192856349
+      christmasfree_96: 6690306400204083564
+      christmasfree_97: 4774145999740685872
+      christmasfree_98: 6072324986177821570
+      christmasfree_99: -522724988517868852
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

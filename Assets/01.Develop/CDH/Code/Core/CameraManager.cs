@@ -2,6 +2,7 @@
 using UnityEngine;
 using DG.Tweening;
 using UnityEngine.Events;
+using TMPro;
 
 public class CameraManager : MonoBehaviour
 {
@@ -19,6 +20,7 @@ public class CameraManager : MonoBehaviour
 
     [Header("Minimap UI")]
     [SerializeField] private CanvasGroup minimap;
+    [SerializeField] private CanvasGroup moveText;
     [SerializeField] private RectTransform minimapRect; // ✅ 추가 (미니맵 루트 RectTransform)
 
     private Tween minimapTween; // ✅ 트윈 관리
@@ -121,6 +123,7 @@ public class CameraManager : MonoBehaviour
     public void BeginFollowObj(Transform target)
     {
         if (target == null) return;
+        moveText.alpha = 1f;
 
         MovePanels(upPanelPos, downPanelPos);
 
@@ -139,7 +142,7 @@ public class CameraManager : MonoBehaviour
             x => vcamFollow.Lens.OrthographicSize = x,
             targetSize,
             2f
-        ).SetEase(Ease.Linear);
+        ).SetEase(Ease.Linear).OnComplete(SetConfiner);
 
         SetBlendTime(followBlendTime);
 
@@ -169,19 +172,24 @@ public class CameraManager : MonoBehaviour
             x => vcamFollow.Lens.OrthographicSize = x,
             targetSize,
             0.4f
-        ).SetEase(Ease.OutQuad);
+        ).SetEase(Ease.OutQuad).OnComplete(SetConfiner);
 
         SetBlendTime(followBlendTime);
 
         vcamDefault.Priority = backPriority;
         vcamFollow.Priority = activePriority;
         vFullCam.Priority = backPriority;
+    }
 
+    private void SetConfiner()
+    {
         var confiner = vcamFollow.GetComponent<CinemachineConfiner2D>();
-        if (confiner == null) return;
 
-        confiner.InvalidateLensCache();
-        confiner.InvalidateBoundingShapeCache();
+        DOVirtual.DelayedCall(0.1f, () =>
+        {
+            confiner.InvalidateLensCache();
+            confiner.InvalidateBoundingShapeCache();
+        });
     }
 
     private void MovePanels(RectTransform upTarget, RectTransform downTarget)

@@ -6,6 +6,7 @@ using DG.Tweening;
 using UnityEngine.Rendering;
 using UnityEngine.Rendering.Universal;
 using UnityEngine.UI;
+using TMPro;
 
 public class RopePullController : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class RopePullController : MonoBehaviour
     public UnityEvent<StarSo> OnGetStar;
 
     [SerializeField] private GameObject pullGameObject;
+
+    [SerializeField] private CanvasGroup text;
 
     [Header("References")]
     [SerializeField] private Transform player;
@@ -338,6 +341,7 @@ public class RopePullController : MonoBehaviour
 
     public void SetTarget(StarMover newTarget)
     {
+        text.alpha = 0f;
         starTarget = newTarget;
         starRb = null;
         pullVel = Vector2.zero;
