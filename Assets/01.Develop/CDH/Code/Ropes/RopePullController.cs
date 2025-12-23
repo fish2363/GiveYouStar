@@ -1,3 +1,4 @@
+using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.So;
 using UnityEngine;
 using UnityEngine.Events;
@@ -192,6 +193,7 @@ public class RopePullController : MonoBehaviour
         if (player != null && Vector2.Distance(starTarget.transform.position, player.position) <= collectDistance)
         {
             OnGetStar?.Invoke(starTarget.MyInfo);
+            StarManager.Instance.AddGotStar(starTarget.MyInfo);
             EndPull();
             return;
         }

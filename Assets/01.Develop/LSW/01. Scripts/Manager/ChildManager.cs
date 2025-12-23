@@ -10,6 +10,9 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         public bool GetReqStarsEmpty()
             => _requiredStars.Count == 0;
         
+        public List<StarSo> GetReqStars()
+            => _requiredStars;
+        
         public void AddReqStars(StarSo stars)
         {
             _requiredStars.Add(stars);

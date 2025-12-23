@@ -12,8 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9fc960b68412664409dcd3ceb65d60eb, type: 3}
   m_Name: StarSo 2
   m_EditorClassIdentifier: 
-  starImage: {fileID: 4279260276780606416, guid: 3da05e9f66c9f254c8875335e7e9179e, type: 3}
+  starImage: {fileID: 21300000, guid: bc077030637eea94bbc46c0844403982, type: 3}
+  starIcon: {fileID: 21300000, guid: bc077030637eea94bbc46c0844403982, type: 3}
   starName: Name
   description: Desc
   speed: 10
   starPrefab: {fileID: 5204726340962244434, guid: 72ed774e40f871e48a10368fef2afab1, type: 3}
+  price: 0
+  throwPrice: 0

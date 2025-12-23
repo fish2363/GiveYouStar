@@ -1,4 +1,5 @@
-﻿using Assets._01.Develop.CDH.Code.Fasdfags;
+﻿using _01.Develop.LSW._01._Scripts.Manager;
+using Assets._01.Develop.CDH.Code.Fasdfags;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
@@ -14,6 +15,10 @@ public class RopeLauncher : MonoBehaviour
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private RopePullController ropePullController;
     [SerializeField] private Rope ropePrefab;
+    [SerializeField] private float baseRopeSize = 1f;
+    [SerializeField] private float baseFailDist = 18f;
+    [SerializeField] private float baseSpeed = 10f;
+
 
     [Header("Spawn")]
     [SerializeField] private Vector2 spawnOffset = Vector2.zero;
@@ -48,6 +53,9 @@ public class RopeLauncher : MonoBehaviour
             Mathf.Sin(clampedAngle * Mathf.Deg2Rad)
         ).normalized;
 
+        curRope.SetSpeed(baseSpeed + PlayerStatManager.Instance.GetCurrentSpeed());
+        curRope.SetSize(baseRopeSize * PlayerStatManager.Instance.GetCurrentRopeSize());
+        curRope.SetMaxDistance(baseFailDist * PlayerStatManager.Instance.GetCurrentFailDist());
         curRope.Launch(playerTrm, dir, charge01);
         curRope.OnFinishRope += HandleCurRopeEnd;
         curRope.OnCatchStar += HandleCurRopeCatchStar;

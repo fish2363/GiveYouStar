@@ -15,12 +15,14 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private HavingStarUI havingStarUIPrefab;
         [SerializeField] private Transform havingStarParent;
         
-        private List<HavingStarUI> _havingStars = new List<HavingStarUI>();
+        private List<HavingStarUI> _havingStarUIs = new List<HavingStarUI>();
 
         private void Start()
         {
-            if(ChildManager.Instance.GetReqStarsEmpty()) 
+            if (ChildManager.Instance.GetReqStarsEmpty())
                 SetInitChild();
+            else
+                SetChildUI();
             
             List<StarSo> havingStars 
                 = new List<StarSo>(StarManager.Instance.GetAllGotStars());
@@ -30,12 +32,20 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                     = Instantiate(havingStarUIPrefab, havingStarParent);
                 havingStarUI.onStarRemoved += RemoveHavingStar;
                 havingStarUI.SetStar(star);
-                _havingStars.Add(havingStarUI);
+                _havingStarUIs.Add(havingStarUI);
             }
 
             foreach (var childUI in childrenUI)
             {
                 childUI.onStarGiven += SetChild;
+            }
+        }
+
+        private void SetChildUI()
+        {
+            for (int i = 0; i < childrenUI.Count; i++)
+            {
+                childrenUI[i].SetReqStar(ChildManager.Instance.GetReqStars()[i]);
             }
         }
 
@@ -59,9 +69,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         
         private void RemoveHavingStar(HavingStarUI havingStar)
         {
-            if(_havingStars.Contains(havingStar))
+            if(_havingStarUIs.Contains(havingStar))
             {
-                _havingStars.Remove(havingStar);
+                _havingStarUIs.Remove(havingStar);
                 Destroy(havingStar.gameObject);
                 havingStar.onStarRemoved -= RemoveHavingStar;
             }
@@ -69,7 +79,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         private void OnDestroy()
         {
-            foreach (var remainStar in _havingStars)
+            foreach (var remainStar in _havingStarUIs)
             {
                 remainStar.onStarRemoved -= RemoveHavingStar;
             }
