@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using TMPro;
 using DG.Tweening;
+using Assets._01.Develop.CDH.Code.Core;
 
 public class MainMenuLogic : MonoBehaviour
 {
