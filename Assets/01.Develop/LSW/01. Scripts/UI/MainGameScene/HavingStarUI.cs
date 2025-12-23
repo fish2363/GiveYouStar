@@ -97,29 +97,21 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                 if (target != null || trashcan != null) 
                     break;
             }
-
-            bool accepted = false;
-
+            
             if (trashcan != null)
             {
-                accepted = true;
                 PlayerStatManager.Instance.ChangeCoinAmount(_currentStar.throwPrice);
                 onShowCoinIncText?.Invoke(_currentStar.throwPrice, evt.pointerEnter.transform);
+                onStarRemoved?.Invoke(this);
             }
-            
-            if (target != null && !accepted)
-            {
-                accepted = target.GiveStar(_currentStar);
-            }
-
-            if (!accepted)
-            {
-                rect.anchoredPosition = originalPos;
-            }
-            else
+            else if(target != null && target.GiveStar(_currentStar))
             {
                 onShowCoinIncText?.Invoke(_currentStar.price, evt.pointerEnter.transform);
                 onStarRemoved?.Invoke(this);
+            }
+            else
+            {
+                rect.anchoredPosition = originalPos;
             }
         }
     }
