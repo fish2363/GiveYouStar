@@ -1148,8 +1148,8 @@ MonoBehaviour:
   incAmountText: {fileID: 53464456}
   upgBtnText: {fileID: 1669512239}
   coinText: {fileID: 596924714}
-  statIncAmount: 0.25
-  maxIncAmount: 30
+  statIncAmount: 1
+  maxIncAmount: 10
   initCost: 1
   costInc: 2
   onUpgradeStat:
@@ -4023,7 +4023,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 633709890}
         m_TargetAssemblyTypeName: TutorialContainerSelect, Assembly-CSharp
-        m_MethodName: StartGame
+        m_MethodName: GoPowerUp
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4514,8 +4514,8 @@ MonoBehaviour:
   incAmountText: {fileID: 430825184}
   upgBtnText: {fileID: 151440251}
   coinText: {fileID: 596924714}
-  statIncAmount: 0.1
-  maxIncAmount: 30
+  statIncAmount: 0.3
+  maxIncAmount: 3
   initCost: 1
   costInc: 3
   onUpgradeStat:
@@ -10947,8 +10947,8 @@ MonoBehaviour:
   incAmountText: {fileID: 1394780006}
   upgBtnText: {fileID: 532752241}
   coinText: {fileID: 596924714}
-  statIncAmount: 0.5
-  maxIncAmount: 30
+  statIncAmount: 1
+  maxIncAmount: 10
   initCost: 1
   costInc: 1
   onUpgradeStat:
