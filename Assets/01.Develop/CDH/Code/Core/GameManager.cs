@@ -122,6 +122,11 @@ public class GameManager : MonoBehaviour
         Debug.Log(star.starName);
     }
 
+    public void SetMaxTimer(float maxTimer)
+    {
+        this.maxTimer = maxTimer;
+    }
+
     public void GameStart()
     {
         isGameStart = true;

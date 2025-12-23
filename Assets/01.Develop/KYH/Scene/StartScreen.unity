@@ -1597,11 +1597,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initCoin: 0
   initFailDist: 15
-  initSpeed: 16
+  initMaxTimer: 50
   initRopeSize: 1
   <Coin>k__BackingField: 0
   <FailDist>k__BackingField: 0
-  <Speed>k__BackingField: 0
+  <MaxTimer>k__BackingField: 0
   <RopeSize>k__BackingField: 0
 --- !u!1 &774846620
 GameObject:

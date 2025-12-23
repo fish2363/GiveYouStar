@@ -59,7 +59,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                     case StatType.RopeSize:
                         PlayerStatManager.Instance.IncreaseRopeSize(statIncAmount);
                         break;
-                    case StatType.Speed:
+                    case StatType.MaxTimer:
                         PlayerStatManager.Instance.IncreaseSpeed(statIncAmount);
                         break;
                 }
@@ -90,5 +90,5 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         }
     }
     
-    public enum StatType { FailDistance, Speed, RopeSize }
+    public enum StatType { FailDistance, MaxTimer, RopeSize }
 }

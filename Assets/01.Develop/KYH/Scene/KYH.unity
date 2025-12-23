@@ -8550,11 +8550,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   initCoin: 10
   initFailDist: 5
-  initSpeed: 1
+  initMaxTimer: 1
   initRopeSize: 1
   <Coin>k__BackingField: 0
   <FailDist>k__BackingField: 0
-  <Speed>k__BackingField: 0
+  <MaxTimer>k__BackingField: 0
   <RopeSize>k__BackingField: 0
 --- !u!1 &1972671988
 GameObject:
@@ -9073,6 +9073,7 @@ MonoBehaviour:
     <DebugObject>k__BackingField: {fileID: 2101652521}
   arrowUI: {fileID: 1604677970}
   playerTrm: {fileID: 609520108}
+  gameManager: {fileID: 272540481}
   cameraManager: {fileID: 915437353}
   ropePullController: {fileID: 1604441329}
   ropePrefab: {fileID: 1497572060682003601, guid: 5ffe9219bb687d643b06d0bbe29a0093, type: 3}

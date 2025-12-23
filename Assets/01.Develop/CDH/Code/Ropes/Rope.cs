@@ -14,7 +14,7 @@ public class Rope : MonoBehaviour
     [SerializeField] private SoundID ropeWindSoundId;
 
     [Header("Movement")]
-    [SerializeField] private float baseSpeed = 18f;
+    [SerializeField] private float baseSpeed = 15f;
     [SerializeField] private float speedByCharge = 10f;
     private float maxLifeTime = 2.5f;
     [SerializeField] private float maxDistance = 18f;
@@ -162,11 +162,6 @@ brownGradient.SetKeys(
     public void SetSize(float size)
     {
         transform.localScale = new Vector3(size, size, size);
-    }
-
-    public void SetSpeed(float speed)
-    {
-        this.baseSpeed = speed;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

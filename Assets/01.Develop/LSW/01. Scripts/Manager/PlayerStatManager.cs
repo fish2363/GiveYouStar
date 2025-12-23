@@ -8,12 +8,12 @@ namespace _01.Develop.LSW._01._Scripts.Manager
     {
         public int initCoin = 10;
         public float initFailDist = 10f;
-        public float initSpeed = 1f;
+        public float initMaxTimer = 1f;
         public float initRopeSize = 1f;
 
         [field:SerializeField] public int Coin { get; private set; }
         [field:SerializeField] private float FailDist { get; set; }
-        [field:SerializeField] private float Speed { get; set; }
+        [field:SerializeField] private float MaxTimer { get; set; }
         [field:SerializeField] private float RopeSize { get; set; }
         
         public event Action onStatsChanged;
@@ -42,8 +42,8 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         public float GetCurrentFailDist()
             => FailDist;
         
-        public float GetCurrentSpeed()
-            => Speed;
+        public float GetCurrentMaxTimer()
+            => MaxTimer;
 
         public float GetCurrentRopeSize()
             => RopeSize;
@@ -62,7 +62,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             if (Mathf.Approximately(amount, 0f)) 
                 return;
             
-            Speed = Mathf.Max(0f, Speed + amount);
+            MaxTimer = Mathf.Max(0f, MaxTimer + amount);
             onStatsChanged?.Invoke();
         }
 
@@ -81,8 +81,8 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             {
                 case StatType.FailDistance:
                     return FailDist;
-                case StatType.Speed:
-                    return Speed;
+                case StatType.MaxTimer:
+                    return MaxTimer;
                 case StatType.RopeSize:
                     return RopeSize;
             }
@@ -96,8 +96,8 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             {
                 case StatType.FailDistance:
                     return initFailDist;
-                case StatType.Speed:
-                    return initSpeed;
+                case StatType.MaxTimer:
+                    return initMaxTimer;
                 case StatType.RopeSize:
                     return initRopeSize;
             }
@@ -108,7 +108,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
         private void ResetAllStat()
         {
             FailDist = initFailDist;
-            Speed = initSpeed;
+            MaxTimer = initMaxTimer;
             RopeSize = initRopeSize;
             Coin = initCoin;
             onStatsChanged?.Invoke();

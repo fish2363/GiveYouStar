@@ -16,6 +16,7 @@ public class RopeLauncher : MonoBehaviour
     [Header("References")]
     [SerializeField] private ArrowUI arrowUI;
     [SerializeField] private Transform playerTrm;
+    [SerializeField] private GameManager gameManager;
     [SerializeField] private CameraManager cameraManager;
     [SerializeField] private RopePullController ropePullController;
     [SerializeField] private Rope ropePrefab;
@@ -54,7 +55,7 @@ public class RopeLauncher : MonoBehaviour
             Mathf.Sin(clampedAngle * Mathf.Deg2Rad)
         ).normalized;
 
-        curRope.SetSpeed(PlayerStatManager.Instance.GetCurrentSpeed());
+        gameManager.SetMaxTimer(PlayerStatManager.Instance.GetCurrentMaxTimer());
         curRope.SetSize(PlayerStatManager.Instance.GetCurrentRopeSize());
         ropePullController.SetMaxRopeStretchDistance(PlayerStatManager.Instance.GetCurrentFailDist());
 
