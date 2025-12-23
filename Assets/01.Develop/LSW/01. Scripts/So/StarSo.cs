@@ -8,6 +8,7 @@ namespace _01.Develop.LSW._01._Scripts.So
         public Sprite starImage;
         public Sprite starIcon;
         public string starName;
+        public StarGrade starGrade;
         public string description;
         
         public float speed;

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.So;
@@ -41,7 +42,28 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         {
             starIcon.gameObject.SetActive(true);
             starIcon.sprite = star.starIcon;
-            starNameText.SetText(star.starName);
+            string gradeText = $"({star.starGrade.ToString()})";
+            Color starTextColor = Color.black;
+            switch (star.starGrade)
+            {
+                case StarGrade.Common:
+                    starTextColor = Color.gray;
+                    break;
+                case StarGrade.UnCommon:
+                    starTextColor = Color.green;
+                    break;
+                case StarGrade.Rare:
+                    starTextColor = Color.blue;
+                    break;
+                case StarGrade.Epic:
+                    starTextColor = new Color(255f, 0f, 255f);
+                    break;
+                case StarGrade.Legendary:
+                    starTextColor = Color.yellow;
+                    break;
+            }
+            starNameText.SetText($"{star.starName}\n{gradeText}");
+            starNameText.color = starTextColor;
             starDescriptionText.SetText(star.description);
         }
 
