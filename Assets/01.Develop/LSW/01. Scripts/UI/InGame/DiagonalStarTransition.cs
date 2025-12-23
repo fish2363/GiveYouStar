@@ -1,4 +1,5 @@
-﻿using DG.Tweening;
+﻿using Ami.BroAudio;
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,10 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
 {
     public class DiagonalStarTransition : MonoBehaviour
     {
+        [Header("Sound")]
+        [SerializeField] private SoundID startSoundID;   
+        [SerializeField] private SoundID endSoundID;   
+
         [Header("References")]
         [SerializeField] private RectTransform transitionRoot;
         [SerializeField] private RectTransform starContainer;
@@ -123,6 +128,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
             if (isPlaying) return;
             isPlaying = true;
 
+            BroAudio.Play(startSoundID);
             transitionRoot.gameObject.SetActive(true);
             transitionRoot.SetAsLastSibling();
 
@@ -254,6 +260,7 @@ namespace _01.Develop.LSW._01._Scripts.UI.InGame
 
             yield return new WaitForSecondsRealtime(afterActivateHold);
 
+            BroAudio.Play(endSoundID);
             // ✅ outro: 오른쪽 아래 별부터 오른쪽 아래 방향으로 떨어짐
             yield return PlayOutroFall();
 

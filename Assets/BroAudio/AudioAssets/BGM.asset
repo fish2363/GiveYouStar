@@ -95,8 +95,8 @@ MonoBehaviour:
       Delay: 0
       StartPosition: 0
       EndPosition: 0
-      FadeIn: 0
-      FadeOut: 0
+      FadeIn: 2
+      FadeOut: 2
       Weight: 0
     <MasterVolume>k__BackingField: 1
     <Loop>k__BackingField: 1
