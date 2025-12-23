@@ -1,10 +1,7 @@
-using System;
+using _01.Develop.LSW._01._Scripts.Manager;
 using _01.Develop.LSW._01._Scripts.UI.InGame;
-using DG.Tweening;
 using UnityEngine;
-using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using VHierarchy.Libs;
 
 namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 {
@@ -20,6 +17,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         [SerializeField] private DiagonalStarTransition transition;
         public string targetSceneName;
 
+        private bool _moveScene;
+        
         private void Start()
         {
             if (btnType == MGBtnType.ShowUI)
@@ -30,6 +29,9 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
 
         public void OnClick()
         {
+            if(_moveScene)
+                return;
+            
             switch (btnType)
             {
                 case MGBtnType.ShowUI:
@@ -37,6 +39,8 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                     targetUI.Show(interactionTrm, mainBackGround);
                     break;
                 case MGBtnType.MoveScene:
+                    _moveScene = true;
+                    StarManager.Instance.ClearGotStars();
                     transition.Play(targetSceneName);
                     break;
             }

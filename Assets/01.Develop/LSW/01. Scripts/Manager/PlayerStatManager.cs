@@ -34,7 +34,7 @@ namespace _01.Develop.LSW._01._Scripts.Manager
             
             Coin += coinAmount;
             onCoinAmountChanged?.Invoke(Coin);
-            
+
             return true;
         }
 
