@@ -38,8 +38,9 @@ public class ESCManager : MonoSingleton<ESCManager>
     private List<Resolution> resolutions = new();
     private bool _isInitialized;
 
-    private void Awake()
+    protected override void Awake()
     {
+        base.Awake();
         if (escCanvas != null)
         {
             escCanvas.alpha = 0f;
@@ -47,6 +48,19 @@ public class ESCManager : MonoSingleton<ESCManager>
             escCanvas.interactable = false;
         }
         isOn = false;
+    }
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        if (resolutionDropdown != null)
+            resolutionDropdown.onValueChanged.RemoveListener(OnResolutionSelected);
+
+        if (fullscreenToggle != null)
+            fullscreenToggle.onValueChanged.RemoveListener(SetupFullscreenToggle);
+
+        if (escCanvas != null)
+            escCanvas.DOKill();
     }
 
     private void Start()
@@ -67,18 +81,6 @@ public class ESCManager : MonoSingleton<ESCManager>
             resolutionDropdown.onValueChanged.RemoveListener(OnResolutionSelected);
             resolutionDropdown.onValueChanged.AddListener(OnResolutionSelected);
         }
-    }
-
-    private void OnDestroy()
-    {
-        if (resolutionDropdown != null)
-            resolutionDropdown.onValueChanged.RemoveListener(OnResolutionSelected);
-
-        if (fullscreenToggle != null)
-            fullscreenToggle.onValueChanged.RemoveListener(SetupFullscreenToggle);
-
-        if (escCanvas != null)
-            escCanvas.DOKill();
     }
 
     private void Update()

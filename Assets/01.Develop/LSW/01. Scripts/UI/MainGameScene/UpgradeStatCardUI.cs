@@ -33,13 +33,11 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
         private void Awake()
         {
             PlayerStatManager.Instance.onCoinAmountChanged += UpdateCoinUI;
-            CurrentCost = initCost;
         }
 
         private void Start()
         {
             Init();
-            ChangeStatUI();
         }
 
         private void Init()
@@ -57,11 +55,15 @@ namespace _01.Develop.LSW._01._Scripts.UI.MainGameScene
                     level = UpgradeManager.Instance.currentRopeSizeLevel;
                     break;
             }
+
+            _currentLevel = level;
             CurrentCost = initCost + costInc * level;
             _currentStatInc = statIncAmount * level;
             
             if(_currentStatInc >= maxIncAmount)
                 _isMax = true;
+
+            ChangeStatUI();
         }
 
         public void UpgradeStat()

@@ -129,6 +129,7 @@ public class GameManager : MonoBehaviour
 
     public void GameStart()
     {
+        maxTimer = PlayerStatManager.Instance.GetCurrentMaxTimer();
         isGameStart = true;
         currentTimer = maxTimer;
     }
