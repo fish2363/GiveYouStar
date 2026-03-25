@@ -17,12 +17,6 @@ public class BackgroundSpawner : MonoBehaviour
 
     public void SpawnBackgroundTiles()
     {
-        if (backgroundPrefab == null)
-        {
-            Debug.LogWarning("배경 프리팹이 지정되지 않았어요.");
-            return;
-        }
-
         for (int y = 0; y < tileYCount; y++)
         {
             for (int x = 0; x < tileXCount; x++)
